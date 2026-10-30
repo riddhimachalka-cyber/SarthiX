@@ -30,49 +30,50 @@
   // This object holds strings that JavaScript writes at runtime.
   const UI = {
     hi: {
-      menuOpen: "Menu kholein",
-      menuClose: "Menu band karein",
-      langMenuLabel: "Bhasha chuniye",
-      langChanged: (name) => `Website ki bhasha badal gayi: ${name}.`,
+      menuOpen: "मेनू खोलें",
+      menuClose: "मेनू बंद करें",
+      langMenuLabel: "भाषा चुनें",
+      langChanged: (name) => `वेबसाइट की भाषा बदलकर ${name} कर दी गई है।`,
       voice: {
-        online: "Online",
-        listening: "Sun raha hai",
-        micStart: "Sawaal bolne ke liye mic shuru karein",
-        micStop: "Sunna band karein",
-        hint: "Mic dabaiye aur apna sawaal boliye",
-        listeningHint: "Suniye... Boliye...",
-        interim: "Sun rahe hain...",
-        final: "Aapne kaha",
-        permissionTitle: "Talk to SarthiX",
-        permissionDescription: "Allow microphone access so you can ask your questions naturally in your own language. Your spoken words will appear in the chat box, where you can review them before sending.",
-        permissionAllow: "Allow Microphone",
-        permissionCancel: "Not Now",
-        noSupport: "Is browser mein voice input support nahi hai. Chrome ya Edge par try karein.",
-        insecure: "Voice input ke liye page https ya localhost par kholein.",
-        startFail: "Voice input shuru nahi ho saka. Dobara koshish karein.",
-        recognized: "Sawaal sun liya gaya. Assistant se jawaab chat mein poochhiye.",
-        nothing: "Kuch sunai nahi diya — dobara mic dabaiye.",
-        stoppedWithText: "Sunna band. Aapka sawaal text mein hai.",
-        stoppedEmpty: "Sunna band ho gaya. Dobara mic dabaiye.",
+        online: "ऑनलाइन",
+        listening: "सुन रहा है",
+        micStart: "सवाल बोलने के लिए माइक शुरू करें",
+        micStop: "सुनना बंद करें",
+        hint: "माइक दबाकर अपना सवाल बोलें",
+        listeningHint: "सुन रहा हूँ… बोलिए।",
+        interim: "सुन रहा हूँ…",
+        final: "आपने कहा",
+        permissionTitle: "SarthiX से बात करें",
+        permissionDescription: "अपने सवाल स्वाभाविक रूप से पूछने के लिए माइक्रोफ़ोन की अनुमति दें। भेजने से पहले आपके बोले हुए शब्द चैट में दिखाई देंगे, जहाँ आप उन्हें जाँच सकते हैं।",
+        permissionQuestionDescription: "अपना जवाब बोलने के लिए माइक्रोफ़ोन की अनुमति दें। आगे बढ़ने से पहले आप जवाब जाँच या बदल सकते हैं।",
+        permissionAllow: "माइक्रोफ़ोन की अनुमति दें",
+        permissionCancel: "अभी नहीं",
+        noSupport: "इस ब्राउज़र में आवाज़ से लिखने की सुविधा उपलब्ध नहीं है। Chrome या Edge में प्रयास करें।",
+        insecure: "आवाज़ से लिखने के लिए यह पृष्ठ HTTPS या localhost पर खोलें।",
+        startFail: "आवाज़ से लिखना शुरू नहीं हो सका। कृपया फिर प्रयास करें।",
+        recognized: "आपका सवाल दर्ज हो गया है। जवाब पाने के लिए चैट में भेजें।",
+        nothing: "आवाज़ सुनाई नहीं दी। माइक दबाकर फिर प्रयास करें।",
+        stoppedWithText: "सुनना बंद हो गया। आपका सवाल लिखित रूप में तैयार है।",
+        stoppedEmpty: "सुनना बंद हो गया। फिर प्रयास करने के लिए माइक दबाएँ।",
         errors: {
-          "not-allowed": "Microphone ki permission chahiye. Browser settings mein allow karein.",
-          "service-not-allowed": "Voice service is browser mein allowed nahi hai.",
-          "no-speech": "Kuch sunai nahi diya. Mic ke paas bolkar dobara try karein.",
-          network: "Voice service se connection nahi bana. Internet check karein.",
-          "audio-capture": "Microphone nahi mila. Device settings check karein.",
-          "language-not-supported": "Chuni hui bhasha is browser mein support nahi karti."
+          "not-allowed": "माइक्रोफ़ोन की अनुमति आवश्यक है। ब्राउज़र सेटिंग में अनुमति दें।",
+          "service-not-allowed": "इस ब्राउज़र में आवाज़ सेवा की अनुमति नहीं है।",
+          "no-speech": "आवाज़ सुनाई नहीं दी। माइक के पास बोलकर फिर प्रयास करें।",
+          network: "आवाज़ सेवा से संपर्क नहीं हो सका। इंटरनेट कनेक्शन जाँचें।",
+          "audio-capture": "माइक्रोफ़ोन नहीं मिला। डिवाइस की सेटिंग जाँचें।",
+          "language-not-supported": "यह ब्राउज़र चुनी गई भाषा का समर्थन नहीं करता।"
         },
-        genericError: "Voice input mein dikkat aayi. Dobara koshish karein."
+        genericError: "आवाज़ से लिखने में समस्या हुई। कृपया फिर प्रयास करें।"
       },
       schemeDemo: (name) =>
-        `${name} ki aadhikarik jaankari ke liye sarkari portal dekhein.`,
+        `${name} की आधिकारिक जानकारी के लिए सरकारी पोर्टल देखें।`,
       chat: {
-        fab: "SarthiX chat kholein",
-        close: "Chat band karein",
-        send: "Sawaal bhejein",
-        typing: "SarthiX jawaab likh raha hai",
-        error: "Connection mein dikkat aayi. Aap neeche diye topics par dobara poochh sakte hain.",
-        linkNote: "Official portal"
+        fab: "SarthiX चैट खोलें",
+        close: "चैट बंद करें",
+        send: "सवाल भेजें",
+        typing: "SarthiX जवाब लिख रहा है",
+        error: "संपर्क में समस्या हुई। नीचे दिए गए विषयों में से कोई चुनकर फिर पूछें।",
+        linkNote: "आधिकारिक पोर्टल"
       }
     },
     en: {
@@ -91,6 +92,7 @@
         final: "You said",
         permissionTitle: "Talk to SarthiX",
         permissionDescription: "Allow microphone access so you can ask your questions naturally in your own language. Your spoken words will appear in the chat box, where you can review them before sending.",
+        permissionQuestionDescription: "Allow microphone access to speak your answer. You can review or change it before continuing.",
         permissionAllow: "Allow Microphone",
         permissionCancel: "Not Now",
         noSupport: "Voice input is not supported in this browser. Try Chrome or Edge.",
@@ -269,17 +271,27 @@
       el.setAttribute("alt", isEnglish ? el.dataset.enAlt : el.dataset.originalAlt);
     });
 
+    $$("[data-hi]").forEach((el) => {
+      if (!el.hasAttribute("data-original-hi")) el.dataset.originalHi = el.innerHTML;
+      el.innerHTML = isEnglish ? el.dataset.originalHi : el.dataset.hi;
+    });
+
+    $$("[data-hi-html]").forEach((el) => {
+      if (!el.hasAttribute("data-original-hi-html")) el.dataset.originalHiHtml = el.innerHTML;
+      el.innerHTML = isEnglish ? el.dataset.originalHiHtml : el.dataset.hiHtml;
+    });
+
     const meta = $('meta[name="description"]');
     document.title = isEnglish
       ? "SarthiX — Your Rural AI Companion"
-      : "SarthiX — Aapka Grameen AI Saathi";
+      : "SarthiX — आपका ग्रामीण एआई साथी";
 
     if (meta) {
       meta.setAttribute(
         "content",
         isEnglish
           ? "SarthiX is a multilingual, voice-first AI companion — government schemes, farming, health and guidance, in your own language."
-          : "SarthiX ek multilingual, voice-first AI saathi hai — sarkari yojanaon, kheti, swasthya aur margdarshan ki jaankari, apni bhasha mein."
+          : "SarthiX आपका ग्रामीण एआई साथी है। सरकारी योजनाओं, खेती, स्वास्थ्य और मार्गदर्शन की जानकारी अपनी भाषा में पाएँ।"
       );
     }
 
@@ -386,6 +398,8 @@
   const navSections = [
     { el: $("#home"), nav: "home" },
     { el: $("#schemes"), nav: "schemes" },
+    { el: $("#eligibility"), nav: "eligibility" },
+    { el: $("#understand-document"), nav: "understand-document" },
     { el: $("#features"), nav: "farming" },
     { el: $("#how-it-works"), nav: "guidance" },
     { el: $("#about"), nav: "about" }
@@ -481,6 +495,22 @@
 
   activateFromScroll();
 
+  const eligibilitySection = $("#eligibility");
+  if (eligibilitySection && "IntersectionObserver" in window) {
+    const eligibilityVisibilityObserver = new IntersectionObserver(([entry]) => {
+      document.body.classList.toggle("is-eligibility-active", entry.isIntersecting);
+    }, { threshold: 0.08 });
+    eligibilityVisibilityObserver.observe(eligibilitySection);
+  }
+
+  const documentSection = $("#understand-document");
+  if (documentSection && "IntersectionObserver" in window) {
+    const documentVisibilityObserver = new IntersectionObserver(([entry]) => {
+      document.body.classList.toggle("is-document-active", entry.isIntersecting);
+    }, { threshold: 0.08 });
+    documentVisibilityObserver.observe(documentSection);
+  }
+
   /* ── 06. Scroll reveal ───────────────────────────────────────── */
   const revealItems = $$(".reveal");
 
@@ -524,6 +554,8 @@
   let isListening = false;
   let finalTranscript = "";
   let permissionModalSeen = false;
+  let eligibilityVoiceTarget = null;
+  let documentVoiceTarget = null;
 
   function setVoiceLanguage() {
     const mapping = {
@@ -541,6 +573,22 @@
   }
 
   function populateVoiceToChatInput(value) {
+    if (eligibilityVoiceTarget && eligibilityVoiceTarget.isConnected) {
+      updateEligibilityVoiceAnswer(value);
+      return;
+    }
+    if (documentVoiceTarget && documentVoiceTarget.isConnected) {
+      if (documentQuestionInput) {
+        documentQuestionInput.value = value || "";
+        documentQuestionInput.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      const documentVoiceStatus = $("[data-document-question-voice-status]");
+      if (documentVoiceStatus && value) {
+        documentVoiceStatus.textContent = documentResultCopy[uiLang].voiceMatched;
+        documentVoiceStatus.hidden = false;
+      }
+      return;
+    }
     if (!chatInput) return;
     if (!value || !value.trim()) {
       if (chatInput.value.trim()) chatInput.value = chatInput.value.trim();
@@ -557,7 +605,11 @@
     permissionModal.hidden = false;
     permissionModalSeen = true;
     if (permissionTitle) permissionTitle.textContent = copy().voice.permissionTitle;
-    if (permissionDescription) permissionDescription.textContent = copy().voice.permissionDescription;
+    if (permissionDescription) {
+      permissionDescription.textContent = eligibilityVoiceTarget || documentVoiceTarget
+        ? copy().voice.permissionQuestionDescription
+        : copy().voice.permissionDescription;
+    }
     if (permissionAllow) permissionAllow.textContent = copy().voice.permissionAllow;
     if (permissionCancelBtn) permissionCancelBtn.textContent = copy().voice.permissionCancel;
   }
@@ -568,24 +620,40 @@
   }
 
   function setListeningUI(active) {
-    if (!voiceCard || !micBtn) return;
-
     isListening = active;
-    voiceCard.classList.toggle("is-listening", active);
-    micBtn.setAttribute("aria-pressed", String(active));
-    micBtn.setAttribute(
-      "aria-label",
-      active ? copy().voice.micStop : copy().voice.micStart
-    );
+    if (voiceCard && micBtn) {
+      voiceCard.classList.toggle("is-listening", active);
+      micBtn.setAttribute("aria-pressed", String(active));
+      micBtn.setAttribute(
+        "aria-label",
+        active ? copy().voice.micStop : copy().voice.micStart
+      );
 
-    if (voiceStateText) {
-      voiceStateText.textContent = active ? copy().voice.listening : copy().voice.online;
+      if (voiceStateText) {
+        voiceStateText.textContent = active ? copy().voice.listening : copy().voice.online;
+      }
+      if (voiceStop) voiceStop.hidden = !active;
+      if (voiceCancel) voiceCancel.hidden = !active;
     }
-    if (voiceStop) voiceStop.hidden = !active;
-    if (voiceCancel) voiceCancel.hidden = !active;
+
+    const eligibilityButton = $("[data-eligibility-voice]");
+    const eligibilityStatus = $("[data-eligibility-voice-status]");
+    const eligibilityPanel = $("[data-eligibility-app]");
+    if (eligibilityButton && eligibilityVoiceTarget) {
+      eligibilityButton.setAttribute("aria-pressed", String(active));
+      if (eligibilityStatus && active) eligibilityStatus.textContent = eligibilityQuestionCopy[uiLang].voiceListening;
+    }
+    if (eligibilityPanel) eligibilityPanel.classList.toggle("is-listening", active && Boolean(eligibilityVoiceTarget));
+
+    const documentVoiceButton = $("[data-document-question-voice]");
+    const documentVoiceStatus = $("[data-document-question-voice-status]");
+    if (documentVoiceButton && documentVoiceTarget) {
+      documentVoiceButton.setAttribute("aria-pressed", String(active));
+      if (documentVoiceStatus && active) documentVoiceStatus.textContent = documentResultCopy[uiLang].voiceListening;
+    }
   }
 
-  function showTranscript(text, label) {
+  function showTranscript(text, label, options = {}) {
     if (!transcript || !transcriptText) return;
 
     if (!text) {
@@ -597,8 +665,11 @@
     transcript.hidden = false;
     transcriptText.textContent = text;
     if (transcriptLabel) transcriptLabel.textContent = label || copy().voice.final;
+    if (options.suppressChat) return;
 
-    if (chatInput && !chatInput.matches(":focus")) {
+    if (eligibilityVoiceTarget || documentVoiceTarget) {
+      populateVoiceToChatInput(text);
+    } else if (chatInput && !chatInput.matches(":focus")) {
       populateVoiceToChatInput(text);
     }
   }
@@ -618,6 +689,12 @@
       voiceStatus.textContent = message;
       voiceStatus.classList.add("is-error");
     }
+    const eligibilityStatus = $("[data-eligibility-voice-status]");
+    if (eligibilityVoiceTarget && eligibilityStatus) eligibilityStatus.textContent = message;
+    const documentVoiceStatus = $("[data-document-question-voice-status]");
+    if (documentVoiceTarget && documentVoiceStatus) documentVoiceStatus.textContent = message;
+    if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+    if (documentVoiceTarget) documentVoiceTarget = null;
     showToast(message);
   }
 
@@ -662,7 +739,7 @@
       const combined = (finalTranscript + " " + interim).trim();
       if (!combined) return;
 
-      if (chatInput && chatInput.value.trim() !== combined) {
+      if (eligibilityVoiceTarget || documentVoiceTarget || (chatInput && chatInput.value.trim() !== combined)) {
         populateVoiceToChatInput(combined);
       }
 
@@ -682,7 +759,15 @@
         voiceStatus.textContent = messages[event.error] || copy().voice.genericError;
         voiceStatus.classList.add("is-error");
       }
-      if (chatInput && finalTranscript.trim()) {
+      const eligibilityStatus = $("[data-eligibility-voice-status]");
+      if (eligibilityVoiceTarget && eligibilityStatus) {
+        eligibilityStatus.textContent = messages[event.error] || copy().voice.genericError;
+      }
+      const documentVoiceStatus = $("[data-document-question-voice-status]");
+      if (documentVoiceTarget && documentVoiceStatus) {
+        documentVoiceStatus.textContent = messages[event.error] || copy().voice.genericError;
+      }
+      if ((eligibilityVoiceTarget || documentVoiceTarget || chatInput) && finalTranscript.trim()) {
         populateVoiceToChatInput(finalTranscript.trim());
       }
     };
@@ -690,9 +775,15 @@
     rec.onend = function () {
       if (!isListening) {
         const cleanText = finalTranscript.trim();
-        if (cleanText && chatInput) {
+        if (cleanText && (eligibilityVoiceTarget || documentVoiceTarget || chatInput)) {
           populateVoiceToChatInput(cleanText);
         }
+        const eligibilityStatus = $("[data-eligibility-voice-status]");
+        if (eligibilityVoiceTarget && eligibilityStatus && !cleanText && eligibilityStatus.textContent === eligibilityQuestionCopy[uiLang].voiceListening) {
+          eligibilityStatus.textContent = eligibilityQuestionCopy[uiLang].voiceNothing;
+        }
+        if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+        if (documentVoiceTarget) documentVoiceTarget = null;
         return;
       }
 
@@ -707,17 +798,24 @@
         }
       }
 
-      if (cleanText) {
+      const featureIntentHandled = cleanText && !eligibilityVoiceTarget && !documentVoiceTarget
+        ? routeAssistantFeatureIntent(cleanText, { speak: true })
+        : false;
+      if (cleanText && featureIntentHandled) {
+        showTranscript(cleanText, copy().voice.final, { suppressChat: true });
+      } else if (cleanText) {
         populateVoiceToChatInput(cleanText);
         showTranscript(cleanText, copy().voice.final);
       }
+      if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+      if (documentVoiceTarget) documentVoiceTarget = null;
     };
 
     return rec;
   }
 
   function startVoiceFromUser() {
-    if (!voiceCard || !micBtn) return;
+    if ((!voiceCard || !micBtn) && !eligibilityVoiceTarget && !documentVoiceTarget) return;
 
     if (isListening) {
       stopVoice();
@@ -808,7 +906,18 @@
       voiceStatus.textContent = copy().voice.hint;
     }
     closePermissionModal();
-    if (chatInput) chatInput.focus({ preventScroll: true });
+    const eligibilityTarget = eligibilityVoiceTarget;
+    if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+    const documentTarget = documentVoiceTarget;
+    if (documentVoiceTarget) documentVoiceTarget = null;
+    if (eligibilityTarget) {
+      const answerControl = $("input, select", eligibilityTarget);
+      if (answerControl) answerControl.focus({ preventScroll: true });
+    } else if (documentTarget) {
+      documentTarget.focus({ preventScroll: true });
+    } else if (chatInput) {
+      chatInput.focus({ preventScroll: true });
+    }
   }
 
   if (micBtn) {
@@ -833,6 +942,8 @@
   if (permissionCancelBtn) {
     permissionCancelBtn.addEventListener("click", () => {
       closePermissionModal();
+      if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+      if (documentVoiceTarget) documentVoiceTarget = null;
       if (voiceStatus) {
         voiceStatus.classList.remove("is-error");
         voiceStatus.textContent = copy().voice.hint;
@@ -841,7 +952,11 @@
   }
 
   if (permissionBackdrop) {
-    permissionBackdrop.addEventListener("click", closePermissionModal);
+    permissionBackdrop.addEventListener("click", () => {
+      closePermissionModal();
+      if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
+      if (documentVoiceTarget) documentVoiceTarget = null;
+    });
   }
 
   // "Abhi Baat Karo" / "Get Started" buttons: bring the demo into view,
@@ -914,6 +1029,8 @@
     }
 
     updateChatLanguageBadge(selectedLanguage);
+    refreshEligibilityLanguage();
+    refreshDocumentLanguage();
 
     // Keep the initial bot greeting in the selected language even if the
     // visitor switches language before sending a message.
@@ -953,11 +1070,11 @@
       keywords: ["pm kisan", "kisan", "kist", "installment", "instalment", "farmer", "farm", "fasal", "crop", "kheti", "khet", "किसान", "किस्त", "खेती"],
       body: {
         hi:
-          "<p>Kheti ke liye yojana chunna aapki zameen, rajya aur parivaar ki sthiti par depend karta hai.</p>" +
-          "<p><strong>PM Kisan Samman Nidhi</strong> — eligible kisan parivaaron ke liye aarthik sahayata.</p>" +
-          "<p><strong>PM-KUSUM</strong> — solar pump aur renewable energy se judi yojana.</p>" +
-          "<p><strong>PM Krishi Sinchayee Yojana</strong> — sinchai aur paani ke behtar upyog ke liye.</p>" +
-          "<p>Final patrata aur kist ki sthiti ke liye apne Block Agriculture Office ya official portal par check karein.</p>",
+          "<p>खेती के लिए उपयुक्त योजना आपकी भूमि, राज्य और परिवार की स्थिति पर निर्भर करती है।</p>" +
+          "<p><strong>PM Kisan Samman Nidhi</strong> — पात्र किसान परिवारों के लिए आर्थिक सहायता।</p>" +
+          "<p><strong>PM-KUSUM</strong> — सौर पंप और नवीकरणीय ऊर्जा से जुड़ी योजना।</p>" +
+          "<p><strong>प्रधानमंत्री कृषि सिंचाई योजना</strong> — सिंचाई और पानी के बेहतर उपयोग के लिए।</p>" +
+          "<p>अंतिम पात्रता और किस्त की स्थिति के लिए अपने प्रखंड कृषि कार्यालय या आधिकारिक पोर्टल पर जाँचें।</p>",
         en:
           "<p>Choosing a farming scheme depends on your land, state and family situation.</p>" +
           "<p><strong>PM Kisan Samman Nidhi</strong> — financial support for eligible farmer families.</p>" +
@@ -966,9 +1083,9 @@
           "<p>For final eligibility and instalment status, check with your Block Agriculture Office or the official portal.</p>"
       },
       links: [
-        { href: "https://pmkisan.gov.in/", label: { hi: "PM Kisan portal", en: "PM Kisan portal" } },
-        { href: "https://pmkusum.mnre.gov.in/", label: { hi: "PM-KUSUM portal", en: "PM-KUSUM portal" } },
-        { href: "https://pmksy.gov.in/", label: { hi: "PMKSY portal", en: "PMKSY portal" } }
+        { href: "https://pmkisan.gov.in/", label: { hi: "PM Kisan आधिकारिक पोर्टल", en: "PM Kisan portal" } },
+        { href: "https://pmkusum.mnre.gov.in/", label: { hi: "PM-KUSUM आधिकारिक पोर्टल", en: "PM-KUSUM portal" } },
+        { href: "https://pmksy.gov.in/", label: { hi: "PMKSY आधिकारिक पोर्टल", en: "PMKSY portal" } }
       ]
     },
     {
@@ -976,14 +1093,14 @@
       keywords: ["sinchai", "sinchayee", "irrigation", "paani", "pani", "water", "borewell", "सिंचाई", "पानी"],
       body: {
         hi:
-          "<p>Sinchai ke liye <strong>Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)</strong> ek main kendriya yojana hai — iska maksad khet tak paani pahunchana aur drip/sprinkler jaise tarikon ko badhava dena hai.</p>" +
-          "<p>Rajya sarkarein apni alag sinchai aur borewell/subsidy yojanaen bhi chalati hain. Aavedan se pehle apne Jila Krishi Vibhag ya Sinchai Vibhag se apne kshetra ki yojana confirm karein.</p>",
+          "<p>सिंचाई के लिए <strong>प्रधानमंत्री कृषि सिंचाई योजना (PMKSY)</strong> एक प्रमुख केंद्रीय योजना है। इसका उद्देश्य खेतों तक पानी पहुँचाना और ड्रिप तथा स्प्रिंकलर जैसी विधियों को बढ़ावा देना है।</p>" +
+          "<p>राज्य सरकारें अपनी सिंचाई, बोरवेल और अनुदान योजनाएँ भी चलाती हैं। आवेदन से पहले अपने ज़िले के कृषि या सिंचाई विभाग से क्षेत्र में लागू योजना की पुष्टि करें।</p>",
         en:
           "<p><strong>Pradhan Mantri Krishi Sinchayee Yojana (PMKSY)</strong> is the main central scheme for irrigation — it aims to bring water to fields and promote drip and sprinkler systems.</p>" +
           "<p>State governments also run their own irrigation and borewell/subsidy schemes. Before applying, confirm the scheme for your area with your District Agriculture or Irrigation Department.</p>"
       },
       links: [
-        { href: "https://pmksy.gov.in/", label: { hi: "PMKSY official site", en: "PMKSY official site" } }
+        { href: "https://pmksy.gov.in/", label: { hi: "PMKSY आधिकारिक वेबसाइट", en: "PMKSY official site" } }
       ]
     },
     {
@@ -991,14 +1108,14 @@
       keywords: ["solar", "kusum", "pump", "bijli", "renewable", "urja", "सोलर", "पंप", "ऊर्जा"],
       body: {
         hi:
-          "<p><strong>PM-KUSUM Yojana</strong> kheti mein solar pump aur renewable energy ko badhava deti hai. Iske components mein solar pump lagwana aur krishi pump ki solarisation shamil hai.</p>" +
-          "<p>Available components, subsidy aur aavedan ki prakriya rajya ke hisaab se badalti hai. Apne rajya ki Renewable Energy Agency (REDA) ya DISCOM ki official website par latest detail dekhein.</p>",
+          "<p><strong>PM-KUSUM योजना</strong> खेती में सौर पंप और नवीकरणीय ऊर्जा को बढ़ावा देती है। इसमें सौर पंप लगाना और कृषि पंपों को सौर ऊर्जा से जोड़ना शामिल है।</p>" +
+          "<p>उपलब्ध घटक, अनुदान और आवेदन प्रक्रिया राज्य के अनुसार अलग हो सकती है। नवीनतम जानकारी के लिए अपने राज्य की नवीकरणीय ऊर्जा एजेंसी (REDA) या बिजली वितरण कंपनी (DISCOM) की आधिकारिक वेबसाइट देखें।</p>",
         en:
           "<p><strong>PM-KUSUM Yojana</strong> promotes solar pumps and renewable energy in farming. Its components include installing solar pumps and solarising agricultural pumps.</p>" +
           "<p>Available components, subsidy and the application process differ by state. Check your State Renewable Energy Agency (REDA) or DISCOM website for the latest details.</p>"
       },
       links: [
-        { href: "https://pmkusum.mnre.gov.in/", label: { hi: "PM-KUSUM portal", en: "PM-KUSUM portal" } }
+        { href: "https://pmkusum.mnre.gov.in/", label: { hi: "PM-KUSUM आधिकारिक पोर्टल", en: "PM-KUSUM portal" } }
       ]
     },
     {
@@ -1006,14 +1123,14 @@
       keywords: ["awas", "ghar", "house", "housing", "pmay", "makan", "chhat", "घर", "आवास"],
       body: {
         hi:
-          "<p>Gramin kshetra mein pucca ghar ke liye <strong>Pradhan Mantri Awas Yojana — Gramin (PMAY-G)</strong> ki jaankari dekhein.</p>" +
-          "<p>Patrata, beneficiary list aur installments ki sthiti ke liye apne Gram Panchayat se sampark karein ya official portal par apna naam check karein.</p>",
+          "<p>ग्रामीण क्षेत्र में पक्का घर पाने की जानकारी के लिए <strong>प्रधानमंत्री आवास योजना — ग्रामीण (PMAY-G)</strong> देखें।</p>" +
+          "<p>पात्रता, लाभार्थी सूची और किस्त की स्थिति के लिए अपनी ग्राम पंचायत से संपर्क करें या आधिकारिक पोर्टल पर अपना नाम जाँचें।</p>",
         en:
           "<p>For a pucca house in rural areas, look at <strong>Pradhan Mantri Awas Yojana — Gramin (PMAY-G)</strong>.</p>" +
           "<p>For eligibility, the beneficiary list and instalment status, contact your Gram Panchayat or check your name on the official portal.</p>"
       },
       links: [
-        { href: "https://pmayg.nic.in/", label: { hi: "PMAY-G portal", en: "PMAY-G portal" } }
+        { href: "https://pmayg.nic.in/", label: { hi: "PMAY-G आधिकारिक पोर्टल", en: "PMAY-G portal" } }
       ]
     },
     {
@@ -1021,14 +1138,14 @@
       keywords: ["swasthya", "health", "ilaaj", "hospital", "ayushman", "pmjay", "bima", "dawa", "स्वास्थ्य", "इलाज", "अस्पताल"],
       body: {
         hi:
-          "<p><strong>Ayushman Bharat — PM-JAY</strong> eligible parivaaron ke liye sarkari health cover ki yojana hai. Iske liye Ayushman card aur eligibility check zaroori hai.</p>" +
-          "<p>Apne nazdeeki CSC, sarkari hospital ke Ayushman help desk ya official portal par card aur patrata ki jaankari lein. Emergency mein nazdeeki sarkari hospital ya 108 ambulance se sampark karein.</p>",
+          "<p><strong>आयुष्मान भारत — PM-JAY</strong> पात्र परिवारों के लिए सरकारी स्वास्थ्य सुरक्षा योजना है। इसके लिए आयुष्मान कार्ड और पात्रता की जाँच आवश्यक है।</p>" +
+          "<p>कार्ड और पात्रता की जानकारी के लिए नज़दीकी CSC, सरकारी अस्पताल के आयुष्मान सहायता केंद्र या आधिकारिक पोर्टल से संपर्क करें। आपात स्थिति में नज़दीकी सरकारी अस्पताल या 108 एम्बुलेंस से संपर्क करें।</p>",
         en:
           "<p><strong>Ayushman Bharat — PM-JAY</strong> is a government health cover scheme for eligible families. You need an Ayushman card and an eligibility check.</p>" +
           "<p>Get card and eligibility details at your nearest CSC, the Ayushman help desk at a government hospital, or the official portal. In an emergency, contact the nearest government hospital or the 108 ambulance service.</p>"
       },
       links: [
-        { href: "https://pmjay.gov.in/", label: { hi: "PM-JAY portal", en: "PM-JAY portal" } }
+        { href: "https://pmjay.gov.in/", label: { hi: "PM-JAY आधिकारिक पोर्टल", en: "PM-JAY portal" } }
       ]
     },
     {
@@ -1155,6 +1272,320 @@
       links: []
     }
   ];
+
+  /* Service configuration — powers "One Saathi, Many Services" cards.
+     Each service maps to a welcome message + suggested questions shown
+     inside the existing chat panel when the card is clicked. */
+  const SERVICE_DATA = {
+    "government-schemes": {
+      hi: "सरकारी योजनाएँ",
+      en: "Government Schemes",
+      welcome: {
+        hi: "नमस्ते! सरकारी योजना सहायता में आपका स्वागत है। मैं आपकी मदद कर सकता हूँ — योजनाओं की जानकारी, पात्रता, ज़रूरी दस्तावेज़ और आवेदन प्रक्रिया के बारे में। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Government Schemes Assistance. I can help you explore government schemes, understand eligibility, required documents and application procedures. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-सी योजनाएँ मेरे लिए उपलब्ध हैं?", en: "Which schemes are available for me?" },
+        { hi: "क्या मैं किसी योजना के लिए पात्र हूँ?", en: "Am I eligible for a scheme?" },
+        { hi: "मुझे कौन-से दस्तावेज़ चाहिए?", en: "What documents do I need?" },
+        { hi: "मैं कैसे आवेदन कर सकता हूँ?", en: "How can I apply?" }
+      ]
+    },
+    "government-jobs": {
+      hi: "सरकारी नौकरियाँ",
+      en: "Government Jobs",
+      welcome: {
+        hi: "नमस्ते! सरकारी नौकरी सहायता में आपका स्वागत है। मैं सरकारी नौकरियों की सूचनाएँ, पात्रता, आयु सीमा और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Government Jobs Assistance. I can help you with government job notifications, eligibility, age limits and application process. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-सी सरकारी नौकरियाँ निकली हैं?", en: "Which government jobs are available?" },
+        { hi: "क्या मैं आवेदन के लिए पात्र हूँ?", en: "Am I eligible to apply?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "scholarships": {
+      hi: "छात्रवृत्ति",
+      en: "Scholarships",
+      welcome: {
+        hi: "नमस्ते! छात्रवृत्ति सहायता में आपका स्वागत है। मैं आपकी मदद कर सकता हूँ — छात्रवृत्तियों की जानकारी, पात्रता मानदंड, ज़रूरी दस्तावेज़ और आवेदन प्रक्रिया के बारे में। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Scholarship Assistance. I can help you explore scholarships, understand eligibility criteria, required documents and application procedures. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "मेरे लिए कौन-सी छात्रवृत्तियाँ उपलब्ध हैं?", en: "Which scholarships are available for me?" },
+        { hi: "क्या मैं छात्रवृत्ति के लिए पात्र हूँ?", en: "Am I eligible for a scholarship?" },
+        { hi: "मुझे कौन-से दस्तावेज़ चाहिए?", en: "What documents do I need?" },
+        { hi: "मैं कैसे आवेदन कर सकता हूँ?", en: "How can I apply?" }
+      ]
+    },
+    "hackathons": {
+      hi: "हैकाथॉन",
+      en: "Hackathons",
+      welcome: {
+        hi: "नमस्ते! हैकाथॉन सहायता में आपका स्वागत है। मैं हैकाथॉन प्रतियोगिताओं, पंजीकरण, टीम गठन और पुरस्कारों के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Hackathon Assistance. I can help you with hackathon competitions, registration, team formation and prizes. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-से हैकाथॉन चल रहे हैं?", en: "Which hackathons are ongoing?" },
+        { hi: "मैं कैसे पंजीकरण करूँ?", en: "How do I register?" },
+        { hi: "टीम कैसे बनाएँ?", en: "How to form a team?" },
+        { hi: "पुरस्कार क्या हैं?", en: "What are the prizes?" }
+      ]
+    },
+    "startup-grants": {
+      hi: "स्टार्टअप अनुदान",
+      en: "Startup Grants",
+      welcome: {
+        hi: "नमस्ते! स्टार्टअप अनुदान सहायता में आपका स्वागत है। मैं स्टार्टअप के लिए अनुदान, फंडिंग, पात्रता और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Startup Grants Assistance. I can help you with startup grants, funding, eligibility and application process. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-से स्टार्टअप अनुदान उपलब्ध हैं?", en: "Which startup grants are available?" },
+        { hi: "मैं कैसे आवेदन कर सकता हूँ?", en: "How can I apply?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "farming-advice": {
+      hi: "खेती की सलाह",
+      en: "Farming Advice",
+      welcome: {
+        hi: "नमस्ते! खेती सलाह सहायता में आपका स्वागत है। मैं फसल, बीज, सिंचाई, मिट्टी और कीट नियंत्रण के बारे में व्यावहारिक सुझाव दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Farming Advice Assistance. I can give you practical tips on crops, seeds, irrigation, soil and pest control. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "मेरी फसल के लिए कौन-सी सलाह है?", en: "What farming advice do you have for my crop?" },
+        { hi: "सिंचाई के लिए कौन-सी योजना है?", en: "Which irrigation scheme is available?" },
+        { hi: "मिट्टी की जाँच कैसे कराएँ?", en: "How to get soil testing done?" },
+        { hi: "बीज कहाँ से मिलेंगे?", en: "Where can I get seeds?" }
+      ]
+    },
+    "farmer-schemes": {
+      hi: "किसान योजनाएँ",
+      en: "Farmer Schemes",
+      welcome: {
+        hi: "नमस्ते! किसान योजना सहायता में आपका स्वागत है। मैं किसानों के लिए सरकारी योजनाओं, सब्सिडी, कृषि लाभ और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! I can help you understand government schemes for farmers, subsidies, agricultural benefits and application procedures. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "किसानों के लिए कौन-सी योजनाएँ हैं?", en: "Which schemes are available for farmers?" },
+        { hi: "क्या मुझे कोई सब्सिडी मिल सकती है?", en: "Am I eligible for any subsidy?" },
+        { hi: "मैं कैसे आवेदन करूँ?", en: "How can I apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "health-information": {
+      hi: "स्वास्थ्य जानकारी",
+      en: "Health Information",
+      welcome: {
+        hi: "नमस्ते! स्वास्थ्य जानकारी सहायता में आपका स्वागत है। मैं सरकारी स्वास्थ्य योजनाओं, अस्पतालों और चिकित्सा जानकारी के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Health Information Assistance. I can help you with government health schemes, hospitals and medical information. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-सी सरकारी स्वास्थ्य योजना है?", en: "Which government health scheme can I use?" },
+        { hi: "आयुष्मान कार्ड कैसे बनवाएँ?", en: "How to get an Ayushman card?" },
+        { hi: "नज़दीकी अस्पताल कहाँ है?", en: "Where is the nearest hospital?" },
+        { hi: "स्वास्थ्य बीमा क्या है?", en: "What is health insurance?" }
+      ]
+    },
+    "healthcare-support": {
+      hi: "स्वास्थ्य सहायता",
+      en: "Healthcare Support",
+      welcome: {
+        hi: "नमस्ते! स्वास्थ्य सहायता में आपका स्वागत है। मैं चिकित्सा सहायता, अस्पताल भर्ती, स्वास्थ्य बीमा और आपात चिकित्सा के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Healthcare Support Assistance. I can help you with medical support, hospital admission, health insurance and emergency care. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "मुफ्त इलाज कहाँ मिलेगा?", en: "Where can I get free treatment?" },
+        { hi: "स्वास्थ्य बीमा कैसे लें?", en: "How to get health insurance?" },
+        { hi: "आपात स्थिति में किसे फोन करें?", en: "Who to call in an emergency?" },
+        { hi: "अस्पताल भर्ती प्रक्रिया क्या है?", en: "What is the hospital admission process?" }
+      ]
+    },
+    "women-welfare": {
+      hi: "महिला कल्याण",
+      en: "Women Welfare",
+      welcome: {
+        hi: "नमस्ते! महिला कल्याण सहायता में आपका स्वागत है। मैं महिलाओं के लिए योजनाएँ, सुरक्षा, सशक्तिकरण और वित्तीय सहायता के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Women Welfare Assistance. I can help you with schemes, safety, empowerment and financial support for women. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "महिलाओं के लिए कौन-सी योजनाएँ हैं?", en: "Which schemes are available for women?" },
+        { hi: "महिला सुरक्षा हेल्पलाइन क्या है?", en: "What is the women's safety helpline?" },
+        { hi: "आर्थिक सहायता कैसे मिलेगी?", en: "How to get financial assistance?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" }
+      ]
+    },
+    "senior-citizen": {
+      hi: "वरिष्ठ नागरिक सहायता",
+      en: "Senior Citizen Support",
+      welcome: {
+        hi: "नमस्ते! वरिष्ठ नागरिक सहायता में आपका स्वागत है। मैं बुजुर्गों के लिए पेंशन, स्वास्थ्य और कल्याण योजनाओं के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Senior Citizen Support Assistance. I can help you with pension, health and welfare schemes for senior citizens. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "वरिष्ठ नागरिकों के लिए कौन-सी पेंशन योजना है?", en: "Which pension scheme is for senior citizens?" },
+        { hi: "स्वास्थ्य लाभ कैसे मिलेंगे?", en: "How to get health benefits?" },
+        { hi: "आवेदन कहाँ करें?", en: "Where to apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "disability-benefits": {
+      hi: "दिव्यांग लाभ",
+      en: "Disability Benefits",
+      welcome: {
+        hi: "नमस्ते! दिव्यांग लाभ सहायता में आपका स्वागत है। मैं दिव्यांग व्यक्तियों के लिए प्रमाणपत्र, पेंशन और सहायता योजनाओं के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Disability Benefits Assistance. I can help you with disability certificates, pension and support schemes for persons with disabilities. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "दिव्यांग प्रमाणपत्र कैसे बनवाएँ?", en: "How to get a disability certificate?" },
+        { hi: "कौन-सी पेंशन योजना है?", en: "Which pension scheme is available?" },
+        { hi: "सहायता कैसे मिलेगी?", en: "How to get support?" },
+        { hi: "आवेदन प्रक्रिया क्या है?", en: "What is the application process?" }
+      ]
+    },
+    "widow-support": {
+      hi: "विधवा सहायता",
+      en: "Widow Support",
+      welcome: {
+        hi: "नमस्ते! विधवा सहायता में आपका स्वागत है। मैं विधवा महिलाओं के लिए पेंशन और कल्याण योजनाओं के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Widow Support Assistance. I can help you with pension and welfare schemes for widows. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "विधवा पेंशन कैसे मिलेगी?", en: "How to get widow pension?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "retirement-support": {
+      hi: "सेवानिवृत्ति सहायता",
+      en: "Retirement Support",
+      welcome: {
+        hi: "नमस्ते! सेवानिवृत्ति सहायता में आपका स्वागत है। मैं सेवानिवृत्ति के बाद पेंशन, बचत और वित्तीय सहायता के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Retirement Support Assistance. I can help you with pension, savings and financial support after retirement. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "सेवानिवृत्ति पेंशन कैसे मिलेगी?", en: "How to get retirement pension?" },
+        { hi: "बचत योजनाएँ कौन-सी हैं?", en: "Which savings schemes are available?" },
+        { hi: "आवेदन कहाँ करें?", en: "Where to apply?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" }
+      ]
+    },
+    "housing-schemes": {
+      hi: "आवास योजनाएँ",
+      en: "Housing Schemes",
+      welcome: {
+        hi: "नमस्ते! आवास योजना सहायता में आपका स्वागत है। मैं घर बनाने और आवास के लिए सरकारी योजनाओं, पात्रता और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Housing Schemes Assistance. I can help you with government schemes for home construction and housing, eligibility and application process. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-सी आवास योजना है?", en: "Which housing scheme is available?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" },
+        { hi: "मैं कैसे आवेदन करूँ?", en: "How can I apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "sc-st-obenefits": {
+      hi: "SC / ST / OBC लाभ",
+      en: "SC / ST / OBC Benefits",
+      welcome: {
+        hi: "नमस्ते! SC / ST / OBC लाभ सहायता में आपका स्वागत है। मैं अनुसूचित जाति, जनजाति और पिछड़ा वर्ग के लिए लाभ, छात्रवृत्ति और योजनाओं के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to SC / ST / OBC Benefits Assistance. I can help you with benefits, scholarships and schemes for SC, ST and OBC categories. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-से लाभ उपलब्ध हैं?", en: "Which benefits are available?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "free-ration": {
+      hi: "मुफ्त राशन",
+      en: "Free Ration",
+      welcome: {
+        hi: "नमस्ते! मुफ्त राशन सहायता में आपका स्वागत है। मैं राशन कार्ड, खाद्य सुरक्षा योजना और राशन दुकानों के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Free Ration Assistance. I can help you with ration cards, food security schemes and ration shops. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "राशन कार्ड कैसे बनवाएँ?", en: "How to get a ration card?" },
+        { hi: "कौन पात्र है?", en: "Who is eligible?" },
+        { hi: "नज़दीकी राशन दुकान कहाँ है?", en: "Where is the nearest ration shop?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "marriage-schemes": {
+      hi: "विवाह योजनाएँ",
+      en: "Marriage Schemes",
+      welcome: {
+        hi: "नमस्ते! विवाह योजना सहायता में आपका स्वागत है। मैं विवाह के लिए वित्तीय सहायता, योजनाओं और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Marriage Schemes Assistance. I can help you with financial assistance, schemes and application process for marriage. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-सी विवाह योजना है?", en: "Which marriage scheme is available?" },
+        { hi: "पात्रता क्या है?", en: "What is the eligibility?" },
+        { hi: "मैं कैसे आवेदन करूँ?", en: "How can I apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
+    "life-crisis-help": {
+      hi: "जीवन संकट सहायता",
+      en: "Life Crisis Help",
+      welcome: {
+        hi: "नमस्ते! जीवन संकट सहायता में आपका स्वागत है। मैं आपात स्थिति में त्वरित सहायता, राहत योजनाओं और आपदा प्रबंधन के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Life Crisis Help Assistance. I can help you with immediate assistance, relief schemes and disaster management in emergencies. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "आपात सहायता कैसे मिलेगी?", en: "How to get emergency assistance?" },
+        { hi: "राहत योजनाएँ कौन-सी हैं?", en: "Which relief schemes are available?" },
+        { hi: "किससे संपर्क करें?", en: "Who to contact?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" }
+      ]
+    },
+    "document-guidance": {
+      hi: "दस्तावेज़ मार्गदर्शन",
+      en: "Document Guidance",
+      welcome: {
+        hi: "नमस्ते! दस्तावेज़ मार्गदर्शन सहायता में आपका स्वागत है। मैं ज़रूरी दस्तावेज़ों की सूची, उन्हें कैसे प्राप्त करें और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Document Guidance Assistance. I can help you with the list of required documents, how to obtain them and the application process. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-से दस्तावेज़ चाहिए?", en: "Which documents are needed?" },
+        { hi: "दस्तावेज़ कैसे बनवाएँ?", en: "How to get documents made?" },
+        { hi: "आवेदन प्रक्रिया क्या है?", en: "What is the application process?" },
+        { hi: "कहाँ आवेदन करें?", en: "Where to apply?" }
+      ]
+    },
+    "application-process": {
+      hi: "आवेदन प्रक्रिया",
+      en: "Application Process",
+      welcome: {
+        hi: "नमस्ते! आवेदन प्रक्रिया सहायता में आपका स्वागत है। मैं योजना आवेदन की चरण-दर-चरण प्रक्रिया, ऑनलाइन और ऑफलाइन आवेदन के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Application Process Assistance. I can help you with the step-by-step application process for schemes, online and offline application. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" },
+        { hi: "ऑनलाइन आवेदन कैसे करें?", en: "How to apply online?" },
+        { hi: "आवेदन शुल्क क्या है?", en: "What is the application fee?" },
+        { hi: "आवेदन स्थिति कैसे देखें?", en: "How to check application status?" }
+      ]
+    },
+    "required-documents": {
+      hi: "आवश्यक दस्तावेज़",
+      en: "Required Documents",
+      welcome: {
+        hi: "नमस्ते! आवश्यक दस्तावेज़ सहायता में आपका स्वागत है। मैं आवेदन के लिए ज़रूरी दस्तावेज़ों की पूरी सूची, उन्हें कैसे प्राप्त करें और सत्यापन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
+        en: "Namaste! Welcome to Required Documents Assistance. I can help you with the complete list of documents needed for application, how to obtain them and verification process. What would you like to know?"
+      },
+      suggestions: [
+        { hi: "कौन-से दस्तावेज़ ज़रूरी हैं?", en: "Which documents are required?" },
+        { hi: "आधार कार्ड कैसे बनवाएँ?", en: "How to get an Aadhaar card?" },
+        { hi: "आय प्रमाणपत्र कैसे बनवाएँ?", en: "How to get an income certificate?" },
+        { hi: "ज़रूरी दस्तावेज़ कहाँ जमा करें?", en: "Where to submit required documents?" }
+      ]
+    }
+  };
 
   const CHAT_FALLBACK = {
     hi:
@@ -1360,7 +1791,7 @@
 
   function getLanguageName(code) {
     const names = {
-      "hi-IN": "हिन्दी",
+      "hi-IN": "हिंदी",
       "en-IN": "English",
       "gu-IN": "ગુજરાતી",
       "mr-IN": "मराठी",
@@ -1369,7 +1800,7 @@
       "pa-IN": "ਪੰਜਾਬੀ",
       "bn-IN": "বাংলা"
     };
-    return names[code] || "हिन्दी";
+    return names[code] || "हिंदी";
   }
 
   function updateChatLanguageBadge(code) {
@@ -1771,6 +2202,8 @@
       return;
     }
 
+    if (routeAssistantFeatureIntent(message)) return;
+
     chatBusy = true;
     const typing = showTyping();
 
@@ -1798,7 +2231,16 @@
     chatPanel.setAttribute("aria-hidden", "false");
     if (chatFab) chatFab.setAttribute("aria-expanded", "true");
 
-    if (question) {
+    // Restore pre-selected service from sessionStorage (survives refresh).
+    const preSelected = sessionStorage.getItem("sarthix-selected-service");
+    if (preSelected && SERVICE_DATA[preSelected] && !chatBusy) {
+      const svc = SERVICE_DATA[preSelected];
+      const english = uiLang === "en";
+      const welcome = english ? svc.welcome.en : svc.welcome.hi;
+      sendChatMessage(welcome);
+      renderServiceSuggestions(preSelected, english);
+      sessionStorage.removeItem("sarthix-selected-service");
+    } else if (question) {
       sendChatMessage(question);
     } else if (!chatBusy) {
       window.setTimeout(() => {
@@ -1807,6 +2249,31 @@
     }
 
     scrollChat();
+  }
+
+  function renderServiceSuggestions(serviceId, english) {
+    if (!chatSuggest) return;
+    const svc = SERVICE_DATA[serviceId];
+    if (!svc) return;
+    chatSuggest.replaceChildren();
+    svc.suggestions.forEach((s) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = english ? s.en : s.hi;
+      btn.className = "";
+      btn.addEventListener("click", () => {
+        const q = english ? s.en : s.hi;
+        chatInput.value = q;
+        chatInput.focus({ preventScroll: true });
+      });
+      chatSuggest.appendChild(btn);
+    });
+  }
+
+  function openChatWithService(serviceId) {
+    if (!SERVICE_DATA[serviceId]) return;
+    sessionStorage.setItem("sarthix-selected-service", serviceId);
+    openChat();
   }
 
   function closeChat() {
@@ -1858,7 +2325,1629 @@
     });
   });
 
-  /* ── 11. Startup ─────────────────────────────────────────────── */
+  /* ── 11. Eligibility stepper ─────────────────────────────────── */
+  const eligibilityForm = $("#eligibility-form");
+  const eligibilityScreens = $$('[data-eligibility-screen]');
+  const eligibilityProgress = $$('[data-progress-step]');
+  const eligibilityName = $("#eligibility-scheme-name");
+  const eligibilityDescription = $("#eligibility-scheme-description");
+  const eligibilityCategory = $("#eligibility-category");
+  const eligibilityError = $("[data-eligibility-error]");
+  const eligibilityQuestionError = $("[data-eligibility-question-error]");
+  const eligibilityQuestionCount = $("[data-question-count]");
+  const eligibilityQuestionFieldset = $("[data-question-fieldset]");
+  const eligibilityMessage = $("[data-eligibility-message]");
+  const eligibilityVoiceButton = $("[data-eligibility-voice]");
+  const eligibilityVoiceStatus = $("[data-eligibility-voice-status]");
+  const eligibilityMeter = $("[data-eligibility-progress]");
+  const eligibilityMeterFill = $("[data-eligibility-progress-fill]");
+  const eligibilitySummary = $("[data-eligibility-summary]");
+  const eligibilityResultCard = $("[data-result-status-card]");
+  const eligibilityResultStatusLabel = $("[data-result-status-label]");
+  const eligibilityResultReason = $("[data-result-reasoning]");
+  const eligibilityResultReasonDetail = $("[data-result-reasoning-detail]");
+  const eligibilityResultRequirements = $("[data-result-requirements]");
+  const eligibilityResultDocuments = $("[data-result-documents]");
+  const eligibilityResultNextSteps = $("[data-result-next-steps]");
+  const eligibilityResultLinks = $("[data-result-links]");
+  const eligibilityResultLinkList = $("[data-result-link-list]");
+  const eligibilityResultDemoNotice = $("[data-result-demo-notice]");
+  const eligibilityResultDownload = $("[data-eligibility-download]");
+  const eligibilityResultFollowup = $("[data-eligibility-followup]");
+  const eligibilityNext = $("[data-eligibility-next]");
+
+  const eligibilityQuestionCopy = {
+    hi: {
+      count: (current, total) => `सवाल ${current} / ${total}`,
+      continue: "आगे बढ़ें", review: "जानकारी देखें",
+      missingScheme: "योजना का नाम लिखें या उसके बारे में थोड़ा बताएँ।",
+      missingAnswer: "आगे बढ़ने के लिए जवाब चुनें या लिखें।",
+      assistantDefault: "ठीक है, हम एक-एक करके सवाल करेंगे। आप बोलकर या लिखकर जवाब दे सकते हैं।",
+      assistantTips: {
+        state: "योजना के नियम राज्य के अनुसार अलग हो सकते हैं।",
+        qualification: "अपनी पूरी की हुई सबसे ऊँची शैक्षणिक योग्यता चुनें।",
+        studying: "यदि आप अभी किसी पाठ्यक्रम में पढ़ रहे हैं, तो ‘हाँ’ चुनें।",
+        income: "इससे उन योजनाओं की पहचान करने में मदद मिलती है जिनमें आय-सीमा हो सकती है।",
+        eligibleCategory: "यदि लागू हो तो अपनी श्रेणी चुनें। बताना न चाहें तो वह विकल्प चुनें।",
+        documents: "दस्तावेज़ अभी आपके पास न हों, तब भी अपनी जानकारी के अनुसार जवाब दें।",
+        age: "अपनी आयु वर्षों में लिखें।", farmland: "अपनी कृषि भूमि की स्थिति चुनें।",
+        landRecords: "यह जानने के लिए पूछा जा रहा है कि भूमि के अभिलेख उपलब्ध हैं या नहीं।",
+        employment: "अपनी वर्तमान स्थिति से सबसे मिलता-जुलता विकल्प चुनें।",
+        supportFor: "जिस व्यक्ति को सहायता चाहिए, उसके अनुसार विकल्प चुनें।",
+        home: "अपने परिवार के आवास की स्थिति बताएँ।", familySize: "परिवार में रहने वाले लोगों की संख्या लिखें।"
+      },
+      scheme: "योजना", description: "योजना के बारे में आपने क्या सुना", category: "श्रेणी",
+      state: "आप किस राज्य या केंद्रशासित प्रदेश में रहते हैं?", stateHelp: "अपना राज्य या केंद्रशासित प्रदेश लिखें।",
+      statePlaceholder: "राज्य या केंद्रशासित प्रदेश", age: "आपकी आयु कितनी है?", ageHelp: "आयु वर्षों में लिखें।",
+      familySizeHelp: "अनुमानित संख्या भी ठीक है।",
+      income: "परिवार की अनुमानित वार्षिक आय कितनी है?", incomeHelp: "अनुमानित आय-सीमा चुनें। आप जवाब न देना भी चुन सकते हैं।",
+      incomeOptions: ["₹1 लाख से कम", "₹1–3 लाख", "₹3–6 लाख", "₹6–10 लाख", "₹10 लाख से अधिक", "बताना नहीं चाहते"],
+      qualification: "आपकी पूरी की हुई सबसे ऊँची शैक्षणिक योग्यता क्या है?", studying: "क्या आप अभी पढ़ाई कर रहे हैं?",
+      eligibleCategory: "क्या आप किसी पात्र श्रेणी में आते हैं?", documents: "क्या आपके पास आवश्यक दस्तावेज़ हैं?",
+      employment: "आपकी वर्तमान रोज़गार स्थिति क्या है?", farmland: "क्या आपके पास कृषि भूमि है या आप उसे पट्टे पर लेते हैं?",
+      landRecords: "क्या आपके पास भूमि के अभिलेख हैं?", supportFor: "यह सहायता किसके लिए चाहिए?",
+      home: "क्या आपके परिवार के पास पक्का घर है?", familySize: "आपके परिवार में कितने लोग रहते हैं?",
+      yes: "हाँ", no: "नहीं", notSure: "पता नहीं", studyingYes: "हाँ, अभी पढ़ाई कर रहे हैं",
+      studyingNo: "नहीं, अभी पढ़ाई नहीं कर रहे", secondary: "दसवीं तक", higherSecondary: "बारहवीं तक",
+      diploma: "डिप्लोमा / आईटीआई", graduate: "स्नातक", postgraduate: "स्नातकोत्तर या उससे अधिक", other: "अन्य",
+      general: "सामान्य", sc: "अनुसूचित जाति", st: "अनुसूचित जनजाति", obc: "अन्य पिछड़ा वर्ग", minority: "अल्पसंख्यक समुदाय",
+      disability: "दिव्यांग व्यक्ति", preferNot: "बताना नहीं चाहते", documentsYes: "हाँ, सभी या अधिकतर",
+      documentsSome: "कुछ दस्तावेज़ हैं", documentsNo: "अभी नहीं", landOwn: "हाँ, अपनी भूमि",
+      landLease: "हाँ, पट्टे पर भूमि", landNone: "नहीं", employed: "रोज़गार में हैं",
+      unemployed: "रोज़गार तलाश रहे हैं", notWorking: "अभी रोज़गार में नहीं हैं", supportSelf: "मेरे लिए",
+      supportFamily: "परिवार के किसी सदस्य के लिए", homeYes: "हाँ", homeNo: "नहीं", homeNotSure: "पता नहीं",
+      voiceMatched: "आपका बोला हुआ जवाब लिख दिया गया है। आगे बढ़ने से पहले जाँच लें।",
+      voiceUnmatched: "आवाज़ समझ नहीं आई। कोई विकल्प चुनें या फिर बोलें।",
+      voiceListening: "सुन रहा हूँ… अपना जवाब बोलें।", voiceNothing: "आवाज़ सुनाई नहीं दी। कृपया फिर प्रयास करें।",
+      voiceButtonLabel: "बोलकर जवाब दें"
+    },
+    en: {
+      count: (current, total) => `Question ${current} of ${total}`,
+      continue: "Continue", review: "Review details",
+      missingScheme: "Enter the scheme name or tell us a little about it.",
+      missingAnswer: "Choose or enter an answer to continue.",
+      assistantDefault: "All right, we’ll take it one question at a time. You can speak or type your answers.",
+      assistantTips: {
+        state: "Scheme rules can differ from one state to another.",
+        qualification: "Choose the highest level of education you have completed.",
+        studying: "Choose yes if you are currently enrolled in a course.",
+        income: "This helps identify schemes that may have an income limit.",
+        eligibleCategory: "Choose a category if it applies, or prefer not to say.",
+        documents: "Answer from memory if the documents are not with you right now.",
+        age: "Enter your age in years.", farmland: "Choose the option that best describes your land.",
+        landRecords: "This helps note whether land records are available.",
+        employment: "Choose the option that best matches your current situation.",
+        supportFor: "Choose who needs the support.", home: "Tell us about your household’s home.",
+        familySize: "Enter the number of people who live in your household."
+      },
+      scheme: "Scheme", description: "What you have heard about the scheme", category: "Category",
+      state: "Which state or Union Territory do you live in?", stateHelp: "Enter your state or Union Territory.",
+      statePlaceholder: "State or Union Territory", age: "How old are you?", ageHelp: "Enter your age in years.",
+      familySizeHelp: "An estimate is fine.",
+      income: "What is your approximate annual household income?", incomeHelp: "Choose an estimate, or prefer not to say.",
+      incomeOptions: ["Under ₹1 lakh", "₹1–3 lakh", "₹3–6 lakh", "₹6–10 lakh", "Above ₹10 lakh", "Prefer not to say"],
+      qualification: "What is the highest level of education you have completed?", studying: "Are you currently studying?",
+      eligibleCategory: "Do you belong to an eligible category?", documents: "Do you have the required documents?",
+      employment: "Which best describes your current work situation?", farmland: "Do you own or lease agricultural land?",
+      landRecords: "Do you have your land records?", supportFor: "Who needs this support?",
+      home: "Does your household have a permanent home?", familySize: "How many people live in your household?",
+      yes: "Yes", no: "No", notSure: "Not sure", studyingYes: "Yes, currently studying",
+      studyingNo: "No, not currently studying", secondary: "Up to Grade 10", higherSecondary: "Up to Grade 12",
+      diploma: "Diploma / ITI", graduate: "Graduate", postgraduate: "Postgraduate or higher", other: "Something else",
+      general: "General", sc: "SC", st: "ST", obc: "OBC", minority: "Minority community",
+      disability: "Person with a disability", preferNot: "Prefer not to say", documentsYes: "Yes, all or most",
+      documentsSome: "Some documents", documentsNo: "Not yet", landOwn: "Yes, I own the land",
+      landLease: "Yes, I lease the land", landNone: "No", employed: "Currently working",
+      unemployed: "Looking for work", notWorking: "Not currently working", supportSelf: "For me",
+      supportFamily: "For a family member", homeYes: "Yes", homeNo: "No", homeNotSure: "Not sure",
+      voiceMatched: "Your spoken answer was added. Review it before continuing.",
+      voiceUnmatched: "I couldn’t match that to an option. Please choose one or try saying it again.",
+      voiceListening: "Listening... speak your answer.", voiceNothing: "No answer was heard. Please try again.",
+      voiceButtonLabel: "Answer by voice"
+    }
+  };
+
+  const eligibilityMockQuestionSets = {
+    scholarship: ["state", "qualification", "studying", "income", "eligibleCategory", "documents"],
+    employment: ["state", "age", "qualification", "employment", "income", "documents"],
+    agriculture: ["state", "farmland", "landRecords", "income", "documents"],
+    healthcare: ["state", "age", "supportFor", "income", "eligibleCategory", "documents"],
+    housing: ["state", "home", "familySize", "income", "documents"],
+    women: ["state", "age", "employment", "income", "eligibleCategory", "documents"],
+    financial: ["state", "age", "employment", "income", "eligibleCategory", "documents"],
+    general: ["state", "age", "income", "documents"]
+  };
+
+  const eligibilityQuestionDefinitions = {
+    state: { type: "text" },
+    age: { type: "number", min: 1, max: 120 },
+    income: { type: "income" },
+    qualification: { type: "choices", options: ["secondary", "higherSecondary", "diploma", "graduate", "postgraduate", "other"] },
+    studying: { type: "choices", options: ["studyingYes", "studyingNo", "notSure"] },
+    eligibleCategory: { type: "choices", options: ["general", "sc", "st", "obc", "minority", "disability", "preferNot"] },
+    documents: { type: "choices", options: ["documentsYes", "documentsSome", "documentsNo"] },
+    employment: { type: "choices", options: ["employed", "unemployed", "notWorking", "student", "other"] },
+    farmland: { type: "choices", options: ["landOwn", "landLease", "landNone", "notSure"] },
+    landRecords: { type: "choices", options: ["yes", "no", "notSure"] },
+    supportFor: { type: "choices", options: ["supportSelf", "supportFamily"] },
+    home: { type: "choices", options: ["homeYes", "homeNo", "homeNotSure"] },
+    familySize: { type: "number", min: 1, max: 30 }
+  };
+
+  const eligibilityVoiceTerms = {
+    yes: ["yes", "yeah", "haan", "han", "ha", "ji", "हाँ"],
+    no: ["no", "nahi", "nahin", "not at all", "नहीं"],
+    notSure: ["not sure", "unsure", "pata nahi", "maloom nahi", "पता नहीं"],
+    studyingYes: ["student", "padhai", "padh raha", "padh rahi", "haan", "विद्यार्थी", "पढ़ाई", "हाँ"],
+    studyingNo: ["not studying", "nahi padh", "no", "नहीं पढ़"],
+    documentsYes: ["all documents", "most documents", "sabhi", "haan", "सभी", "हाँ"],
+    documentsSome: ["some documents", "kuch documents", "kuch kagaz"],
+    documentsNo: ["no documents", "not yet", "abhi nahi"],
+    landOwn: ["own land", "my land", "apni zameen", "khud ki zameen", "अपनी जमीन"],
+    landLease: ["lease", "leased", "theke par", "kiraye par", "पट्टे पर"],
+    landNone: ["no land", "nahi", "no", "जमीन नहीं"],
+    employed: ["working", "employed", "kaam kar", "naukri"],
+    unemployed: ["looking for work", "job search", "kaam dhoondh", "berozgar"],
+    notWorking: ["not working", "kaam nahi", "no work"],
+    student: ["student", "studying", "vidyarthi"],
+    supportSelf: ["for me", "myself", "mere liye", "khud ke liye"],
+    supportFamily: ["family", "relative", "parivaar", "ghar ke"],
+    homeYes: ["yes", "haan", "have a home", "pakka ghar", "हाँ"],
+    homeNo: ["no", "nahi", "no home", "ghar nahi", "नहीं"],
+    homeNotSure: ["not sure", "unsure", "pata nahi", "maloom nahi", "पता नहीं"],
+    general: ["general"], sc: ["sc", "scheduled caste"], st: ["st", "scheduled tribe"],
+    obc: ["obc", "other backward"], minority: ["minority"], disability: ["disability", "disabled", "viklang"],
+    preferNot: ["prefer not", "skip", "nahi batana"]
+  };
+
+  const eligibilityResultCopy = {
+    hi: {
+      demoNotice: "केवल उदाहरण · योजना के आधिकारिक नियमों की जाँच नहीं हुई है। यह सरकारी निर्णय नहीं है।",
+      statusLabels: {
+        likely_eligible: "आप पात्र हो सकते हैं",
+        not_eligible: "आप पात्र नहीं लगते",
+        more_information_required: "अधिक जानकारी आवश्यक है"
+      },
+      statusReason: (scheme) => `${scheme} के लिए सत्यापित पात्रता जाँच अभी उपलब्ध नहीं है।`,
+      reasoning: "आपके जवाब केवल उदाहरण के सवालों के आधार पर लिए गए हैं। उनकी तुलना योजना के मौजूदा आधिकारिक नियमों, अभिलेखों या दस्तावेज़ों से नहीं की गई है। इसलिए यह नमूना पात्रता का निर्णय नहीं दे सकता।",
+      requirementLabels: {
+        state: "राज्य या निवास संबंधी शर्त, यदि लागू हो",
+        age: "आयु संबंधी शर्त, यदि लागू हो",
+        education: "शिक्षा या नामांकन संबंधी शर्त, यदि लागू हो",
+        income: "परिवार की आय संबंधी शर्त, यदि लागू हो",
+        category: "श्रेणी संबंधी शर्त, यदि लागू हो",
+        land: "कृषि भूमि या भूमि अभिलेख संबंधी शर्त, यदि लागू हो",
+        housing: "आवास संबंधी शर्त, यदि लागू हो",
+        employment: "रोज़गार या कौशल संबंधी शर्त, यदि लागू हो",
+        documents: "योजना के लिए आवश्यक दस्तावेज़"
+      },
+      requirementDetail: (answer) => answer
+        ? `आपका जवाब: ${answer}। इसकी आधिकारिक नियमों से पुष्टि नहीं हुई है।`
+        : "इस शर्त की आधिकारिक योजना नियमों से पुष्टि होना बाकी है।",
+      verification: "पुष्टि होना बाकी है",
+      documentNote: "उदाहरण · सही सूची आधिकारिक योजना स्रोत से जाँचें",
+      documents: {
+        scholarship: ["पहचान का प्रमाण", "पढ़ाई या नामांकन का प्रमाण", "आय या श्रेणी प्रमाणपत्र, यदि लागू हो", "बैंक खाते का विवरण, यदि योजना माँगे"],
+        employment: ["पहचान और निवास का प्रमाण", "शिक्षा या कौशल प्रमाणपत्र", "रोज़गार पंजीकरण, यदि लागू हो", "आय या श्रेणी का प्रमाण, यदि माँगा जाए"],
+        agriculture: ["पहचान और बैंक खाते का विवरण", "भूमि अभिलेख, यदि लागू हों", "किसान या खेती से जुड़ा प्रमाण", "आय या श्रेणी का प्रमाण, यदि माँगा जाए"],
+        healthcare: ["पहचान का प्रमाण", "राशन कार्ड या परिवार की पहचान, यदि लागू हो", "निवास का प्रमाण", "आय या श्रेणी का प्रमाण, यदि माँगा जाए"],
+        housing: ["पहचान और निवास का प्रमाण", "घर या भूमि अभिलेख, यदि लागू हों", "परिवार की आय का प्रमाण", "बैंक खाते का विवरण, यदि योजना माँगे"],
+        women: ["पहचान और निवास का प्रमाण", "आय का प्रमाण, यदि लागू हो", "श्रेणी या संबंधित प्रमाणपत्र, यदि माँगा जाए", "बैंक खाते का विवरण, यदि योजना माँगे"],
+        financial: ["पहचान और निवास का प्रमाण", "परिवार की आय का प्रमाण", "श्रेणी का प्रमाण, यदि योजना माँगे", "बैंक खाते का विवरण, यदि सहायता खाते में मिले"],
+        general: ["पहचान का प्रमाण", "निवास का प्रमाण", "आय या श्रेणी का प्रमाण, यदि योजना माँगे", "योजना में बताए गए अन्य सहायक दस्तावेज़"]
+      },
+      nextSteps: [
+        "योजना का सही नाम और अपने राज्य के मौजूदा नियम आधिकारिक स्रोत से जाँचें।",
+        "अपने जवाब और दस्तावेज़ों को आधिकारिक सूची से मिलाएँ। ज़रूरत पड़ने पर CSC या संबंधित सरकारी कार्यालय से सहायता लें।",
+        "यदि आप प्रकाशित शर्तें पूरी करते हैं, तो केवल आधिकारिक पोर्टल या अधिकृत केंद्र से आवेदन करें।"
+      ],
+      followup: "कृपया इस योजना की आधिकारिक पात्रता शर्तें और अगले कदम समझाएँ।",
+      saved: "पात्रता का परिणाम सहेजा गया",
+      links: [
+        { match: /pm\s*kisan/i, url: "https://pmkisan.gov.in/", label: "PM Kisan का आधिकारिक पोर्टल" },
+        { match: /pm\s*[- ]?kusum/i, url: "https://pmkusum.mnre.gov.in/", label: "PM-KUSUM का आधिकारिक पोर्टल" },
+        { match: /sinchai|pmksy|सिंचाई/i, url: "https://pmksy.gov.in/", label: "PMKSY का आधिकारिक पोर्टल" },
+        { match: /scholar|scholarship|छात्रवृत्ति/i, url: "https://scholarships.gov.in/", label: "राष्ट्रीय छात्रवृत्ति पोर्टल" },
+        { match: /pmjay|ayushman|आयुष्मान/i, url: "https://pmjay.gov.in/", label: "आयुष्मान भारत PM-JAY पोर्टल" },
+        { match: /pmay.?g|awas yojana gramin|आवास योजना ग्रामीण/i, url: "https://pmayg.nic.in/", label: "PMAY-G का आधिकारिक पोर्टल" }
+      ]
+    },
+    en: {
+      demoNotice: "DEMONSTRATION ONLY · No official scheme rules were checked. This is not a government decision.",
+      statusLabels: {
+        likely_eligible: "Likely Eligible",
+        not_eligible: "Not Eligible",
+        more_information_required: "More Information Required"
+      },
+      statusReason: (scheme) => `No verified eligibility engine for ${scheme} is connected yet.`,
+      reasoning: "Your answers were collected using demonstration questions only. They were not checked against current official scheme rules, records, or documents, so this prototype cannot determine eligibility.",
+      requirementLabels: {
+        state: "State or residence rule, if applicable",
+        age: "Age rule, if applicable",
+        education: "Education or enrollment rule, if applicable",
+        income: "Household income rule, if applicable",
+        category: "Category rule, if applicable",
+        land: "Agricultural land or land-record rule, if applicable",
+        housing: "Housing rule, if applicable",
+        employment: "Employment or skill rule, if applicable",
+        documents: "Documents required by the scheme"
+      },
+      requirementDetail: (answer) => answer
+        ? `Your answer: ${answer}. It has not been checked against official rules.`
+        : "This condition still needs to be checked against the official scheme rules.",
+      verification: "Still needs verification",
+      documentNote: "Example · confirm the exact list with an official scheme source",
+      documents: {
+        scholarship: ["Identity proof", "Proof of study or enrollment", "Income or category certificate, if applicable", "Bank account details, if requested by the scheme"],
+        employment: ["Identity and residence proof", "Education or skill certificates", "Employment registration, if applicable", "Income or category proof, if requested"],
+        agriculture: ["Identity and bank details", "Land records, if applicable", "Proof related to farming or farmer status", "Income or category proof, if requested"],
+        healthcare: ["Identity proof", "Ration card or family identity, if applicable", "Residence proof", "Income or category proof, if requested"],
+        housing: ["Identity and residence proof", "House or land records, if applicable", "Household income proof", "Bank details, if requested by the scheme"],
+        women: ["Identity and residence proof", "Income proof, if applicable", "Category or relevant certificate, if requested", "Bank details, if requested by the scheme"],
+        financial: ["Identity and residence proof", "Household income proof", "Category proof, if requested by the scheme", "Bank details, if benefits are paid to a bank"],
+        general: ["Identity proof", "Residence proof", "Income or category proof, if requested", "Other supporting documents specified by the scheme"]
+      },
+      nextSteps: [
+        "Confirm the exact scheme name and current rules for your state through an official source.",
+        "Compare your answers with the official checklist. A CSC or relevant government office can help if needed.",
+        "If you meet the published conditions, apply only through the official portal or an authorised centre."
+      ],
+      followup: "Please explain the official eligibility rules and next steps for this scheme.",
+      saved: "Eligibility demonstration result saved",
+      links: [
+        { match: /pm\s*kisan/i, url: "https://pmkisan.gov.in/", label: "PM Kisan official portal" },
+        { match: /pm\s*[- ]?kusum/i, url: "https://pmkusum.mnre.gov.in/", label: "PM-KUSUM official portal" },
+        { match: /sinchai|pmksy/i, url: "https://pmksy.gov.in/", label: "PMKSY official portal" },
+        { match: /scholar|scholarship/i, url: "https://scholarships.gov.in/", label: "National Scholarship Portal" },
+        { match: /pmjay|ayushman/i, url: "https://pmjay.gov.in/", label: "Ayushman Bharat PM-JAY portal" },
+        { match: /pmay.?g|awas yojana gramin/i, url: "https://pmayg.nic.in/", label: "PMAY-G official portal" }
+      ]
+    }
+  };
+
+  let eligibilityStage = "scheme";
+  let eligibilityQuestions = [];
+  let eligibilityQuestionIndex = 0;
+  let eligibilityAnswers = {};
+  let eligibilityProfile = "general";
+  let eligibilityCurrentResult = null;
+
+  function eligibilityCopy() {
+    return eligibilityQuestionCopy[uiLang];
+  }
+
+  function buildEligibilityQuestions() {
+    const schemeText = `${eligibilityName ? eligibilityName.value : ""} ${eligibilityDescription ? eligibilityDescription.value : ""}`.toLowerCase();
+    const category = eligibilityCategory ? eligibilityCategory.value : "";
+    let profile = "";
+    if (/scholar|student|education|vidya|shiksha|छात्रवृत्ति|छात्र|शिक्षा/.test(schemeText)) profile = "scholarship";
+    else if (/job|employment|employ|skill|rojgar|kaushal|naukri|रोजगार|नौकरी|कौशल/.test(schemeText)) profile = "employment";
+    else if (/agri|farmer|kisan|farm|crop|kheti|kusum|sinchai|irrigat|किसान|कृषि|खेती|सिंचाई|फसल/.test(schemeText)) profile = "agriculture";
+    else if (/health|medical|ayushman|hospital|swasthya|स्वास्थ्य|चिकित्सा|आयुष्मान/.test(schemeText)) profile = "healthcare";
+    else if (/housing|house|awas|home|makan|ghar|आवास|घर|मकान/.test(schemeText)) profile = "housing";
+    else if (/women|woman|mahila|nari|महिला|नारी/.test(schemeText)) profile = "women";
+    if (!profile) {
+      const categoryProfiles = {
+        education: "scholarship", employment: "employment", agriculture: "agriculture",
+        healthcare: "healthcare", housing: "housing", women: "women", financial: "financial"
+      };
+      profile = categoryProfiles[category] || "general";
+    }
+    eligibilityProfile = profile;
+
+    return (eligibilityMockQuestionSets[profile] || eligibilityMockQuestionSets.general).map((id) => ({
+      id,
+      label: id,
+      ...eligibilityQuestionDefinitions[id]
+    }));
+  }
+
+  function updateEligibilityProgress() {
+    eligibilityProgress.forEach((item) => {
+      const step = item.dataset.progressStep;
+      const current = step === eligibilityStage || (eligibilityStage === "review" && step === "questions");
+      const complete = eligibilityStage === "review" || (eligibilityStage === "questions" && step === "scheme");
+      item.classList.toggle("is-current", current);
+      item.classList.toggle("is-complete", complete);
+      if (current) item.setAttribute("aria-current", "step");
+      else item.removeAttribute("aria-current");
+    });
+    const progress = eligibilityStage === "scheme"
+      ? 0
+      : eligibilityStage === "review"
+        ? 100
+        : Math.round(((eligibilityQuestionIndex + 1) / Math.max(eligibilityQuestions.length, 1)) * 100);
+    if (eligibilityMeter) {
+      eligibilityMeter.setAttribute("aria-valuenow", String(progress));
+      eligibilityMeter.setAttribute("aria-valuetext", `${progress}%`);
+    }
+    if (eligibilityMeterFill) eligibilityMeterFill.style.width = `${progress}%`;
+  }
+
+  function setEligibilityStage(stage, focusHeading = true) {
+    eligibilityStage = stage;
+    eligibilityScreens.forEach((screen) => {
+      screen.hidden = screen.dataset.eligibilityScreen !== stage;
+    });
+    if (eligibilityError) eligibilityError.hidden = true;
+    if (eligibilityQuestionError) eligibilityQuestionError.hidden = true;
+    updateEligibilityProgress();
+
+    if (stage === "questions") renderEligibilityQuestion(focusHeading);
+    if (stage === "review") {
+      eligibilityCurrentResult = buildEligibilityDemoResult();
+      renderEligibilitySummary();
+      renderEligibilityResult(eligibilityCurrentResult);
+    }
+
+    if (focusHeading) {
+      const focusTarget = stage === "questions"
+        ? $("legend", eligibilityQuestionFieldset)
+        : $(`[data-eligibility-screen="${stage}"] h3`);
+      if (focusTarget) {
+        focusTarget.setAttribute("tabindex", "-1");
+        focusTarget.focus({ preventScroll: true });
+      }
+    }
+  }
+
+  function renderEligibilityQuestion(focusQuestion = false) {
+    if (!eligibilityQuestionFieldset || !eligibilityQuestions.length) return;
+    const question = eligibilityQuestions[eligibilityQuestionIndex];
+    const copy = eligibilityCopy();
+    eligibilityQuestionFieldset.replaceChildren();
+    if (eligibilityVoiceTarget) eligibilityVoiceTarget = eligibilityQuestionFieldset;
+
+    const legend = document.createElement("legend");
+    legend.textContent = copy[question.label];
+    eligibilityQuestionFieldset.appendChild(legend);
+
+    if (["state", "income", "age", "familySize"].includes(question.id)) {
+      const help = document.createElement("p");
+      help.className = "eligibility-question-help";
+      const helpKey = question.id === "state" ? "stateHelp" : question.id === "age" ? "ageHelp" : question.id === "familySize" ? "familySizeHelp" : "incomeHelp";
+      help.textContent = copy[helpKey] || "";
+      eligibilityQuestionFieldset.appendChild(help);
+    }
+
+    if (question.type === "choices") {
+      const options = document.createElement("div");
+      options.className = "eligibility-options";
+      question.options.forEach((optionKey) => {
+        const label = document.createElement("label");
+        label.className = "eligibility-option";
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "eligibility-answer";
+        input.value = optionKey;
+        input.required = true;
+        input.dataset.answer = "true";
+        input.checked = eligibilityAnswers[question.id] === optionKey;
+        const text = document.createElement("span");
+        text.textContent = copy[optionKey];
+        label.append(input, text);
+        options.appendChild(label);
+      });
+      eligibilityQuestionFieldset.appendChild(options);
+    } else if (question.type === "income") {
+      const select = document.createElement("select");
+      select.className = "eligibility-question-input";
+      select.name = "eligibility-answer";
+      select.required = true;
+      select.dataset.answer = "true";
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = uiLang === "en" ? "Choose an income range" : "Aay ka daayra chunein";
+      select.appendChild(placeholder);
+      copy.incomeOptions.forEach((option, index) => {
+        const item = document.createElement("option");
+        item.value = String(index);
+        item.textContent = option;
+        select.appendChild(item);
+      });
+      select.value = eligibilityAnswers[question.id] || "";
+      eligibilityQuestionFieldset.appendChild(select);
+    } else {
+      const input = document.createElement("input");
+      input.className = "eligibility-question-input";
+      input.name = "eligibility-answer";
+      input.type = question.type;
+      input.required = true;
+      input.dataset.answer = "true";
+      input.setAttribute("aria-label", copy[question.label]);
+      if (question.id === "state") {
+        input.placeholder = copy.statePlaceholder;
+        input.autocomplete = "address-level1";
+      } else {
+        input.min = String(question.min || 1);
+        input.max = String(question.max || 120);
+        input.inputMode = "numeric";
+        input.placeholder = question.id === "familySize"
+          ? (uiLang === "en" ? "Number of people" : "Logon ki sankhya")
+          : (uiLang === "en" ? "Your age" : "Aapki umar");
+      }
+      input.value = eligibilityAnswers[question.id] || "";
+      eligibilityQuestionFieldset.appendChild(input);
+    }
+
+    if (eligibilityQuestionCount) {
+      eligibilityQuestionCount.id = "eligibility-question-count";
+      eligibilityQuestionCount.textContent = copy.count(eligibilityQuestionIndex + 1, eligibilityQuestions.length);
+    }
+    if (eligibilityMessage) {
+      eligibilityMessage.textContent = copy.assistantTips[question.id] || copy.assistantDefault;
+    }
+    updateEligibilityProgress();
+    if (eligibilityNext) {
+      const label = $("span", eligibilityNext);
+      if (label) label.textContent = eligibilityQuestionIndex === eligibilityQuestions.length - 1 ? copy.review : copy.continue;
+    }
+    if (focusQuestion) {
+      legend.setAttribute("tabindex", "-1");
+      legend.focus({ preventScroll: true });
+    }
+  }
+
+  function updateEligibilityVoiceAnswer(spokenText) {
+    if (!eligibilityQuestionFieldset) return;
+    const text = String(spokenText || "").toLowerCase().trim();
+    if (!text) return;
+
+    const radios = $$('input[type="radio"]', eligibilityQuestionFieldset);
+    const select = $("select[data-answer]", eligibilityQuestionFieldset);
+    let matched = false;
+
+    if (radios.length) {
+      const option = radios.find((radio) => {
+        const terms = eligibilityVoiceTerms[radio.value] || [];
+        return terms.some((term) => text.includes(term));
+      });
+      if (option) {
+        option.checked = true;
+        option.dispatchEvent(new Event("input", { bubbles: true }));
+        option.dispatchEvent(new Event("change", { bubbles: true }));
+        matched = true;
+      }
+    } else if (select) {
+      const incomeVoiceTerms = {
+        0: ["under one lakh", "less than one lakh", "ek lakh se kam", "1 lakh se kam"],
+        1: ["one to three lakh", "1 to 3 lakh", "1-3 lakh", "ek se teen lakh"],
+        2: ["three to six lakh", "3 to 6 lakh", "3-6 lakh", "teen se chhe lakh"],
+        3: ["six to ten lakh", "6 to 10 lakh", "6-10 lakh", "chhe se das lakh"],
+        4: ["above ten lakh", "over ten lakh", "10 lakh se zyada", "das lakh se zyada"],
+        5: ["prefer not", "nahi batana", "not say"]
+      };
+      const option = Array.from(select.options).find((item) => {
+        const terms = incomeVoiceTerms[item.value] || [];
+        return terms.some((term) => text.includes(term));
+      });
+      if (option) {
+        select.value = option.value;
+        select.dispatchEvent(new Event("input", { bubbles: true }));
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        matched = true;
+      }
+    } else {
+      const input = $("input[data-answer]", eligibilityQuestionFieldset);
+      if (input) {
+        input.value = text;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        matched = true;
+      }
+    }
+
+    const status = $("[data-eligibility-voice-status]");
+    if (status) status.textContent = matched
+      ? eligibilityCopy().voiceMatched
+      : eligibilityCopy().voiceUnmatched;
+  }
+
+  function saveCurrentEligibilityAnswer() {
+    if (!eligibilityQuestionFieldset || !eligibilityQuestions.length) return;
+    const question = eligibilityQuestions[eligibilityQuestionIndex];
+    const selected = $("input[type='radio']:checked", eligibilityQuestionFieldset);
+    const control = question.type === "choices" ? selected : $("[data-answer]", eligibilityQuestionFieldset);
+    eligibilityAnswers[question.id] = control ? control.value.trim() : "";
+  }
+
+  function setEligibilityError(element, message) {
+    if (!element) return;
+    element.textContent = message;
+    element.hidden = false;
+  }
+
+  function renderEligibilitySummary() {
+    if (!eligibilitySummary) return;
+    const copy = eligibilityCopy();
+    eligibilitySummary.replaceChildren();
+    const rows = [];
+    const schemeName = eligibilityName ? eligibilityName.value.trim() : "";
+    const schemeDescription = eligibilityDescription ? eligibilityDescription.value.trim() : "";
+    const categoryOption = eligibilityCategory && eligibilityCategory.value
+      ? eligibilityCategory.selectedOptions[0]
+      : null;
+
+    if (schemeName) rows.push([copy.scheme, schemeName]);
+    if (schemeDescription) rows.push([copy.description, schemeDescription]);
+    if (categoryOption) rows.push([copy.category, categoryOption.textContent.trim()]);
+
+    eligibilityQuestions.forEach((question) => {
+      let answer = eligibilityAnswers[question.id] || "";
+      if (question.type === "income" && answer !== "") answer = copy.incomeOptions[Number(answer)] || answer;
+      if (question.type === "choices") answer = copy[answer] || answer;
+      rows.push([copy[question.label], answer]);
+    });
+
+    rows.forEach(([labelText, valueText]) => {
+      const item = document.createElement("div");
+      const label = document.createElement("dt");
+      const value = document.createElement("dd");
+      label.textContent = labelText;
+      value.textContent = valueText;
+      item.append(label, value);
+      eligibilitySummary.appendChild(item);
+    });
+  }
+
+  const eligibilityRequirementSets = {
+    scholarship: ["state", "education", "studying", "income", "category", "documents"],
+    employment: ["state", "age", "education", "employment", "income", "documents"],
+    agriculture: ["state", "land", "income", "documents"],
+    healthcare: ["state", "age", "income", "category", "documents"],
+    housing: ["state", "housing", "income", "documents"],
+    women: ["state", "age", "employment", "income", "category", "documents"],
+    financial: ["state", "age", "employment", "income", "category", "documents"],
+    general: ["state", "age", "income", "documents"]
+  };
+
+  const eligibilityRequirementAnswers = {
+    state: "state", age: "age", education: "qualification", studying: "studying",
+    income: "income", category: "eligibleCategory", land: "farmland",
+    housing: "home", employment: "employment", documents: "documents"
+  };
+
+  function getEligibilityAnswerLabel(questionId) {
+    const answer = eligibilityAnswers[questionId];
+    if (!answer) return "";
+    const question = eligibilityQuestions.find((item) => item.id === questionId);
+    if (question && question.type === "income") return eligibilityCopy().incomeOptions[Number(answer)] || answer;
+    return eligibilityCopy()[answer] || answer;
+  }
+
+  function buildEligibilityDemoResult() {
+    const copy = eligibilityResultCopy[uiLang];
+    const schemeName = eligibilityName && eligibilityName.value.trim()
+      ? eligibilityName.value.trim()
+      : (eligibilityDescription && eligibilityDescription.value.trim()) || (uiLang === "en" ? "the scheme you described" : "aapki batayi yojana");
+    const schemeText = `${schemeName} ${eligibilityDescription ? eligibilityDescription.value : ""}`;
+    const links = copy.links
+      .filter((link) => link.match.test(schemeText))
+      .map(({ url, label }) => ({ url, label }));
+
+    return {
+      source: "demo",
+      status: "more_information_required",
+      schemeName,
+      reason: copy.statusReason(schemeName),
+      reasoning: copy.reasoning,
+      requirements: (eligibilityRequirementSets[eligibilityProfile] || eligibilityRequirementSets.general).map((key) => {
+        const answerId = eligibilityRequirementAnswers[key];
+        return {
+          condition: copy.requirementLabels[key],
+          status: "verification_required",
+          detail: copy.requirementDetail(getEligibilityAnswerLabel(answerId))
+        };
+      }),
+      documents: (copy.documents[eligibilityProfile] || copy.documents.general).map((name) => ({
+        name,
+        note: copy.documentNote
+      })),
+      nextSteps: copy.nextSteps,
+      officialLinks: links
+    };
+  }
+
+  function renderEligibilityResult(result) {
+    if (!result) return;
+    const copy = eligibilityResultCopy[uiLang];
+    const validStatuses = ["likely_eligible", "not_eligible", "more_information_required"];
+    const status = validStatuses.includes(result.status) ? result.status : "more_information_required";
+    const statusLabels = copy.statusLabels;
+
+    if (eligibilityResultCard) eligibilityResultCard.dataset.status = status;
+    if (eligibilityResultStatusLabel) eligibilityResultStatusLabel.textContent = statusLabels[status];
+    if (eligibilityResultReason) eligibilityResultReason.textContent = result.reason || "";
+    if (eligibilityResultReasonDetail) eligibilityResultReasonDetail.textContent = result.reasoning || result.reason || "";
+    if (eligibilityResultDemoNotice) {
+      eligibilityResultDemoNotice.hidden = result.source !== "demo";
+      eligibilityResultDemoNotice.textContent = copy.demoNotice;
+    }
+
+    if (eligibilityResultRequirements) {
+      eligibilityResultRequirements.replaceChildren();
+      (Array.isArray(result.requirements) ? result.requirements : []).forEach((requirement) => {
+        const item = document.createElement("li");
+        item.className = "eligibility-result-item";
+        const content = document.createElement("div");
+        const condition = document.createElement("p");
+        condition.textContent = requirement.condition || "";
+        content.appendChild(condition);
+        if (requirement.detail) {
+          const detail = document.createElement("p");
+          detail.textContent = requirement.detail;
+          content.appendChild(detail);
+        }
+        const badge = document.createElement("span");
+        badge.className = "eligibility-result-badge";
+        const allowedRequirementStatuses = ["match", "does_not_match", "verification_required"];
+        const requirementStatus = allowedRequirementStatuses.includes(requirement.status)
+          ? requirement.status
+          : "verification_required";
+        badge.dataset.status = requirementStatus;
+        badge.textContent = requirement.statusLabel || (requirementStatus === "match"
+          ? (uiLang === "en" ? "Matches your information" : "Aapki jaankari se milta hai")
+          : requirementStatus === "does_not_match"
+            ? (uiLang === "en" ? "Does not match" : "Nahi milta")
+            : copy.verification);
+        item.append(content, badge);
+        eligibilityResultRequirements.appendChild(item);
+      });
+    }
+
+    if (eligibilityResultDocuments) {
+      eligibilityResultDocuments.replaceChildren();
+      (Array.isArray(result.documents) ? result.documents : []).forEach((documentInfo) => {
+        const item = document.createElement("li");
+        const label = document.createElement("label");
+        label.className = "eligibility-document-item";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = documentInfo.name || "";
+        checkbox.dataset.resultDocument = "true";
+        const text = document.createElement("span");
+        const title = document.createElement("strong");
+        title.textContent = documentInfo.name || "";
+        text.appendChild(title);
+        if (documentInfo.note) {
+          const note = document.createElement("small");
+          note.textContent = ` ${documentInfo.note}`;
+          text.appendChild(note);
+        }
+        label.append(checkbox, text);
+        item.appendChild(label);
+        eligibilityResultDocuments.appendChild(item);
+      });
+    }
+
+    if (eligibilityResultNextSteps) {
+      eligibilityResultNextSteps.replaceChildren();
+      (Array.isArray(result.nextSteps) ? result.nextSteps : []).forEach((step) => {
+        const item = document.createElement("li");
+        item.textContent = step;
+        eligibilityResultNextSteps.appendChild(item);
+      });
+    }
+
+    if (eligibilityResultLinks && eligibilityResultLinkList) {
+      eligibilityResultLinkList.replaceChildren();
+      (Array.isArray(result.officialLinks) ? result.officialLinks : []).forEach((officialLink) => {
+        try {
+          const safeUrl = new URL(officialLink.url);
+          if (!['https:', 'http:'].includes(safeUrl.protocol)) return;
+          const item = document.createElement("li");
+          const anchor = document.createElement("a");
+          anchor.href = safeUrl.href;
+          anchor.target = "_blank";
+          anchor.rel = "noopener noreferrer";
+          anchor.textContent = officialLink.label || safeUrl.hostname;
+          const icon = document.createElement("span");
+          icon.className = "sr-only";
+          icon.textContent = uiLang === "en" ? " (opens in a new tab)" : " (naye tab mein khulega)";
+          anchor.appendChild(icon);
+          item.appendChild(anchor);
+          eligibilityResultLinkList.appendChild(item);
+        } catch (error) {
+          return;
+        }
+      });
+      eligibilityResultLinks.hidden = eligibilityResultLinkList.children.length === 0;
+    }
+  }
+
+  function downloadEligibilityResult() {
+    if (!eligibilityCurrentResult) return;
+    const result = eligibilityCurrentResult;
+    const selectedDocuments = $$('[data-result-document]:checked').map((input) => input.value);
+    const answerLines = Array.from(eligibilitySummary ? eligibilitySummary.querySelectorAll("div") : [])
+      .map((row) => `${$("dt", row).textContent}: ${$("dd", row).textContent}`);
+    const resultLines = [
+      eligibilityResultCopy[uiLang].demoNotice,
+      `${uiLang === "en" ? "Scheme" : "Yojana"}: ${result.schemeName}`,
+      `${uiLang === "en" ? "Status" : "Sthiti"}: ${eligibilityResultCopy[uiLang].statusLabels[result.status]}`,
+      `${uiLang === "en" ? "Reason" : "Kaaran"}: ${result.reasoning}`,
+      "",
+      uiLang === "en" ? "Answers shared:" : "Diye gaye jawaab:",
+      ...answerLines,
+      "",
+      uiLang === "en" ? "Documents you marked:" : "Aapne jo documents chune:",
+      ...(selectedDocuments.length ? selectedDocuments : [uiLang === "en" ? "None" : "Koi nahi"]),
+      "",
+      ...(result.officialLinks || []).map((link) => `${link.label}: ${link.url}`)
+    ];
+    const file = new Blob([resultLines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(file);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "sarthix-eligibility-demo-result.txt";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast(eligibilityResultCopy[uiLang].saved);
+  }
+
+  function refreshEligibilityLanguage() {
+    if (!eligibilityForm) return;
+    if (eligibilityVoiceButton) eligibilityVoiceButton.setAttribute("aria-label", eligibilityCopy().voiceButtonLabel);
+    if (eligibilityStage === "questions") renderEligibilityQuestion(false);
+    if (eligibilityStage === "review") {
+      if (eligibilityCurrentResult && eligibilityCurrentResult.source === "demo") {
+        eligibilityCurrentResult = buildEligibilityDemoResult();
+      }
+      renderEligibilitySummary();
+      renderEligibilityResult(eligibilityCurrentResult);
+    }
+  }
+
+  if (eligibilityForm) {
+    eligibilityForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (eligibilityStage !== "scheme") {
+        if (eligibilityStage === "questions" && eligibilityNext) eligibilityNext.click();
+        return;
+      }
+      const schemeName = eligibilityName ? eligibilityName.value.trim() : "";
+      const schemeDescription = eligibilityDescription ? eligibilityDescription.value.trim() : "";
+      if (!schemeName && !schemeDescription) {
+        setEligibilityError(eligibilityError, eligibilityQuestionCopy[uiLang].missingScheme);
+        if (eligibilityName) eligibilityName.focus();
+        return;
+      }
+      eligibilityQuestions = buildEligibilityQuestions();
+      eligibilityQuestionIndex = 0;
+      eligibilityAnswers = {};
+      eligibilityCurrentResult = null;
+      setEligibilityStage("questions");
+    });
+
+    if (eligibilityQuestionFieldset) {
+      eligibilityQuestionFieldset.addEventListener("input", saveCurrentEligibilityAnswer);
+      eligibilityQuestionFieldset.addEventListener("change", saveCurrentEligibilityAnswer);
+    }
+
+    if (eligibilityVoiceButton) {
+      eligibilityVoiceButton.addEventListener("click", () => {
+        if (isListening) {
+          if (eligibilityVoiceTarget === eligibilityQuestionFieldset) stopVoice();
+          else if (eligibilityVoiceStatus) eligibilityVoiceStatus.textContent = eligibilityQuestionCopy[uiLang].voiceUnmatched;
+          return;
+        }
+        eligibilityVoiceTarget = eligibilityQuestionFieldset;
+        if (eligibilityVoiceStatus) eligibilityVoiceStatus.textContent = "";
+        startVoiceFromUser();
+      });
+    }
+
+    if (eligibilityNext) {
+      eligibilityNext.addEventListener("click", () => {
+        saveCurrentEligibilityAnswer();
+        const question = eligibilityQuestions[eligibilityQuestionIndex];
+        const value = eligibilityAnswers[question.id];
+        const selected = $("input[type='radio']:checked", eligibilityQuestionFieldset);
+        const control = selected || $("[data-answer]", eligibilityQuestionFieldset);
+        if (!value || (question.type === "number" && (Number(value) < question.min || Number(value) > question.max))) {
+          setEligibilityError(eligibilityQuestionError, eligibilityQuestionCopy[uiLang].missingAnswer);
+          if (control) control.focus();
+          return;
+        }
+        eligibilityQuestionError.hidden = true;
+        if (eligibilityQuestionIndex < eligibilityQuestions.length - 1) {
+          eligibilityQuestionIndex += 1;
+          renderEligibilityQuestion(true);
+        } else {
+          setEligibilityStage("review");
+        }
+      });
+    }
+
+    const backButton = $("[data-eligibility-back]");
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        saveCurrentEligibilityAnswer();
+        if (eligibilityQuestionIndex > 0) {
+          eligibilityQuestionIndex -= 1;
+          renderEligibilityQuestion(true);
+        } else {
+          setEligibilityStage("scheme");
+          if (eligibilityName) eligibilityName.focus({ preventScroll: true });
+        }
+      });
+    }
+
+    const editButton = $("[data-eligibility-edit]");
+    if (editButton) {
+      editButton.addEventListener("click", () => {
+        eligibilityQuestionIndex = Math.max(eligibilityQuestions.length - 1, 0);
+        setEligibilityStage("questions");
+      });
+    }
+
+    const resetButton = $("[data-eligibility-reset]");
+    if (resetButton) {
+      resetButton.addEventListener("click", () => {
+        eligibilityForm.reset();
+        eligibilityAnswers = {};
+        eligibilityQuestionIndex = 0;
+        eligibilityQuestions = [];
+        eligibilityCurrentResult = null;
+        setEligibilityStage("scheme");
+        if (eligibilityName) eligibilityName.focus({ preventScroll: true });
+      });
+    }
+
+    if (eligibilityResultDownload) {
+      eligibilityResultDownload.addEventListener("click", downloadEligibilityResult);
+    }
+
+    if (eligibilityResultFollowup) {
+      eligibilityResultFollowup.addEventListener("click", () => {
+        const result = eligibilityCurrentResult;
+        if (!result) return;
+        openChat();
+        if (chatInput) {
+          chatInput.value = `${eligibilityResultCopy[uiLang].followup} (${result.schemeName})`;
+          chatInput.focus({ preventScroll: true });
+        }
+      });
+    }
+  }
+
+  /* ── 12. Document intake prototype ──────────────────────────── */
+  const documentApp = $("[data-document-app]");
+  const documentDropzone = $("[data-document-dropzone]");
+  const documentFileInput = $("[data-document-file]");
+  const documentPreview = $("[data-document-preview]");
+  const documentImagePreview = $("[data-document-image]");
+  const documentPdfPreview = $("[data-document-pdf]");
+  const documentFilename = $("[data-document-filename]");
+  const documentFiletype = $("[data-document-filetype]");
+  const documentPastedText = $("[data-document-text]");
+  const documentAnalyseButton = $("[data-document-analyse]");
+  const documentStatus = $("[data-document-status]");
+  const documentAnalysisStatus = $("[data-document-analysis-status]");
+  const documentIntake = $("[data-document-intake]");
+  const documentPanel = $("[data-document-app]");
+  const documentResults = $("[data-document-results]");
+  const documentResultsTitle = $("#document-results-title");
+  const documentUnclearNotice = $("[data-document-unclear]");
+  const documentTypeOutput = $("[data-document-type]");
+  const documentTypeEvidence = $("[data-document-type-evidence]");
+  const documentExplanationOutput = $("[data-document-explanation]");
+  const documentPurposeOutput = $("[data-document-purpose]");
+  const documentRequestedActionOutput = $("[data-document-requested-action]");
+  const documentImportantInformation = $("[data-document-important-information]");
+  const documentActionList = $("[data-document-actions]");
+  const documentWarningList = $("[data-document-warnings]");
+  const documentLegalDisclaimer = $("[data-document-legal-disclaimer]");
+  const documentQuestionForm = $("[data-document-question-form]");
+  const documentQuestionInput = $("[data-document-question-input]");
+  const documentQuestionVoiceButton = $("[data-document-question-voice]");
+  const documentQuestionVoiceStatus = $("[data-document-question-voice-status]");
+  const documentQuestionStatus = $("[data-document-question-status]");
+  const documentListenButton = $("[data-document-listen]");
+  const documentSpeechStatus = $("[data-document-speech-status]");
+  const documentDownloadButton = $("[data-document-download]");
+  const documentAnotherButton = $("[data-document-another]");
+  const documentAskAnotherButton = $("[data-document-ask-another]");
+
+  const documentUiCopy = {
+    hi: {
+      invalidType: "कृपया JPG, JPEG, PNG या PDF फ़ाइल चुनें।",
+      fileReady: "फ़ाइल केवल इसी ब्राउज़र में दिखाई जा रही है। इसे कहीं नहीं भेजा गया है।",
+      textReady: "पाठ तैयार है। इस नमूने में इसे कहीं नहीं भेजा जाएगा।",
+      voiceGuide: "नोटिस या पत्र अपलोड करें, या उसका पाठ यहाँ चिपकाएँ। दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है।",
+      notConnected: "दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है। आपकी सामग्री कहीं नहीं भेजी जाएगी।",
+      unavailable: "विश्लेषण सेवा अभी उपलब्ध नहीं है। आपकी फ़ाइल या पाठ कहीं नहीं भेजा गया।",
+      onlyOneFile: "एक बार में केवल एक दस्तावेज़ चुनें।",
+      chooseFile: "JPG, JPEG, PNG या PDF दस्तावेज़ चुनें",
+      pdf: "PDF दस्तावेज़", image: "चित्र", previewAlt: "अपलोड किए गए दस्तावेज़ का पूर्वावलोकन"
+    },
+    en: {
+      invalidType: "Choose a JPG, JPEG, PNG or PDF file.",
+      fileReady: "This file is previewed only in this browser. Nothing has been sent.",
+      textReady: "Your text is ready. This prototype will not send it anywhere.",
+      voiceGuide: "Upload the notice or letter, or paste its text. Document analysis is not connected yet.",
+      notConnected: "Document analysis is not connected yet. Your content will not be sent.",
+      unavailable: "The analysis service is not available yet. Your file or text was not sent.",
+      onlyOneFile: "Choose one document at a time.",
+      chooseFile: "Choose a JPG, JPEG, PNG or PDF document",
+      pdf: "PDF document", image: "Image document", previewAlt: "Uploaded document preview"
+    }
+  };
+
+  const documentResultCopy = {
+    hi: {
+      stated: "दस्तावेज़ में लिखा है",
+      explanation: "एआई द्वारा तैयार व्याख्या",
+      suggested: "समझने के लिए सुझाव",
+      verify: "मूल दस्तावेज़ से जाँचें",
+      sourceExcerpt: "दस्तावेज़ का अंश",
+      noDetails: "इस भाग के लिए कोई जानकारी नहीं दी गई है।",
+      noWarnings: "विश्लेषण में कोई विशेष चेतावनी नहीं दी गई है। फिर भी मूल दस्तावेज़ ध्यान से पढ़ें।",
+      unclear: "दस्तावेज़ या उसका कुछ भाग अस्पष्ट अथवा अधूरा है। नीचे दी गई जानकारी की पुष्टि मूल दस्तावेज़ या उसके प्रेषक से करें।",
+      legal: "यह व्याख्या केवल जानकारी के लिए है। यह कानूनी सलाह नहीं है और किसी योग्य कानूनी विशेषज्ञ की सलाह का विकल्प नहीं है।",
+      questionUnavailable: "दस्तावेज़ के सवालों के जवाब देने की सुविधा अभी उपलब्ध नहीं है। आपका सवाल कहीं नहीं भेजा गया।",
+      questionRequired: "पहले अपना सवाल लिखें।",
+      voiceListening: "सुन रहा हूँ… अपना सवाल बोलें।",
+      voiceMatched: "आपका सवाल लिख दिया गया है। भेजने से पहले जाँच लें।",
+      voiceButtonLabel: "बोलकर सवाल पूछें",
+      speechUnavailable: "इस ब्राउज़र में आवाज़ में सुनने की सुविधा उपलब्ध नहीं है। आप सार पढ़ सकते हैं।",
+      saved: "दस्तावेज़ का सार सहेजा गया",
+      emptyQuestion: ""
+    },
+    en: {
+      stated: "Stated in document",
+      explanation: "AI-generated explanation",
+      suggested: "Suggested for understanding",
+      verify: "Check against the original",
+      sourceExcerpt: "Excerpt from document",
+      noDetails: "No information was provided for this section.",
+      noWarnings: "No specific warnings were supplied in the analysis. Still review the original document carefully.",
+      unclear: "The document or part of it is unclear or incomplete. Confirm the details below with the original document or its sender.",
+      legal: "This explanation is for information only. It is not legal advice and is not a substitute for advice from a qualified legal professional.",
+      questionUnavailable: "Document questions are not connected yet. Your question has not been sent.",
+      questionRequired: "Enter a question first.",
+      voiceListening: "Listening... speak your question.",
+      voiceMatched: "Your question was added. Review it before sending.",
+      voiceButtonLabel: "Ask by voice",
+      speechUnavailable: "Audio playback is not available in this browser. You can read the text summary.",
+      saved: "Document summary saved",
+      emptyQuestion: ""
+    }
+  };
+
+  let localDocumentFile = null;
+  let localDocumentUrl = "";
+  let documentStatusKey = "notConnected";
+  let documentQuestionStatusKey = "";
+  let currentDocumentAnalysisResult = null;
+
+  function documentCopy() {
+    return documentUiCopy[uiLang];
+  }
+
+  function routeAssistantFeatureIntent(rawMessage, options = {}) {
+    const message = String(rawMessage || "").trim();
+    const normalized = message.toLowerCase();
+    const hasDocumentTopic = /notice|letter|document|email|chitthi|patra|dastavez/.test(normalized);
+    const hasDocumentIntent = /received|got|don't understand|dont understand|do not understand|explain|meaning|samajh nahi|samajhna|samjha/.test(normalized);
+    const documentIntent = hasDocumentTopic && hasDocumentIntent;
+    const scholarshipIntent = /scholarship|education|student|chatravritti|छात्रवृत्ति|शिक्षा/.test(normalized);
+    const eligibilityIntent = /eligib|qualif|patrata|योग्य/.test(normalized) ||
+      (scholarshipIntent && /check|whether|government|sarkari|eligible|yojana|scheme|am i/.test(normalized));
+
+    if (!documentIntent && !eligibilityIntent) return false;
+    if (chatPanel && !chatPanel.hidden) closeChat();
+
+    let guidance = "";
+    if (documentIntent) {
+      const hasResult = currentDocumentAnalysisResult && documentResults && !documentResults.hidden;
+      setDocumentStatus("voiceGuide");
+      const documentSection = $("#understand-document");
+      if (documentSection) documentSection.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+      const target = hasResult ? documentQuestionInput : $("[data-document-browse]");
+      if (target) target.focus({ preventScroll: true });
+      guidance = uiLang === "en"
+        ? (hasResult
+          ? "I opened your document summary. You can ask a question by typing or speaking."
+          : "I opened the document tool. Upload the notice or letter, or paste its text. You can ask by typing or speaking.")
+        : (hasResult
+          ? "Maine document ka saar khol diya hai. Aap likhkar ya bolkar sawaal poochh sakte hain."
+          : "Maine document tool khol diya hai. Notice ya chitthi upload karein, ya text paste karein. Aap likhkar ya bolkar sawaal poochh sakte hain.");
+    } else {
+      if (eligibilityForm) eligibilityForm.reset();
+      eligibilityAnswers = {};
+      eligibilityQuestions = [];
+      eligibilityQuestionIndex = 0;
+      eligibilityCurrentResult = null;
+
+      if (scholarshipIntent && eligibilityDescription && eligibilityCategory) {
+        if (eligibilityName) eligibilityName.value = "";
+        eligibilityDescription.value = message;
+        eligibilityCategory.value = "education";
+        eligibilityQuestions = buildEligibilityQuestions();
+        setEligibilityStage("questions");
+        guidance = uiLang === "en"
+          ? "Let’s check the scholarship step by step. First, which state or Union Territory do you live in?"
+          : "Scholarship ki patrata ek-ek karke jaanchte hain. Pehle batayein, aap kis rajya ya kendra shasit pradesh mein rehte hain?";
+      } else {
+        setEligibilityStage("scheme");
+        guidance = uiLang === "en"
+          ? "I opened the eligibility check. Enter a scheme name or describe it, then we’ll go through the questions together."
+          : "Maine patrata jaanch khol di hai. Yojana ka naam ya uska vivaran likhein, phir hum sawaal ek-ek karke dekhenge.";
+      }
+
+      const eligibilitySection = $("#eligibility");
+      if (eligibilitySection) eligibilitySection.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+      if (!scholarshipIntent && eligibilityName) eligibilityName.focus({ preventScroll: true });
+    }
+
+    showToast(guidance);
+    if (options.speak) speakAnswer(guidance);
+    return true;
+  }
+
+  function setDocumentStatus(key) {
+    documentStatusKey = key;
+    if (documentStatus) documentStatus.textContent = documentCopy()[key];
+  }
+
+  function documentKind(file) {
+    const extension = file.name.split(".").pop().toLowerCase();
+    return extension === "pdf" ? documentCopy().pdf : documentCopy().image;
+  }
+
+  function formatDocumentSize(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  function updateDocumentAvailability() {
+    if (!documentAnalyseButton) return;
+    const hasFile = Boolean(localDocumentFile);
+    const hasText = Boolean(documentPastedText && documentPastedText.value.trim());
+    documentAnalyseButton.disabled = !hasFile && !hasText;
+    if (!hasFile && documentPastedText && hasText && documentStatusKey === "notConnected") {
+      setDocumentStatus("textReady");
+    } else if (!hasFile && !hasText && documentStatusKey === "textReady") {
+      setDocumentStatus("notConnected");
+    }
+  }
+
+  function releaseDocumentPreview() {
+    if (localDocumentUrl) URL.revokeObjectURL(localDocumentUrl);
+    localDocumentUrl = "";
+  }
+
+  function removeDocumentFile() {
+    releaseDocumentPreview();
+    localDocumentFile = null;
+    if (documentFileInput) documentFileInput.value = "";
+    if (documentFilename) documentFilename.textContent = "";
+    if (documentFiletype) documentFiletype.textContent = "";
+    if (documentPreview) documentPreview.hidden = true;
+    if (documentDropzone) documentDropzone.hidden = false;
+    if (documentImagePreview) {
+      documentImagePreview.hidden = true;
+      documentImagePreview.removeAttribute("src");
+    }
+    if (documentPdfPreview) {
+      documentPdfPreview.hidden = true;
+      documentPdfPreview.removeAttribute("src");
+    }
+    if (documentAnalysisStatus) documentAnalysisStatus.hidden = true;
+    setDocumentStatus(documentPastedText && documentPastedText.value.trim() ? "textReady" : "notConnected");
+    updateDocumentAvailability();
+  }
+
+  function setDocumentFile(file) {
+    if (!file || !documentPreview || !documentDropzone) return;
+    const extension = file.name.split(".").pop().toLowerCase();
+    const acceptedMimeByExtension = {
+      jpg: ["image/jpeg"], jpeg: ["image/jpeg"], png: ["image/png"], pdf: ["application/pdf"]
+    };
+    const acceptedMimes = acceptedMimeByExtension[extension] || [];
+    if (!acceptedMimes.length || (file.type && file.type !== "application/octet-stream" && !acceptedMimes.includes(file.type))) {
+      setDocumentStatus("invalidType");
+      return;
+    }
+    if (typeof URL.createObjectURL !== "function") {
+      setDocumentStatus("unavailable");
+      return;
+    }
+
+    releaseDocumentPreview();
+    localDocumentFile = file;
+    localDocumentUrl = URL.createObjectURL(file);
+    documentFilename.textContent = file.name;
+    documentFiletype.textContent = `${documentKind(file)} · ${formatDocumentSize(file.size)}`;
+    documentDropzone.hidden = true;
+    documentPreview.hidden = false;
+    if (documentAnalysisStatus) documentAnalysisStatus.hidden = true;
+
+    const isPdf = extension === "pdf";
+    if (documentImagePreview) {
+      documentImagePreview.hidden = isPdf;
+      documentImagePreview.alt = documentCopy().previewAlt;
+      if (!isPdf) documentImagePreview.src = localDocumentUrl;
+      else documentImagePreview.removeAttribute("src");
+    }
+    if (documentPdfPreview) {
+      documentPdfPreview.hidden = !isPdf;
+      if (isPdf) documentPdfPreview.src = localDocumentUrl;
+      else documentPdfPreview.removeAttribute("src");
+    }
+
+    setDocumentStatus("fileReady");
+    updateDocumentAvailability();
+  }
+
+  function openDocumentPicker() {
+    if (!documentFileInput) return;
+    documentFileInput.value = "";
+    documentFileInput.click();
+  }
+
+  function maskDocumentSensitiveText(value) {
+    return String(value || "")
+      .replace(/\b\d{4}[\s-]?\d{4}[\s-]?\d{4}\b/g, (match) => `XXXX XXXX ${match.replace(/\D/g, "").slice(-4)}`)
+      .replace(/\b[A-Z]{5}\d{4}[A-Z]\b/gi, "XXXXX****X")
+      .replace(/\b\d{9,18}\b/g, (match) => `${"X".repeat(Math.max(match.length - 4, 4))}${match.slice(-4)}`);
+  }
+
+  function setDocumentEmptyState(list, text) {
+    if (!list) return;
+    const item = document.createElement("li");
+    item.className = "document-result-empty";
+    item.textContent = text;
+    list.replaceChildren(item);
+  }
+
+  function appendDocumentFact(list, fact) {
+    const item = document.createElement("li");
+    item.className = "document-result-item";
+    const title = document.createElement("strong");
+    title.textContent = maskDocumentSensitiveText(fact.label || "");
+    item.appendChild(title);
+
+    if (fact.value) {
+      const value = document.createElement("p");
+      value.textContent = maskDocumentSensitiveText(fact.value);
+      item.appendChild(value);
+    }
+
+    const sourceExcerpt = fact.sourceExcerpt || fact.evidence;
+    const source = document.createElement("span");
+    source.className = sourceExcerpt ? "document-source-badge" : "document-source-badge document-source-badge--explanation";
+    source.textContent = sourceExcerpt ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested;
+    item.appendChild(source);
+
+    if (sourceExcerpt) {
+      const quote = document.createElement("p");
+      quote.className = "document-result-source-quote";
+      quote.textContent = `${documentResultCopy[uiLang].sourceExcerpt}: “${maskDocumentSensitiveText(sourceExcerpt)}”`;
+      item.appendChild(quote);
+    }
+    list.appendChild(item);
+  }
+
+  function appendDocumentWarning(list, warning) {
+    const item = document.createElement("li");
+    item.className = "document-warning-item";
+    if (warning.severity === "urgent") item.dataset.severity = "urgent";
+    const title = document.createElement("strong");
+    title.textContent = maskDocumentSensitiveText(warning.title || warning.label || "");
+    item.appendChild(title);
+    if (warning.detail || warning.text) {
+      const detail = document.createElement("p");
+      detail.textContent = maskDocumentSensitiveText(warning.detail || warning.text);
+      item.appendChild(detail);
+    }
+    const sourceExcerpt = warning.sourceExcerpt || warning.evidence;
+    const source = document.createElement("span");
+    source.className = sourceExcerpt ? "document-source-badge" : "document-source-badge document-source-badge--explanation";
+    source.textContent = sourceExcerpt ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested;
+    item.appendChild(source);
+    if (sourceExcerpt) {
+      const quote = document.createElement("p");
+      quote.className = "document-result-source-quote";
+      quote.textContent = `${documentResultCopy[uiLang].sourceExcerpt}: “${maskDocumentSensitiveText(sourceExcerpt)}”`;
+      item.appendChild(quote);
+    }
+    list.appendChild(item);
+  }
+
+  function renderDocumentAnalysisResult(result, shouldFocus = true) {
+    if (!result || result.source !== "backend" || !documentResults) return false;
+    const type = typeof result.documentType === "string"
+      ? { label: result.documentType }
+      : (result.documentType || {});
+    const explanation = typeof result.explanation === "string"
+      ? result.explanation
+      : (result.explanation && result.explanation.text) || "";
+    const purpose = typeof result.purpose === "string"
+      ? { text: result.purpose }
+      : (result.purpose || {});
+    const requestedAction = typeof result.requestedAction === "string"
+      ? { text: result.requestedAction }
+      : (result.requestedAction || {});
+    const importantInformation = Array.isArray(result.importantInformation) ? result.importantInformation : [];
+    const actionItems = Array.isArray(result.actionItems) ? result.actionItems : [];
+    const warnings = Array.isArray(result.warnings) ? result.warnings : [];
+
+    currentDocumentAnalysisResult = result;
+    documentResults.hidden = false;
+    if (documentIntake) documentIntake.hidden = true;
+    if (documentPanel) documentPanel.classList.add("is-results");
+    if (documentAnalysisStatus) documentAnalysisStatus.hidden = true;
+
+    const typeEvidence = type.sourceExcerpt || type.evidence;
+    if (documentTypeOutput) documentTypeOutput.textContent = maskDocumentSensitiveText(type.label || "");
+    if (documentTypeEvidence) {
+      documentTypeEvidence.textContent = typeEvidence
+        ? `${documentResultCopy[uiLang].stated}: “${maskDocumentSensitiveText(typeEvidence)}”`
+        : documentResultCopy[uiLang].suggested;
+    }
+    if (documentExplanationOutput) documentExplanationOutput.textContent = maskDocumentSensitiveText(explanation);
+
+    if (documentPurposeOutput) {
+      documentPurposeOutput.replaceChildren();
+      documentPurposeOutput.appendChild(document.createTextNode(maskDocumentSensitiveText(purpose.text || "")));
+      const source = document.createElement("span");
+      source.className = purpose.sourceExcerpt || purpose.evidence
+        ? "document-source-badge"
+        : "document-source-badge document-source-badge--explanation";
+      source.textContent = purpose.sourceExcerpt || purpose.evidence
+        ? documentResultCopy[uiLang].stated
+        : documentResultCopy[uiLang].explanation;
+      documentPurposeOutput.appendChild(source);
+      const sourceExcerpt = purpose.sourceExcerpt || purpose.evidence;
+      if (sourceExcerpt) {
+        const quote = document.createElement("span");
+        quote.className = "document-result-source-quote";
+        quote.textContent = ` ${documentResultCopy[uiLang].sourceExcerpt}: “${maskDocumentSensitiveText(sourceExcerpt)}”`;
+        documentPurposeOutput.appendChild(quote);
+      }
+    }
+
+    if (documentRequestedActionOutput) {
+      documentRequestedActionOutput.replaceChildren();
+      documentRequestedActionOutput.appendChild(document.createTextNode(maskDocumentSensitiveText(requestedAction.text || "")));
+      documentRequestedActionOutput.hidden = !requestedAction.text;
+      if (requestedAction.text) {
+        const source = document.createElement("span");
+        source.className = requestedAction.sourceExcerpt || requestedAction.evidence
+          ? "document-source-badge"
+          : "document-source-badge document-source-badge--explanation";
+        source.textContent = requestedAction.sourceExcerpt || requestedAction.evidence
+          ? documentResultCopy[uiLang].stated
+          : documentResultCopy[uiLang].suggested;
+        documentRequestedActionOutput.appendChild(source);
+        const sourceExcerpt = requestedAction.sourceExcerpt || requestedAction.evidence;
+        if (sourceExcerpt) {
+          const quote = document.createElement("span");
+          quote.className = "document-result-source-quote";
+          quote.textContent = ` ${documentResultCopy[uiLang].sourceExcerpt}: “${maskDocumentSensitiveText(sourceExcerpt)}”`;
+          documentRequestedActionOutput.appendChild(quote);
+        }
+      }
+    }
+
+    if (importantInformation.length) {
+      documentImportantInformation.replaceChildren();
+      importantInformation.forEach((fact) => appendDocumentFact(
+        documentImportantInformation,
+        typeof fact === "string" ? { label: fact } : fact
+      ));
+    } else {
+      setDocumentEmptyState(documentImportantInformation, documentResultCopy[uiLang].noDetails);
+    }
+
+    if (actionItems.length) {
+      documentActionList.replaceChildren();
+      actionItems.forEach((action) => {
+        const actionData = typeof action === "string" ? { text: action } : action;
+        const item = document.createElement("li");
+        item.appendChild(document.createTextNode(maskDocumentSensitiveText(actionData.text || "")));
+        const sourceExcerpt = actionData.sourceExcerpt || actionData.evidence;
+        const source = document.createElement("span");
+        source.className = sourceExcerpt ? "document-source-badge" : "document-source-badge document-source-badge--explanation";
+        source.textContent = sourceExcerpt ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested;
+        item.appendChild(source);
+        documentActionList.appendChild(item);
+      });
+    } else {
+      setDocumentEmptyState(documentActionList, documentResultCopy[uiLang].noDetails);
+    }
+
+    if (warnings.length) {
+      documentWarningList.replaceChildren();
+      warnings.forEach((warning) => appendDocumentWarning(
+        documentWarningList,
+        typeof warning === "string" ? { title: warning } : warning
+      ));
+    } else {
+      setDocumentEmptyState(documentWarningList, documentResultCopy[uiLang].noWarnings);
+    }
+
+    const unclear = result.isUnclear === true || result.isIncomplete === true ||
+      result.clarity === "unclear" || result.clarity === "incomplete" ||
+      !type.label || !explanation || !purpose.text;
+    if (documentUnclearNotice) {
+      documentUnclearNotice.textContent = maskDocumentSensitiveText(result.clarityMessage || documentResultCopy[uiLang].unclear);
+      documentUnclearNotice.hidden = !unclear;
+    }
+
+    const typeLabel = String(type.label || "").toLowerCase();
+    const isLegalNotice = result.isLegalNotice === true || type.category === "legal_notice" ||
+      /legal notice|court notice|kanooni notice/.test(typeLabel);
+    if (documentLegalDisclaimer) documentLegalDisclaimer.hidden = !isLegalNotice;
+
+    if (shouldFocus && documentResultsTitle) {
+      documentResultsTitle.setAttribute("tabindex", "-1");
+      documentResultsTitle.focus({ preventScroll: true });
+    }
+    return true;
+  }
+
+  function buildDocumentSummaryText(result) {
+    const typeData = typeof result.documentType === "string" ? { label: result.documentType } : (result.documentType || {});
+    const explanationData = typeof result.explanation === "string" ? { text: result.explanation } : (result.explanation || {});
+    const purposeData = typeof result.purpose === "string" ? { text: result.purpose } : (result.purpose || {});
+    const requestedActionData = typeof result.requestedAction === "string" ? { text: result.requestedAction } : (result.requestedAction || {});
+    const provenance = (data) => data.sourceExcerpt || data.evidence
+      ? documentResultCopy[uiLang].stated
+      : documentResultCopy[uiLang].explanation;
+    const lines = [
+      `${uiLang === "en" ? "Document type" : "Document ka prakaar"}: ${maskDocumentSensitiveText(typeData.label || "")} [${provenance(typeData)}]`,
+      `${uiLang === "en" ? "Simple explanation" : "Aasaan samjhauta"} [${documentResultCopy[uiLang].explanation}]: ${maskDocumentSensitiveText(explanationData.text || "")}`,
+      `${uiLang === "en" ? "Purpose" : "Maqsad"} [${provenance(purposeData)}]: ${maskDocumentSensitiveText(purposeData.text || "")}`
+    ];
+    if (requestedActionData.text) {
+      lines.push(`${uiLang === "en" ? "Requested action" : "Maanga gaya kadam"} [${provenance(requestedActionData)}]: ${maskDocumentSensitiveText(requestedActionData.text)}`);
+    }
+
+    lines.push("", uiLang === "en" ? "Important information:" : "Zaroori jaankari:");
+    (result.importantInformation || []).forEach((fact) => {
+      const item = typeof fact === "string" ? { label: fact } : fact;
+      const evidence = item.sourceExcerpt || item.evidence;
+      lines.push(`- ${maskDocumentSensitiveText(item.label || "")}: ${maskDocumentSensitiveText(item.value || "")} [${evidence ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested}]`);
+      if (evidence) lines.push(`  ${documentResultCopy[uiLang].sourceExcerpt}: ${maskDocumentSensitiveText(evidence)}`);
+    });
+
+    lines.push("", uiLang === "en" ? "Suggested next steps:" : "Sujhaaye gaye agle kadam:");
+    (result.actionItems || []).forEach((action) => {
+      const item = typeof action === "string" ? { text: action } : action;
+      const evidence = item.sourceExcerpt || item.evidence;
+      lines.push(`- ${maskDocumentSensitiveText(item.text || "")} [${evidence ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested}]`);
+      if (evidence) lines.push(`  ${documentResultCopy[uiLang].sourceExcerpt}: ${maskDocumentSensitiveText(evidence)}`);
+    });
+    lines.push("", uiLang === "en" ? "Warnings:" : "Chetavani:");
+    (result.warnings || []).forEach((warning) => {
+      const item = typeof warning === "string" ? { detail: warning } : warning;
+      const evidence = item.sourceExcerpt || item.evidence;
+      lines.push(`- ${maskDocumentSensitiveText(item.detail || item.title || "")} [${evidence ? documentResultCopy[uiLang].stated : documentResultCopy[uiLang].suggested}]`);
+      if (evidence) lines.push(`  ${documentResultCopy[uiLang].sourceExcerpt}: ${maskDocumentSensitiveText(evidence)}`);
+    });
+    if (result.isUnclear || result.isIncomplete || result.clarity === "unclear" || result.clarity === "incomplete") {
+      lines.push("", maskDocumentSensitiveText(result.clarityMessage || documentResultCopy[uiLang].unclear));
+    }
+    const typeLabel = String(typeof result.documentType === "string" ? result.documentType : result.documentType && result.documentType.label || "").toLowerCase();
+    if (result.isLegalNotice || /legal notice|court notice|kanooni notice/.test(typeLabel)) {
+      lines.push("", documentResultCopy[uiLang].legal);
+    }
+    return lines.join("\n");
+  }
+
+  function downloadDocumentSummary() {
+    if (!currentDocumentAnalysisResult) return;
+    const blob = new Blob([buildDocumentSummaryText(currentDocumentAnalysisResult)], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "sarthix-document-summary.txt";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function resetDocumentExperience() {
+    currentDocumentAnalysisResult = null;
+    if (documentResults) documentResults.hidden = true;
+    if (documentIntake) documentIntake.hidden = false;
+    if (documentPanel) documentPanel.classList.remove("is-results");
+    if (documentPastedText) documentPastedText.value = "";
+    if (documentQuestionInput) documentQuestionInput.value = "";
+    if (documentQuestionStatus) documentQuestionStatus.hidden = true;
+    if (documentSpeechStatus) documentSpeechStatus.hidden = true;
+    documentQuestionStatusKey = "";
+    if (documentAnalysisStatus) documentAnalysisStatus.hidden = true;
+    removeDocumentFile();
+    const browseButton = $("[data-document-browse]");
+    if (documentApp) documentApp.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+    if (browseButton) browseButton.focus({ preventScroll: true });
+  }
+
+  window.SarthiXDocumentResults = Object.freeze({
+    render: renderDocumentAnalysisResult,
+    reset: resetDocumentExperience
+  });
+
+  function refreshDocumentLanguage() {
+    if (!documentApp) return;
+    if (documentStatus) documentStatus.textContent = documentCopy()[documentStatusKey];
+    if (documentAnalysisStatus && !documentAnalysisStatus.hidden) {
+      documentAnalysisStatus.textContent = documentCopy().unavailable;
+    }
+    if (documentImagePreview) documentImagePreview.alt = documentCopy().previewAlt;
+    if (documentFileInput) documentFileInput.setAttribute("aria-label", documentCopy().chooseFile);
+    if (documentQuestionVoiceButton) documentQuestionVoiceButton.setAttribute("aria-label", documentResultCopy[uiLang].voiceButtonLabel);
+    if (documentQuestionVoiceButton) documentQuestionVoiceButton.setAttribute("aria-label", documentResultCopy[uiLang].voiceButtonLabel);
+    if (localDocumentFile && documentFiletype) {
+      documentFiletype.textContent = `${documentKind(localDocumentFile)} · ${formatDocumentSize(localDocumentFile.size)}`;
+    }
+    if (documentQuestionStatus && !documentQuestionStatus.hidden && documentQuestionStatusKey) {
+      documentQuestionStatus.textContent = documentResultCopy[uiLang][documentQuestionStatusKey];
+    }
+    if (documentSpeechStatus && !documentSpeechStatus.hidden) {
+      documentSpeechStatus.textContent = documentResultCopy[uiLang].speechUnavailable;
+    }
+    updateDocumentAvailability();
+    if (currentDocumentAnalysisResult) renderDocumentAnalysisResult(currentDocumentAnalysisResult, false);
+  }
+
+  if (documentApp) {
+    const browseButton = $("[data-document-browse]");
+    const replaceButton = $("[data-document-replace]");
+    const removeButton = $("[data-document-remove]");
+
+    if (browseButton) browseButton.addEventListener("click", openDocumentPicker);
+    if (replaceButton) replaceButton.addEventListener("click", openDocumentPicker);
+    if (removeButton) removeButton.addEventListener("click", removeDocumentFile);
+
+    if (documentFileInput) {
+      documentFileInput.addEventListener("change", () => {
+        const files = Array.from(documentFileInput.files || []);
+        if (files.length > 1) {
+          setDocumentStatus("onlyOneFile");
+          documentFileInput.value = "";
+          return;
+        }
+        if (files[0]) setDocumentFile(files[0]);
+      });
+    }
+
+    if (documentDropzone) {
+      documentDropzone.addEventListener("dragenter", (event) => {
+        event.preventDefault();
+        documentDropzone.classList.add("is-dragover");
+      });
+      documentDropzone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+        if (event.dataTransfer) event.dataTransfer.dropEffect = "copy";
+        documentDropzone.classList.add("is-dragover");
+      });
+      documentDropzone.addEventListener("dragleave", (event) => {
+        if (!event.relatedTarget || !documentDropzone.contains(event.relatedTarget)) {
+          documentDropzone.classList.remove("is-dragover");
+        }
+      });
+      documentDropzone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        documentDropzone.classList.remove("is-dragover");
+        const files = Array.from((event.dataTransfer && event.dataTransfer.files) || []);
+        if (files.length > 1) {
+          setDocumentStatus("onlyOneFile");
+          return;
+        }
+        if (files[0]) setDocumentFile(files[0]);
+      });
+    }
+
+    if (documentPastedText) {
+      documentPastedText.addEventListener("input", () => {
+        if (documentAnalysisStatus) documentAnalysisStatus.hidden = true;
+        if (!localDocumentFile) {
+          setDocumentStatus(documentPastedText.value.trim() ? "textReady" : "notConnected");
+        }
+        updateDocumentAvailability();
+      });
+    }
+
+    if (documentAnalyseButton) {
+      documentAnalyseButton.addEventListener("click", () => {
+        if (documentAnalysisStatus) {
+          documentAnalysisStatus.textContent = documentCopy().unavailable;
+          documentAnalysisStatus.hidden = false;
+          documentAnalysisStatus.classList.remove("is-error");
+        }
+      });
+    }
+
+    if (documentQuestionForm) {
+      documentQuestionForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const question = documentQuestionInput ? documentQuestionInput.value.trim() : "";
+        if (!documentQuestionStatus) return;
+        documentQuestionStatusKey = question ? "questionUnavailable" : "questionRequired";
+        documentQuestionStatus.textContent = documentResultCopy[uiLang][documentQuestionStatusKey];
+        documentQuestionStatus.hidden = false;
+      });
+    }
+
+    if (documentQuestionInput) {
+      documentQuestionInput.addEventListener("input", () => {
+        documentQuestionStatusKey = "";
+        if (documentQuestionStatus) documentQuestionStatus.hidden = true;
+        if (documentQuestionVoiceStatus) documentQuestionVoiceStatus.hidden = true;
+      });
+    }
+
+    if (documentQuestionVoiceButton) {
+      documentQuestionVoiceButton.addEventListener("click", () => {
+        if (isListening) {
+          if (documentVoiceTarget === documentQuestionInput) stopVoice();
+          else if (documentQuestionVoiceStatus) {
+            documentQuestionVoiceStatus.textContent = documentResultCopy[uiLang].voiceListening;
+            documentQuestionVoiceStatus.hidden = false;
+          }
+          return;
+        }
+        documentVoiceTarget = documentQuestionInput;
+        if (documentQuestionVoiceStatus) {
+          documentQuestionVoiceStatus.textContent = "";
+          documentQuestionVoiceStatus.hidden = true;
+        }
+        startVoiceFromUser();
+      });
+    }
+
+    $$('[data-document-question]').forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!documentQuestionInput) return;
+        documentQuestionInput.value = uiLang === "en"
+          ? button.dataset.en || button.dataset.documentQuestion
+          : button.dataset.documentQuestion;
+        documentQuestionInput.focus({ preventScroll: true });
+        documentQuestionStatusKey = "";
+        if (documentQuestionStatus) documentQuestionStatus.hidden = true;
+      });
+    });
+
+    if (documentDownloadButton) documentDownloadButton.addEventListener("click", downloadDocumentSummary);
+    if (documentListenButton) {
+      documentListenButton.addEventListener("click", () => {
+        if (!currentDocumentAnalysisResult) return;
+        if (!("speechSynthesis" in window)) {
+          if (documentSpeechStatus) {
+            documentSpeechStatus.textContent = documentResultCopy[uiLang].speechUnavailable;
+            documentSpeechStatus.hidden = false;
+          }
+          return;
+        }
+        if (documentSpeechStatus) documentSpeechStatus.hidden = true;
+        speakAnswer(buildDocumentSummaryText(currentDocumentAnalysisResult));
+      });
+    }
+    if (documentAnotherButton) documentAnotherButton.addEventListener("click", resetDocumentExperience);
+    if (documentAskAnotherButton) {
+      documentAskAnotherButton.addEventListener("click", () => {
+        if (documentQuestionInput) {
+          documentQuestionInput.value = "";
+          documentQuestionInput.focus({ preventScroll: true });
+        }
+        documentQuestionStatusKey = "";
+        if (documentQuestionStatus) documentQuestionStatus.hidden = true;
+      });
+    }
+
+    window.addEventListener("pagehide", releaseDocumentPreview, { once: true });
+    updateDocumentAvailability();
+  }
+
+  /* ── 13. Startup ─────────────────────────────────────────────── */
   $$("[data-year]").forEach((year) => {
     year.textContent = String(new Date().getFullYear());
   });
@@ -1866,7 +3955,7 @@
   const startLanguage = initialLanguage();
   setLanguage(
     startLanguage,
-    startLanguage === "en-IN" ? "English" : "हिन्दी",
+    startLanguage === "en-IN" ? "English" : "हिंदी",
     { silent: true }
   );
 })();

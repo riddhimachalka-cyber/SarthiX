@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#F7F5EF" />
-  <meta name="description" content="SarthiX ek multilingual, voice-first AI saathi hai — sarkari yojanaon, kheti, swasthya aur margdarshan ki jaankari, apni bhasha mein." />
+  <meta name="description" content="सार्थीएक्स आपका ग्रामीण एआई साथी है। सरकारी योजनाओं, खेती, स्वास्थ्य और मार्गदर्शन की जानकारी अपनी भाषा में पाएँ।" />
 
-  <title>SarthiX — Aapka Grameen AI Saathi</title>
+  <title>SarthiX — आपका ग्रामीण एआई साथी</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
 
@@ -24,7 +24,7 @@
   </noscript>
 </head>
 <body>
-  <a class="skip-link" href="#home" data-en="Skip to content">Seedha content par jaayein</a>
+  <a class="skip-link" href="#home" data-en="Skip to content">मुख्य सामग्री पर जाएँ</a>
 
   <!-- ═══════════════════════════════════════════════════════════════
        HEADER / NAVIGATION
@@ -39,62 +39,48 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a class="nav-link is-active" href="#home" data-nav="home">Home</a>
-        <a class="nav-link" href="#schemes" data-nav="schemes">Schemes</a>
-        <a class="nav-link" href="#health" data-nav="health">Health</a>
-        <a class="nav-link" href="#guidance" data-nav="guidance">Guidance</a>
-        <a class="nav-link" href="#about" data-nav="about">About</a>
+        <a class="nav-link is-active" href="#home" data-nav="home" data-hi="मुखपृष्ठ">Home</a>
+        <a class="nav-link" href="#schemes" data-nav="schemes" data-hi="योजनाएँ">Schemes</a>
+        <a class="nav-link" href="#eligibility" data-nav="eligibility" data-hi="पात्रता">Eligibility</a>
+        <a class="nav-link" href="#understand-document" data-nav="understand-document" data-hi="दस्तावेज़">Documents</a>
+        <a class="nav-link" href="#health" data-nav="health" data-hi="स्वास्थ्य">Health</a>
+        <a class="nav-link" href="#guidance" data-nav="guidance" data-hi="मार्गदर्शन">Guidance</a>
+        <a class="nav-link" href="#about" data-nav="about" data-hi="परिचय">About</a>
       </nav>
 
       <div class="nav-actions">
         <!-- Desktop language dropdown -->
         <div class="lang" data-lang>
-          <button class="lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Bhasha chuniye">
+          <button class="lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="भाषा चुनें">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="9" />
               <path d="M3.6 9h16.8M3.6 15h16.8" />
               <path d="M12 3c2.4 2.5 3.6 5.6 3.6 9S14.4 18.5 12 21c-2.4-2.5-3.6-5.6-3.6-9S9.6 5.5 12 3Z" />
             </svg>
-            <span class="lang-current">हिन्दी</span>
+            <span class="lang-current">हिंदी</span>
             <svg class="icon lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m6 9 6 6 6-6" />
             </svg>
           </button>
 
-          <div class="lang-menu" role="listbox" aria-label="Website ki bhasha">
-            <button class="lang-option" type="button" role="option" aria-selected="true" data-value="hi-IN" data-name="हिन्दी">
-              <span class="lang-native">हिन्दी</span><span class="lang-en">Hindi</span>
+          <div class="lang-menu" role="listbox" aria-label="वेबसाइट की भाषा">
+            <button class="lang-option" type="button" role="option" aria-selected="true" data-value="hi-IN" data-name="हिंदी">
+              <span class="lang-native">हिंदी</span><span class="lang-en">Hindi</span>
               <svg class="icon lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
             </button>
             <button class="lang-option" type="button" role="option" aria-selected="false" data-value="en-IN" data-name="English">
               <span class="lang-native">English</span><span class="lang-en">English</span>
               <svg class="icon lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
             </button>
-            <button class="lang-option" type="button" role="option" aria-selected="false" data-value="mr-IN" data-name="मराठी" disabled title="Marathi — jald aa rahi hai">
-              <span class="lang-native">मराठी</span><span class="lang-en">Marathi</span>
-              <span class="lang-soon">soon</span>
-            </button>
-            <button class="lang-option" type="button" role="option" aria-selected="false" data-value="bn-IN" data-name="বাংলা" disabled title="Bengali — jald aa rahi hai">
-              <span class="lang-native">বাংলা</span><span class="lang-en">Bengali</span>
-              <span class="lang-soon">soon</span>
-            </button>
-            <button class="lang-option" type="button" role="option" aria-selected="false" data-value="ta-IN" data-name="தமிழ்" disabled title="Tamil — jald aa rahi hai">
-              <span class="lang-native">தமிழ்</span><span class="lang-en">Tamil</span>
-              <span class="lang-soon">soon</span>
-            </button>
-            <button class="lang-option" type="button" role="option" aria-selected="false" data-value="te-IN" data-name="తెలుగు" disabled title="Telugu — jald aa rahi hai">
-              <span class="lang-native">తెలుగు</span><span class="lang-en">Telugu</span>
-              <span class="lang-soon">soon</span>
-            </button>
           </div>
         </div>
 
         <a class="btn btn--primary btn--sm nav-cta" href="#voice-demo" data-start-voice>
-          Get Started
+          <span data-en="Get Started">शुरू करें</span>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
 
-        <button class="nav-toggle" type="button" aria-label="Menu kholein" aria-expanded="false" aria-controls="mobile-menu">
+        <button class="nav-toggle" type="button" aria-label="मेनू खोलें" aria-expanded="false" aria-controls="mobile-menu">
           <span></span><span></span>
         </button>
       </div>
@@ -104,25 +90,23 @@
     <div class="mobile-menu" id="mobile-menu" inert>
       <div class="mobile-menu-inner">
         <nav class="mobile-links" aria-label="Mobile navigation">
-          <a class="mobile-link is-active" href="#home" data-nav="home"><span>Home</span><span class="mobile-link-num">01</span></a>
-          <a class="mobile-link" href="#schemes" data-nav="schemes"><span>Schemes</span><span class="mobile-link-num">02</span></a>
-          <a class="mobile-link" href="#health" data-nav="health"><span>Health</span><span class="mobile-link-num">04</span></a>
-          <a class="mobile-link" href="#guidance" data-nav="guidance"><span>Guidance</span><span class="mobile-link-num">05</span></a>
-          <a class="mobile-link" href="#about" data-nav="about"><span>About</span><span class="mobile-link-num">06</span></a>
+          <a class="mobile-link is-active" href="#home" data-nav="home"><span data-hi="मुखपृष्ठ">Home</span><span class="mobile-link-num">01</span></a>
+          <a class="mobile-link" href="#schemes" data-nav="schemes"><span data-hi="योजनाएँ">Schemes</span><span class="mobile-link-num">02</span></a>
+          <a class="mobile-link" href="#eligibility" data-nav="eligibility"><span data-hi="पात्रता">Eligibility</span><span class="mobile-link-num">03</span></a>
+          <a class="mobile-link" href="#understand-document" data-nav="understand-document"><span data-hi="दस्तावेज़">Documents</span><span class="mobile-link-num">04</span></a>
+          <a class="mobile-link" href="#health" data-nav="health"><span data-hi="स्वास्थ्य">Health</span><span class="mobile-link-num">05</span></a>
+          <a class="mobile-link" href="#guidance" data-nav="guidance"><span data-hi="मार्गदर्शन">Guidance</span><span class="mobile-link-num">06</span></a>
+          <a class="mobile-link" href="#about" data-nav="about"><span data-hi="परिचय">About</span><span class="mobile-link-num">07</span></a>
         </nav>
 
         <div class="mobile-bottom">
-          <p class="mobile-label" data-en="Choose language">Bhasha chuniye</p>
-          <div class="lang-chips" aria-label="Bhasha chuniye">
-            <button class="lang-chip is-selected" type="button" data-value="hi-IN" data-name="हिन्दी">हिन्दी</button>
+          <p class="mobile-label" data-en="Choose language">भाषा चुनें</p>
+          <div class="lang-chips" aria-label="भाषा चुनें">
+            <button class="lang-chip is-selected" type="button" data-value="hi-IN" data-name="हिंदी">हिंदी</button>
             <button class="lang-chip" type="button" data-value="en-IN" data-name="English">English</button>
-            <button class="lang-chip" type="button" data-value="mr-IN" data-name="मराठी" disabled title="Marathi — jald aa rahi hai">मराठी</button>
-            <button class="lang-chip" type="button" data-value="bn-IN" data-name="বাংলা" disabled title="Bengali — jald aa rahi hai">বাংলা</button>
-            <button class="lang-chip" type="button" data-value="ta-IN" data-name="தமிழ்" disabled title="Tamil — jald aa rahi hai">தமிழ்</button>
-            <button class="lang-chip" type="button" data-value="te-IN" data-name="తెలుగు" disabled title="Telugu — jald aa rahi hai">తెలుగు</button>
           </div>
           <a class="btn btn--primary btn--block" href="#voice-demo" data-start-voice>
-            Get Started
+            <span data-en="Get Started">शुरू करें</span>
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </a>
         </div>
@@ -145,16 +129,16 @@
         <div class="hero-copy">
           <p class="hero-badge">
             <span class="hero-badge-dot" aria-hidden="true"></span>
-            AI-Powered <span aria-hidden="true">·</span> Voice-First <span aria-hidden="true">·</span> Multilingual
+            एआई आधारित <span aria-hidden="true">·</span> आवाज़ से संचालित <span aria-hidden="true">·</span> हिंदी और अंग्रेज़ी
           </p>
 
           <h1 class="hero-title" data-en-html="Your Rural<br />Companion, <em class=&quot;serif-accent&quot;>SarthiX</em>">
-            Aapka Grameen<br />
-            Saathi, <em class="serif-accent">SarthiX</em>
+            आपका ग्रामीण<br />
+            साथी, <em class="serif-accent">SarthiX</em>
           </h1>
 
           <p class="hero-desc" data-en="Ask about government schemes, farming, health and more — in your own language. SarthiX is here with you.">
-            Sarkari yojanaon, kheti, swasthya aur anya jaankari ke liye ab apni bhasha mein poochiye. SarthiX aapke saath hai.
+            सरकारी योजनाओं, खेती, स्वास्थ्य और अन्य विषयों पर अपनी भाषा में पूछें। SarthiX आपके साथ है।
           </p>
 
           <div class="hero-actions">
@@ -163,29 +147,37 @@
                 <rect x="9" y="3.5" width="6" height="10" rx="3" />
                 <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" />
               </svg>
-              <span data-en="Talk Now">Abhi Baat Karo</span>
+              <span data-en="Talk Now">अभी बोलें</span>
             </button>
 
             <a class="btn btn--ghost btn--lg" href="#how-it-works">
               <span class="btn-play" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7.2v9.6a.8.8 0 0 0 1.2.7l7.7-4.8a.8.8 0 0 0 0-1.4L10.2 6.5A.8.8 0 0 0 9 7.2Z" /></svg>
               </span>
-              <span data-en="How Does It Work?">Kaise Kaam Karta Hai?</span>
+              <span data-en="How Does It Work?">यह कैसे काम करता है?</span>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#eligibility">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8l3 3v13H5V4Z" /><path d="M8.5 12.5 11 15l4.5-5" /></svg>
+              <span data-en="Check eligibility">पात्रता जाँचें</span>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#understand-document">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h8l4 4V20H6Z" /><path d="M14 3.5V8h4M9 12h6M9 15.5h6" /></svg>
+              <span data-en="Understand a document">दस्तावेज़ समझें</span>
             </a>
           </div>
 
           <ul class="hero-trust" aria-label="SarthiX ki khaasiyat">
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9" /><path d="M3 12h4M17 12h4M12 3v4M12 17v4" /></svg>
-              <span data-en="8+ languages">8+ bhashayein</span>
+              <span data-en="Hindi and English">हिंदी और अंग्रेज़ी</span>
             </li>
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
-              <span data-en="Completely free">Bilkul free</span>
+              <span data-en="Completely free">पूरी तरह निःशुल्क</span>
             </li>
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
-              <span data-en="Voice &amp; text">Awaaz aur text</span>
+              <span data-en="Voice &amp; text">आवाज़ और लिखित संदेश</span>
             </li>
           </ul>
         </div>
@@ -197,13 +189,13 @@
           <figure class="hero-photo">
             <img
               src="assets/images/hero-farmer.jpg"
-              alt="Ek Indian kisan khet mein apne smartphone se SarthiX istemaal karte hue"
+              alt="खेत में स्मार्टफ़ोन से SarthiX का उपयोग करते हुए एक भारतीय किसान"
               data-en-alt="An Indian farmer using SarthiX on a smartphone in a field"
               width="1400" height="2100" fetchpriority="high" />
             <span class="photo-shade" aria-hidden="true"></span>
             <figcaption class="photo-chip">
               <span class="photo-chip-dot" aria-hidden="true"></span>
-              <span data-en="Your language, your companion">Gaon ki bhasha, aapka saathi</span>
+              <span data-en="Your language, your companion">आपकी भाषा, आपका साथी</span>
             </figcaption>
           </figure>
 
@@ -213,8 +205,8 @@
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3.5" width="6" height="10" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" /></svg>
             </span>
             <span class="q-bubble-text">
-              <span class="q-bubble-label" data-en="Question">Sawaal</span>
-              <span data-en="“When will the next PM Kisan instalment arrive?”">“PM Kisan ki nayi kist kab aayegi?”</span>
+              <span class="q-bubble-label" data-en="Question">सवाल</span>
+              <span data-en="“When will the next PM Kisan instalment arrive?”">“PM Kisan की अगली किस्त कब आएगी?”</span>
             </span>
           </div>
 
@@ -223,8 +215,8 @@
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8" /><path d="M12 13c0-4.5 3-7 8-7 0 5-3 7-8 7Z" /><path d="M12 17c-3.5 0-5.5-1.8-5.5-5.5C10 11.5 12 13 12 13" /></svg>
             </span>
             <span class="q-bubble-text">
-              <span class="q-bubble-label" data-en="Question">Sawaal</span>
-              <span data-en="“Which scheme is right for my farm?”">“Mere khet ke liye kaunsi yojana sahi hai?”</span>
+              <span class="q-bubble-label" data-en="Question">सवाल</span>
+              <span data-en="“Which scheme is right for my farm?”">“मेरे खेत के लिए कौन-सी योजना सही है?”</span>
             </span>
           </div>
 
@@ -311,11 +303,11 @@
       <div class="container">
         <div class="section-head reveal">
           <div class="section-head-main">
-            <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Your needs">Aapki zarooratein</span></p>
-            <h2 class="section-title" id="features-title" data-en-html="One Saathi, <em class=&quot;serif-accent&quot;>four services</em>">Ek Saathi, <em class="serif-accent">chaar sevaen</em></h2>
+            <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Your needs">आपकी ज़रूरतें</span></p>
+            <h2 class="section-title" id="features-title" data-en-html="One Saathi, <em class=&quot;serif-accent&quot;>four services</em>">एक साथी, <em class="serif-accent">चार सेवाएँ</em></h2>
           </div>
           <p class="section-note" data-en="From government information to everyday decisions — simple, in your own language, all in one place.">
-            Sarkari jaankari se lekar rozmarra ke faislon tak — sab kuch simple, apni bhasha mein, ek hi jagah.
+            सरकारी जानकारी से रोज़मर्रा के निर्णयों तक — सब कुछ सरल भाषा में, एक ही जगह।
           </p>
         </div>
 
@@ -332,9 +324,9 @@
               </span>
             </div>
             <h3 data-en="Government Schemes">Sarkari Yojana</h3>
-            <p data-en="Information about government schemes and eligibility — in simple words, in your own language.">Government schemes aur patrata se judi jaankari — aasaan shabdon mein, seedhe apni bhasha mein.</p>
+            <p data-en="Information about government schemes and eligibility — in simple words, in your own language.">सरकारी योजनाओं और पात्रता की जानकारी सरल शब्दों में, आपकी भाषा में।</p>
             <a class="feature-link" href="#schemes" aria-label="Sarkari yojanaon ki jaankari dekhein">
-              <span data-en="View details">Jaankari dekhein</span>
+              <span data-en="View details">विवरण देखें</span>
               <span class="feature-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
@@ -352,10 +344,10 @@
                 </svg>
               </span>
             </div>
-            <h3 data-en="Farming Advice">Kheti Salah</h3>
-            <p data-en="Practical tips on crops, seeds, irrigation and soil — for every farming season.">Fasal, beej, sinchai aur mitti se jude practical sujhav — kheti ke har mausam ke liye.</p>
+            <h3 data-en="Farming Advice">खेती संबंधी सलाह</h3>
+            <p data-en="Practical tips on crops, seeds, irrigation and soil — for every farming season.">हर मौसम में फसल, बीज, सिंचाई और मिट्टी के लिए उपयोगी सुझाव।</p>
             <a class="feature-link" href="#how-it-works" aria-label="Kheti salah ke baare mein jaanein">
-              <span data-en="Get advice">Salah lein</span>
+              <span data-en="Get advice">सलाह लें</span>
               <span class="feature-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
@@ -372,10 +364,10 @@
                 </svg>
               </span>
             </div>
-            <h3 data-en="Health Information">Swasthya Jaankari</h3>
-            <p data-en="Basic health information and details about government health schemes, without complicated language.">Basic health information aur sarkari swasthya yojanaon ki jaankari, bina uljhi hui bhasha ke.</p>
+            <h3 data-en="Health Information">स्वास्थ्य संबंधी जानकारी</h3>
+            <p data-en="Basic health information and details about government health schemes, without complicated language.">बिना कठिन शब्दों के स्वास्थ्य और सरकारी स्वास्थ्य योजनाओं की जानकारी।</p>
             <a class="feature-link" href="#guidance" aria-label="Swasthya jaankari ke liye margdarshan">
-              <span data-en="Learn more">Jaankari lein</span>
+              <span data-en="Learn more">और जानें</span>
               <span class="feature-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
@@ -393,10 +385,10 @@
                 </svg>
               </span>
             </div>
-            <h3 data-en="Guidance">Margdarshan</h3>
-            <p data-en="Document checklists and a step-by-step application process — without confusion.">Zaroori documents ki checklist aur aavedan ka step-by-step process — bina confusion ke.</p>
+            <h3 data-en="Guidance">मार्गदर्शन</h3>
+            <p data-en="Document checklists and a step-by-step application process — without confusion.">ज़रूरी दस्तावेज़ों की सूची और आवेदन की चरण-दर-चरण प्रक्रिया।</p>
             <a class="feature-link" href="#how-it-works" aria-label="Aavedan ke step-by-step margdarshan ke baare mein jaanein">
-              <span data-en="Understand the process">Process samjhein</span>
+              <span data-en="Understand the process">प्रक्रिया समझें</span>
               <span class="feature-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
               </span>
@@ -406,32 +398,342 @@
       </div>
     </section>
 
-    <!-- ═════════════════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════════════════
+         ONE SAATHI, MANY SERVICES
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="section services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-hi="आपकी ज़रूरतें">YOUR NEEDS</span></p>
+          <h2 class="section-title" id="services-title" data-hi-html="One Saathi, <em class=&quot;serif-accent&quot;>Many Services</em>">One Saathi, <em class="serif-accent">Many Services</em></h2>
+          <p class="section-note" data-hi="सरकारी जानकारी से रोज़मर्रा के निर्णयों तक — सब कुछ सरल भाषा में, एक ही जगह।">
+            From government information to everyday decisions — simple, in your own language, all in one place.
+          </p>
+        </div>
+
+        <div class="service-grid" data-service-grid>
+          <article class="service-card reveal" data-service="government-schemes" style="--delay: 0ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M9 2v10l3-3" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="सरकारी योजनाएँ">Government Schemes</h3>
+              <p data-hi="सरकारी योजनाओं की जानकारी और पात्रता जाँचें।">Information about government schemes and eligibility check.</p>
+              <button class="service-arrow" type="button" aria-label="Government Schemes — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="government-jobs" style="--delay: 40ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="सरकारी नौकरियाँ">Government Jobs</h3>
+              <p data-hi="सरकारी नौकरी की सूचनाएँ, पात्रता और आवेदन प्रक्रिया।">Government job notifications, eligibility and application process.</p>
+              <button class="service-arrow" type="button" aria-label="Government Jobs — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="scholarships" style="--delay: 80ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 3L9 7l-3 3H2" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="छात्रवृत्ति">Scholarships</h3>
+              <p data-hi="शिक्षा के लिए छात्रवृत्ति, पात्रता, दस्तावेज़ और आवेदन की जानकारी।">Scholarships, eligibility, documents and application process for education.</p>
+              <button class="service-arrow" type="button" aria-label="Scholarships — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="hackathons" style="--delay: 120ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="हैकाथॉन">Hackathons</h3>
+              <p data-hi="हैकाथॉन प्रतियोगिताएँ, पंजीकरण और भागीदारी की जानकारी।">Hackathon competitions, registration and participation information.</p>
+              <button class="service-arrow" type="button" aria-label="Hackathons — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="startup-grants" style="--delay: 160ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="स्टार्टअप अनुदान">Startup Grants</h3>
+              <p data-hi="स्टार्टअप के लिए अनुदान, फंडिंग और आवेदन प्रक्रिया की जानकारी।">Grants, funding and application process for startups.</p>
+              <button class="service-arrow" type="button" aria-label="Startup Grants — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="farming-advice" style="--delay: 200ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4.93 4.93l14.14 14.14" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="खेती की सलाह">Farming Advice</h3>
+              <p data-hi="फसल, बीज, सिंचाई और मिट्टी के लिए व्यावहारिक सुझाव।">Practical tips on crops, seeds, irrigation and soil.</p>
+              <button class="service-arrow" type="button" aria-label="Farming Advice — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="farmer-schemes" style="--delay: 240ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.5 0 5 1 6.8 2.6L12 22l-6.8-14.4A9.8 9.8 0 0 1 12 3z" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="किसान योजनाएँ">Farmer Schemes</h3>
+              <p data-hi="किसानों के लिए सरकारी योजनाएँ, सब्सिडी और लाभ।">Government schemes, subsidies and benefits for farmers.</p>
+              <button class="service-arrow" type="button" aria-label="Farmer Schemes — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="health-information" style="--delay: 280ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 8.5a4.9 4.9 0 0 0-8.5-3.3A4.9 4.9 0 0 0 3.5 8.5c0 5 8.5 10 8.5 10s8.5-5 8.5-10Z" /><path d="M3.8 11.5h4l1.7-2.5 2.5 5 1.8-2.5h5.4" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="स्वास्थ्य जानकारी">Health Information</h3>
+              <p data-hi="स्वास्थ्य और सरकारी स्वास्थ्य योजनाओं की सरल जानकारी।">Basic health information and government health scheme details.</p>
+              <button class="service-arrow" type="button" aria-label="Health Information — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="healthcare-support" style="--delay: 320ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="स्वास्थ्य सहायता">Healthcare Support</h3>
+              <p data-hi="चिकित्सा सहायता, अस्पताल और स्वास्थ्य बीमा की जानकारी।">Medical support, hospital and health insurance information.</p>
+              <button class="service-arrow" type="button" aria-label="Healthcare Support — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="women-welfare" style="--delay: 360ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4 1.23" /><circle cx="12" cy="13" r="3" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="महिला कल्याण">Women Welfare</h3>
+              <p data-hi="महिलाओं के लिए योजनाएँ, सुरक्षा और सशक्तिकरण की जानकारी।">Schemes, safety and empowerment information for women.</p>
+              <button class="service-arrow" type="button" aria-label="Women Welfare — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="senior-citizen" style="--delay: 400ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /><path d="M6 14h12v3a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-3z" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="वरिष्ठ नागरिक सहायता">Senior Citizen Support</h3>
+              <p data-hi="वरिष्ठ नागरिकों के लिए पेंशन, स्वास्थ्य और कल्याण योजनाएँ।">Pension, health and welfare schemes for senior citizens.</p>
+              <button class="service-arrow" type="button" aria-label="Senior Citizen Support — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="disability-benefits" style="--delay: 440ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0a3 3 0 0 1-6 0" /><path d="M12 13v7" /><path d="M5 19h14" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="दिव्यांग लाभ">Disability Benefits</h3>
+              <p data-hi="दिव्यांग व्यक्तियों के लिए प्रमाणपत्र, पेंशन और सहायता।">Disability certificate, pension and support for persons with disabilities.</p>
+              <button class="service-arrow" type="button" aria-label="Disability Benefits — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="widow-support" style="--delay: 480ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17v4" /><path d="M12 3v4" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="विधवा सहायता">Widow Support</h3>
+              <p data-hi="विधवा महिलाओं के लिए पेंशन और कल्याण योजनाएँ।">Pension and welfare schemes for widows.</p>
+              <button class="service-arrow" type="button" aria-label="Widow Support — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="retirement-support" style="--delay: 520ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="सेवानिवृत्ति सहायता">Retirement Support</h3>
+              <p data-hi="सेवानिवृत्ति के बाद पेंशन, बचत और वित्तीय सहायता।">Pension, savings and financial support after retirement.</p>
+              <button class="service-arrow" type="button" aria-label="Retirement Support — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="housing-schemes" style="--delay: 560ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5" /><path d="M5.5 10v10h13V10" /><path d="M10 20v-5h4v5" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="आवास योजनाएँ">Housing Schemes</h3>
+              <p data-hi="घर बनाने और आवास के लिए सरकारी योजनाएँ।">Government schemes for home construction and housing.</p>
+              <button class="service-arrow" type="button" aria-label="Housing Schemes — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="sc-st-obenefits" style="--delay: 600ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="SC / ST / OBC लाभ">SC / ST / OBC Benefits</h3>
+              <p data-hi="अनुसूचित जाति, जनजाति और पिछड़ा वर्ग के लिए लाभ।">Benefits for SC, ST and OBC categories.</p>
+              <button class="service-arrow" type="button" aria-label="SC / ST / OBC Benefits — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="free-ration" style="--delay: 640ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9" /><path d="M12 12h3" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="मुफ्त राशन">Free Ration</h3>
+              <p data-hi="राशन कार्ड और खाद्य सुरक्षा योजना के लिए आवेदन।">Ration card and food security scheme application.</p>
+              <button class="service-arrow" type="button" aria-label="Free Ration — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="marriage-schemes" style="--delay: 680ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a6 6 0 0 0-6 6" /><circle cx="9" cy="9" r="2" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="विवाह योजनाएँ">Marriage Schemes</h3>
+              <p data-hi="विवाह के लिए वित्तीय सहायता और योजनाएँ।">Financial assistance and schemes for marriage.</p>
+              <button class="service-arrow" type="button" aria-label="Marriage Schemes — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="life-crisis-help" style="--delay: 720ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 4V6A2.5 2.5 0 0 1 7 3.5h10.5A2.5 2.5 0 0 1 20 6Z" /><path d="M8.5 8h7M8.5 11.5h4.5" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="जीवन संकट सहायता">Life Crisis Help</h3>
+              <p data-hi="आपात स्थिति में त्वरित सहायता और राहत योजनाएँ।">Immediate assistance and relief schemes in emergencies.</p>
+              <button class="service-arrow" type="button" aria-label="Life Crisis Help — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="document-guidance" style="--delay: 760ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="दस्तावेज़ मार्गदर्शन">Document Guidance</h3>
+              <p data-hi="ज़रूरी दस्तावेज़ों की सूची और उन्हें कैसे प्राप्त करें।">List of required documents and how to obtain them.</p>
+              <button class="service-arrow" type="button" aria-label="Document Guidance — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="application-process" style="--delay: 800ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="आवेदन प्रक्रिया">Application Process</h3>
+              <p data-hi="योजना आवेदन की चरण-दर-चरण प्रक्रिया।">Step-by-step application process for schemes.</p>
+              <button class="service-arrow" type="button" aria-label="Application Process — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="service-card reveal" data-service="required-documents" style="--delay: 840ms">
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>
+            </span>
+            <div class="service-body">
+              <h3 data-hi="आवश्यक दस्तावेज़">Required Documents</h3>
+              <p data-hi="आवेदन के लिए आवश्यक दस्तावेज़ों की पूरी सूची।">Complete list of documents required for application.</p>
+              <button class="service-arrow" type="button" aria-label="Required Documents — explore">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <p class="service-disclaimer reveal">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
+          <span data-hi="ये मार्गदर्शन जानकारी के लिए हैं। अंतिम विवरण आधिकारिक सरकारी पोर्टल पर जाँचें।">
+            This is informational guidance. Confirm final details on the official government portal.
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
          POPULAR SCHEMES
-    ══════════════════════════════════════════════════════════════ -->
+    ════════════════════════════════════════════════════════════════ -->
     <section class="section schemes" id="schemes" aria-labelledby="schemes-title">
       <div class="container">
         <div class="section-head reveal">
           <div class="section-head-main">
-            <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Schemes">Yojanaen</span></p>
-            <h2 class="section-title" id="schemes-title" data-en-html="Popular Schemes <em class=&quot;serif-accent&quot;>For You</em>">Aapke Liye Pramukh <em class="serif-accent">Yojanaen</em></h2>
+            <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Schemes">योजनाएँ</span></p>
+            <h2 class="section-title" id="schemes-title" data-en-html="Popular Schemes <em class=&quot;serif-accent&quot;>For You</em>">आपके लिए प्रमुख <em class="serif-accent">योजनाएँ</em></h2>
           </div>
           <p class="section-note" data-en="Basic information about these schemes in one place. Always check the official portal for applications and full details.">
-            In yojanaon ki basic jaankari ek jagah. Aavedan aur poori details ke liye official portal zaroor dekhein.
+            इन योजनाओं की बुनियादी जानकारी यहाँ देखें। आवेदन और पूरी जानकारी के लिए आधिकारिक पोर्टल देखें।
           </p>
         </div>
 
         <div class="scheme-grid">
           <article class="scheme-card reveal" style="--delay: 0ms">
             <div class="scheme-media">
-              <img src="assets/images/scheme-pm-kisan.jpg" alt="Wheat ke khet mein kaam karti ek mahila kisan" data-en-alt="A woman farmer working in a wheat field" width="1400" height="933" loading="lazy" />
-              <span class="scheme-tag" data-en="Farmer Support">Kisan Sahayata</span>
+              <img src="assets/images/scheme-pm-kisan.jpg" alt="गेहूँ के खेत में काम करती एक महिला किसान" data-en-alt="A woman farmer working in a wheat field" width="1400" height="933" loading="lazy" />
+              <span class="scheme-tag" data-en="Farmer Support">किसान सहायता</span>
             </div>
             <div class="scheme-body">
               <h3>PM Kisan Samman Nidhi</h3>
-              <p data-en="Basic information about the scheme related to financial support for farmer families.">Kisan parivaaron ke liye aarthik sahayata se judi yojana ki basic jaankari.</p>
+              <p data-en="Basic information about the scheme related to financial support for farmer families.">किसान परिवारों को आर्थिक सहायता देने वाली योजना की बुनियादी जानकारी।</p>
               <button class="scheme-link" type="button" data-scheme="PM Kisan Samman Nidhi">
-                <span data-en="View Details">Jaankari Dekhein</span>
+                <span data-en="View Details">विवरण देखें</span>
                 <span class="scheme-arrow" aria-hidden="true">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </span>
@@ -441,14 +743,14 @@
 
           <article class="scheme-card reveal" style="--delay: 70ms">
             <div class="scheme-media">
-              <img src="assets/images/scheme-pm-kusum.jpg" alt="Gramin kshetra mein lage solar panels" data-en-alt="Solar panels installed in a rural area" width="1200" height="800" loading="lazy" />
-              <span class="scheme-tag" data-en="Solar Energy">Solar Oorja</span>
+              <img src="assets/images/scheme-pm-kusum.jpg" alt="ग्रामीण क्षेत्र में लगे सौर पैनल" data-en-alt="Solar panels installed in a rural area" width="1200" height="800" loading="lazy" />
+              <span class="scheme-tag" data-en="Solar Energy">सौर ऊर्जा</span>
             </div>
             <div class="scheme-body">
               <h3>PM-KUSUM Yojana</h3>
-              <p data-en="Information about the scheme related to solar pumps and renewable energy in farming.">Kheti mein solar pump aur renewable energy se judi yojana ki jaankari.</p>
+              <p data-en="Information about the scheme related to solar pumps and renewable energy in farming.">खेती में सौर पंप और नवीकरणीय ऊर्जा से जुड़ी योजना की जानकारी।</p>
               <button class="scheme-link" type="button" data-scheme="PM-KUSUM Yojana">
-                <span data-en="View Details">Jaankari Dekhein</span>
+                <span data-en="View Details">विवरण देखें</span>
                 <span class="scheme-arrow" aria-hidden="true">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </span>
@@ -458,14 +760,14 @@
 
           <article class="scheme-card reveal" style="--delay: 140ms">
             <div class="scheme-media">
-              <img src="assets/images/scheme-sinchai.jpg" alt="Hare-bhare kheton ke beech sinchai ki nahar" data-en-alt="An irrigation canal between green fields" width="1200" height="800" loading="lazy" />
-              <span class="scheme-tag" data-en="Irrigation">Sinchai</span>
+              <img src="assets/images/scheme-sinchai.jpg" alt="हरे-भरे खेतों के बीच सिंचाई की नहर" data-en-alt="An irrigation canal between green fields" width="1200" height="800" loading="lazy" />
+              <span class="scheme-tag" data-en="Irrigation">सिंचाई</span>
             </div>
             <div class="scheme-body">
               <h3>Pradhan Mantri Sinchai Yojana</h3>
-              <p data-en="Information about irrigation resources and better water use in farming.">Sinchai sansaadhan aur kheti mein paani ke behtar upyog se judi jaankari.</p>
+              <p data-en="Information about irrigation resources and better water use in farming.">सिंचाई के साधनों और खेती में पानी के बेहतर उपयोग की जानकारी।</p>
               <button class="scheme-link" type="button" data-scheme="Pradhan Mantri Sinchai Yojana">
-                <span data-en="View Details">Jaankari Dekhein</span>
+                <span data-en="View Details">विवरण देखें</span>
                 <span class="scheme-arrow" aria-hidden="true">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </span>
@@ -475,14 +777,14 @@
 
           <article class="scheme-card reveal" style="--delay: 210ms">
             <div class="scheme-media">
-              <img src="assets/images/scheme-awas.jpg" alt="Gramin Bharat mein tiled chhat wale ghar" data-en-alt="A tiled-roof house in rural India" width="1200" height="1780" loading="lazy" />
-              <span class="scheme-tag" data-en="Housing">Awas</span>
+              <img src="assets/images/scheme-awas.jpg" alt="ग्रामीण भारत में खपरैल की छत वाला घर" data-en-alt="A tiled-roof house in rural India" width="1200" height="1780" loading="lazy" />
+              <span class="scheme-tag" data-en="Housing">आवास</span>
             </div>
             <div class="scheme-body">
               <h3>PM Awas Yojana (Gramin)</h3>
-              <p data-en="Basic information about the scheme related to pucca houses for rural families.">Gramin parivaaron ke liye pucca ghar se judi yojana ki basic jaankari.</p>
+              <p data-en="Basic information about the scheme related to pucca houses for rural families.">ग्रामीण परिवारों के पक्के घर से जुड़ी योजना की बुनियादी जानकारी।</p>
               <button class="scheme-link" type="button" data-scheme="PM Awas Yojana (Gramin)">
-                <span data-en="View Details">Jaankari Dekhein</span>
+                <span data-en="View Details">विवरण देखें</span>
                 <span class="scheme-arrow" aria-hidden="true">
                   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </span>
@@ -493,8 +795,346 @@
 
         <p class="scheme-note reveal">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg>
-          <span data-en="Please verify final scheme details on the official government portals.">Yojanaon ki final jaankari official sarkari portal par verify karein.</span>
+          <span data-en="Please verify final scheme details on the official government portals.">योजनाओं की अंतिम जानकारी आधिकारिक सरकारी पोर्टल पर जाँचें।</span>
         </p>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY CHECK -->
+    <section class="section eligibility" id="eligibility" aria-labelledby="eligibility-title">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Personalised scheme guidance">आपके लिए योजना संबंधी जानकारी</span></p>
+          <h2 class="section-title" id="eligibility-title" data-en="Check Your Eligibility">अपनी पात्रता जाँचें</h2>
+          <p class="section-note" data-en="Heard about a government scheme? Tell us what you know, answer a few simple questions, and discover whether you may qualify.">क्या आपने किसी सरकारी योजना के बारे में सुना है? जो जानकारी आपको है, वह बताएँ और कुछ सरल सवालों के जवाब देकर जानें कि आप इसके लिए पात्र हो सकते हैं या नहीं।</p>
+        </div>
+
+        <div class="eligibility-panel reveal" data-eligibility-app>
+          <ol class="eligibility-progress" aria-label="पात्रता जाँच की प्रगति">
+            <li class="is-current" data-progress-step="scheme" aria-current="step">
+              <span class="eligibility-progress-number">01</span>
+              <span data-en="Scheme details">योजना की जानकारी</span>
+            </li>
+            <li data-progress-step="questions">
+              <span class="eligibility-progress-number">02</span>
+              <span data-en="Basic information">बुनियादी जानकारी</span>
+            </li>
+          </ol>
+          <div class="eligibility-progress-track" role="progressbar" aria-label="सवालों की प्रगति" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-eligibility-progress>
+            <span data-eligibility-progress-fill></span>
+          </div>
+
+          <form class="eligibility-form" id="eligibility-form" novalidate>
+            <div class="eligibility-screen" data-eligibility-screen="scheme">
+              <div class="eligibility-screen-heading">
+                <span class="eligibility-kicker" data-en="First, tell us about the scheme">पहले योजना के बारे में बताएँ</span>
+                <h3 data-en="Which scheme would you like to check?">आप किस योजना की पात्रता जाँचना चाहते हैं?</h3>
+              </div>
+
+              <div class="eligibility-field">
+                <label for="eligibility-scheme-name" data-en="Scheme name">योजना का नाम</label>
+                <input id="eligibility-scheme-name" name="schemeName" type="text" autocomplete="off" placeholder="e.g. PM Kisan" data-en-placeholder="e.g. PM Kisan" />
+              </div>
+
+              <div class="eligibility-field">
+                <label for="eligibility-scheme-description" data-en="Or describe what you have heard">या आपने योजना के बारे में जो सुना है, वह बताएँ</label>
+                <textarea id="eligibility-scheme-description" name="schemeDescription" rows="3" placeholder="यह योजना किस काम आती है?" data-en-placeholder="What does it help with?"></textarea>
+              </div>
+
+              <div class="eligibility-field">
+                <label for="eligibility-category"><span data-en="Category">श्रेणी</span> <span class="eligibility-optional" data-en="Optional">(वैकल्पिक)</span></label>
+                <select id="eligibility-category" name="schemeCategory">
+                  <option value="" data-en="Choose a category">श्रेणी चुनें</option>
+                  <option value="education" data-en="Education">शिक्षा</option>
+                  <option value="employment" data-en="Employment">रोज़गार</option>
+                  <option value="agriculture" data-en="Agriculture">कृषि</option>
+                  <option value="healthcare" data-en="Healthcare">स्वास्थ्य</option>
+                  <option value="housing" data-en="Housing">आवास</option>
+                  <option value="financial" data-en="Financial Assistance">वित्तीय सहायता</option>
+                  <option value="women" data-en="Women Welfare">महिला कल्याण</option>
+                </select>
+              </div>
+
+              <p class="eligibility-error" data-eligibility-error role="alert" hidden></p>
+              <div class="eligibility-actions eligibility-actions--end">
+                <button class="btn btn--primary" type="submit">
+                  <span data-en="Continue">आगे बढ़ें</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="eligibility-screen" data-eligibility-screen="questions" hidden>
+              <div class="eligibility-screen-heading">
+                <span class="eligibility-kicker" data-en="A few quick questions">कुछ छोटे सवाल</span>
+                <h3 data-en="Let’s understand your situation">आइए, आपकी स्थिति समझें</h3>
+                <p data-en="Your answers stay on this page and help organise the information for your next step.">आपके जवाब इसी पृष्ठ पर रहेंगे और अगले कदम के लिए जानकारी व्यवस्थित करने में मदद करेंगे।</p>
+              </div>
+              <div class="eligibility-assistant" aria-live="polite" aria-atomic="true">
+                <span class="eligibility-assistant-avatar" aria-hidden="true">S</span>
+                <p data-eligibility-message>“मैं आपसे एक-एक करके कुछ सवाल पूछूँगा। आप चाहें तो पिछले जवाब पर लौट सकते हैं।”</p>
+              </div>
+              <p class="eligibility-question-count" data-question-count aria-live="polite"></p>
+              <fieldset class="eligibility-question" data-question-fieldset></fieldset>
+              <div class="eligibility-answer-tools">
+                <button class="eligibility-voice-btn" type="button" data-eligibility-voice aria-label="Awaaz se jawaab dein" data-en-aria-label="Answer by voice" aria-pressed="false">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7" /></svg>
+                  <span data-en="Answer by voice">बोलकर जवाब दें</span>
+                </button>
+                <span class="eligibility-voice-status" data-eligibility-voice-status role="status" aria-live="polite"></span>
+              </div>
+              <p class="eligibility-error" data-eligibility-question-error role="alert" hidden></p>
+              <div class="eligibility-actions">
+                <button class="btn btn--ghost" type="button" data-eligibility-back>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6 6-6-6 6-6" /></svg>
+                  <span data-en="Previous">पिछला</span>
+                </button>
+                <button class="btn btn--primary" type="button" data-eligibility-next>
+                  <span data-en="Continue">आगे बढ़ें</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="eligibility-screen" data-eligibility-screen="review" hidden aria-live="polite">
+              <div class="eligibility-screen-heading">
+                <span class="eligibility-kicker" data-en="Your result">आपका परिणाम</span>
+                <h3 data-en="Eligibility Check Result">पात्रता जाँच का परिणाम</h3>
+                <p data-en="Review this guidance and confirm scheme rules through an official source.">इस जानकारी को देखें और योजना के नियम किसी आधिकारिक स्रोत से जाँचें।</p>
+              </div>
+              <p class="eligibility-demo-notice" data-result-demo-notice data-en="DEMONSTRATION ONLY · No official scheme rules were checked. This is not a government decision.">केवल उदाहरण · योजना के आधिकारिक नियमों की जाँच नहीं हुई है। यह सरकारी निर्णय नहीं है।</p>
+
+              <section class="eligibility-result-status" data-result-status-card data-status="more_information_required" aria-labelledby="eligibility-result-status-title">
+                <span class="eligibility-result-status-icon" aria-hidden="true">?</span>
+                <div>
+                  <p class="eligibility-result-status-kicker" data-en="Eligibility status">पात्रता की स्थिति</p>
+                  <h4 id="eligibility-result-status-title" data-result-status-label data-en="More Information Required">अधिक जानकारी आवश्यक है</h4>
+                  <p data-result-reasoning></p>
+                </div>
+              </section>
+
+              <section class="eligibility-result-block" aria-labelledby="eligibility-reasoning-title">
+                <h4 id="eligibility-reasoning-title" data-en="Reasoning">इस परिणाम का कारण</h4>
+                <p data-result-reasoning-detail></p>
+              </section>
+
+              <section class="eligibility-result-block" aria-labelledby="eligibility-requirements-title">
+                <h4 id="eligibility-requirements-title" data-en="Requirement checklist">पात्रता की शर्तें</h4>
+                <ul class="eligibility-result-legend" aria-label="Requirement status key">
+                  <li><span class="eligibility-result-badge" data-status="match" data-en="Matches your information">आपकी जानकारी से मेल खाता है</span></li>
+                  <li><span class="eligibility-result-badge" data-status="does_not_match" data-en="Does not match">मेल नहीं खाता</span></li>
+                  <li><span class="eligibility-result-badge" data-status="verification_required" data-en="Still needs verification">जाँच अभी बाकी है</span></li>
+                </ul>
+                <ul class="eligibility-result-list" data-result-requirements></ul>
+              </section>
+
+              <section class="eligibility-result-block" aria-labelledby="eligibility-documents-title">
+                <h4 id="eligibility-documents-title" data-en="Documents to check">जाँचने के लिए दस्तावेज़</h4>
+                <p class="eligibility-result-help" data-en="Examples only. The official scheme checklist may be different.">केवल उदाहरण। आधिकारिक योजना की सूची अलग हो सकती है।</p>
+                <ul class="eligibility-document-list" data-result-documents></ul>
+              </section>
+
+              <section class="eligibility-result-block" aria-labelledby="eligibility-next-steps-title">
+                <h4 id="eligibility-next-steps-title" data-en="Next steps">अगले कदम</h4>
+                <ol class="eligibility-next-steps" data-result-next-steps></ol>
+                <div class="eligibility-official-links" data-result-links hidden>
+                  <h5 data-en="Official links">आधिकारिक लिंक</h5>
+                  <ul data-result-link-list></ul>
+                </div>
+              </section>
+
+              <p class="eligibility-disclaimer" data-en="Only an authorised scheme office or official portal can confirm eligibility. Do not treat this demonstration as a government decision.">पात्रता की पुष्टि केवल अधिकृत योजना कार्यालय या आधिकारिक पोर्टल कर सकता है। इस उदाहरण को सरकारी निर्णय न मानें।</p>
+
+              <details class="eligibility-answer-details">
+                <summary data-en="Review your answers">अपने जवाब देखें</summary>
+                <dl class="eligibility-summary" data-eligibility-summary></dl>
+                <button class="eligibility-edit-btn" type="button" data-eligibility-edit data-en="Edit answers">जवाब बदलें</button>
+              </details>
+
+              <div class="eligibility-result-actions">
+                <button class="btn btn--ghost" type="button" data-eligibility-reset>
+                  <span data-en="Check Another Scheme">दूसरी योजना जाँचें</span>
+                </button>
+                <button class="btn btn--ghost" type="button" data-eligibility-download>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 17v3h14v-3" /></svg>
+                  <span data-en="Download / Save Result">परिणाम डाउनलोड करें</span>
+                </button>
+                <button class="btn btn--primary" type="button" data-eligibility-followup>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 4V6A2.5 2.5 0 0 1 7 3.5h10.5A2.5 2.5 0 0 1 20 6Z" /><path d="M8.5 8h7M8.5 11.5h4.5" /></svg>
+                  <span data-en="Ask a Follow-up Question">आगे का सवाल पूछें</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENT UNDERSTANDING -->
+    <section class="section document-tool" id="understand-document" aria-labelledby="document-title">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Clear information, in simple language">सरल भाषा में स्पष्ट जानकारी</span></p>
+          <h2 class="section-title" id="document-title" data-en="Understand Your Document">अपना दस्तावेज़ समझें</h2>
+          <p class="section-note" data-en="Received a notice, government letter or official email that you don't understand? Upload it and let us explain what it means in simple language.">क्या आपको कोई नोटिस, सरकारी पत्र या आधिकारिक ईमेल मिला है जिसे समझना कठिन है? उसे अपलोड करें और सरल भाषा में उसका अर्थ जानें।</p>
+        </div>
+
+        <div class="document-panel reveal" data-document-app>
+          <div class="document-intake" data-document-intake>
+          <div class="document-upload-area" data-document-dropzone>
+            <div class="document-upload-icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4 4V20H6Z" /><path d="M14 3.5V8h4M12 17v-6m0 0-2.5 2.5M12 11l2.5 2.5" /></svg>
+            </div>
+            <h3 data-en="Add your document">अपना दस्तावेज़ जोड़ें</h3>
+            <p data-en="Drag and drop a file here, or choose it from your device.">फ़ाइल यहाँ खींचकर छोड़ें या अपने डिवाइस से चुनें।</p>
+            <button class="btn btn--ghost document-browse" type="button" data-document-browse>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h3l2 2h6A2.5 2.5 0 0 1 20 9.5v8a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5Z" /><path d="M12 17v-6m0 0-2.5 2.5M12 11l2.5 2.5" /></svg>
+              <span data-en="Browse files">फ़ाइल चुनें</span>
+            </button>
+            <input class="document-file-input" id="document-file-input" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" data-document-file aria-label="Choose a JPG, JPEG, PNG or PDF document" />
+            <p class="document-file-types" data-en="Supported formats: JPG, JPEG, PNG and PDF">समर्थित प्रारूप: JPG, JPEG, PNG और PDF</p>
+          </div>
+
+          <div class="document-file-preview" data-document-preview hidden>
+            <div class="document-file-heading">
+              <div class="document-file-identity">
+                <span class="document-file-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h8l4 4V20H6Z" /><path d="M14 3.5V8h4M9 12h6M9 15h6" /></svg>
+                </span>
+                <span class="document-file-details"><strong data-document-filename></strong><small data-document-filetype></small></span>
+              </div>
+              <div class="document-file-actions">
+                <button class="document-text-button" type="button" data-document-replace data-en="Replace">बदलें</button>
+                <button class="document-text-button document-text-button--remove" type="button" data-document-remove data-en="Remove">हटाएँ</button>
+              </div>
+            </div>
+            <div class="document-preview-frame">
+              <img class="document-image-preview" data-document-image alt="Uploaded document preview" hidden />
+              <iframe class="document-pdf-preview" data-document-pdf title="PDF document preview" hidden></iframe>
+            </div>
+          </div>
+
+          <div class="document-divider"><span data-en="Or paste the text">या दस्तावेज़ का पाठ चिपकाएँ</span></div>
+
+          <div class="document-paste-field">
+            <label for="document-pasted-text" data-en="Email or document text">ईमेल या दस्तावेज़ का पाठ</label>
+            <textarea id="document-pasted-text" rows="6" data-document-text placeholder="Paste the text you want help understanding…" data-en-placeholder="Paste the text you want help understanding…"></textarea>
+          </div>
+
+          <p class="document-privacy-note">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 1 1 8 0v3M12 14v3" /></svg>
+            <span data-en="Privacy reminder: avoid sharing unnecessary personal information such as passwords, bank details or identification numbers. In this prototype, files are previewed locally and nothing is sent for analysis.">गोपनीयता सूचना: पासवर्ड, बैंक विवरण या पहचान संख्या जैसी अनावश्यक निजी जानकारी साझा न करें। इस नमूने में फ़ाइल केवल आपके ब्राउज़र में दिखाई जाती है; विश्लेषण के लिए कहीं नहीं भेजी जाती।</span>
+          </p>
+
+          <div class="document-submit-row">
+            <p data-document-status role="status" aria-live="polite" aria-atomic="true" data-en="Document analysis is not connected yet. Your content will not be sent.">दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है। आपकी सामग्री कहीं नहीं भेजी जाएगी।</p>
+            <button class="btn btn--primary" type="button" data-document-analyse disabled>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5M8.5 10.8h4.6M10.8 8.5v4.6" /></svg>
+              <span data-en="Analyse Document">दस्तावेज़ का विश्लेषण करें</span>
+            </button>
+          </div>
+          <p class="document-analysis-status" data-document-analysis-status role="status" aria-live="polite" hidden></p>
+          </div>
+
+          <div class="document-results" data-document-results hidden aria-labelledby="document-results-title">
+            <div class="document-results-header">
+              <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Document summary">दस्तावेज़ का सार</span></p>
+              <h3 id="document-results-title" tabindex="-1" data-en="Document Analysis">दस्तावेज़ का विश्लेषण</h3>
+              <p data-en="Review the explanation and check important details against the original document.">व्याख्या पढ़ें और ज़रूरी जानकारी को मूल दस्तावेज़ से मिलाएँ।</p>
+            </div>
+
+            <p class="document-results-unclear" data-document-unclear role="status" aria-live="polite" hidden></p>
+
+            <div class="document-results-grid">
+              <section class="document-result-card document-result-type" aria-labelledby="document-type-title">
+                <h4 id="document-type-title" data-en="What is this document?">यह कौन-सा दस्तावेज़ है?</h4>
+                <p class="document-result-type-value" data-document-type></p>
+                <p class="document-result-evidence" data-document-type-evidence></p>
+              </section>
+
+              <section class="document-result-card" aria-labelledby="document-explanation-title">
+                <div class="document-result-section-heading">
+                  <h4 id="document-explanation-title" data-en="Simple explanation">सरल व्याख्या</h4>
+                  <span class="document-source-badge document-source-badge--explanation" data-en="AI-generated explanation">एआई द्वारा तैयार व्याख्या</span>
+                </div>
+                <p data-document-explanation></p>
+              </section>
+
+              <section class="document-result-card" aria-labelledby="document-purpose-title">
+                <div class="document-result-section-heading">
+                  <h4 id="document-purpose-title" data-en="What does it want from you?">आपसे क्या करने को कहा गया है?</h4>
+                </div>
+                <p data-document-purpose></p>
+                <p class="document-result-request" data-document-requested-action></p>
+              </section>
+
+              <section class="document-result-card" aria-labelledby="document-important-title">
+                <div class="document-result-section-heading">
+                  <h4 id="document-important-title" data-en="Important information">महत्वपूर्ण जानकारी</h4>
+                </div>
+                <ul class="document-result-list" data-document-important-information></ul>
+              </section>
+
+              <section class="document-result-card" aria-labelledby="document-actions-title">
+                <div class="document-result-section-heading">
+                  <h4 id="document-actions-title" data-en="Action required">आपको क्या करना चाहिए?</h4>
+                </div>
+                <ol class="document-result-steps" data-document-actions></ol>
+              </section>
+
+              <section class="document-result-card document-result-warnings" aria-labelledby="document-warnings-title">
+                <div class="document-result-section-heading">
+                  <h4 id="document-warnings-title" data-en="Important warnings">महत्वपूर्ण चेतावनियाँ</h4>
+                </div>
+                <ul class="document-result-list" data-document-warnings></ul>
+              </section>
+            </div>
+
+            <p class="document-legal-disclaimer" data-document-legal-disclaimer data-en="This explanation is for information only. It is not legal advice and is not a substitute for advice from a qualified legal professional.">यह व्याख्या केवल जानकारी के लिए है। यह कानूनी सलाह नहीं है और किसी योग्य कानूनी विशेषज्ञ की सलाह का विकल्प नहीं है।</p>
+
+            <section class="document-questions" aria-labelledby="document-questions-title">
+              <div class="document-result-section-heading">
+                <h4 id="document-questions-title" data-en="Ask a question about this document">इस दस्तावेज़ के बारे में सवाल पूछें</h4>
+              </div>
+              <div class="document-question-suggestions" aria-label="Suggested questions">
+                <button type="button" data-document-question="What does this notice mean?" data-en="What does this notice mean?">इस नोटिस का क्या अर्थ है?</button>
+                <button type="button" data-document-question="Do I need to reply?" data-en="Do I need to reply?">क्या मुझे जवाब देना है?</button>
+                <button type="button" data-document-question="What is the deadline?" data-en="What is the deadline?">अंतिम तारीख क्या है?</button>
+                <button type="button" data-document-question="Which documents do I need?" data-en="Which documents do I need?">मुझे कौन-से दस्तावेज़ चाहिए?</button>
+                <button type="button" data-document-question="What happens if I ignore this notice?" data-en="What happens if I ignore this notice?">अगर मैं इस नोटिस पर ध्यान न दूँ तो क्या होगा?</button>
+              </div>
+              <form class="document-question-form" data-document-question-form>
+                <label class="sr-only" for="document-question-input" data-en="Ask a question">अपना सवाल लिखें</label>
+                <input id="document-question-input" type="text" maxlength="500" data-document-question-input placeholder="अपना सवाल लिखें…" data-en-placeholder="Ask your question…" />
+                <button class="document-question-voice" type="button" data-document-question-voice aria-label="Ask by voice" aria-pressed="false">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7" /></svg>
+                  <span data-en="Speak">बोलकर पूछें</span>
+                </button>
+                <button class="btn btn--primary" type="submit"><span data-en="Ask">पूछें</span></button>
+              </form>
+              <p class="document-question-status" data-document-question-status role="status" aria-live="polite" hidden></p>
+              <p class="document-question-voice-status" data-document-question-voice-status role="status" aria-live="polite" hidden></p>
+            </section>
+
+            <div class="document-result-actions">
+              <button class="btn btn--ghost" type="button" data-document-listen>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z" /><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" /></svg>
+                <span data-en="Listen to Summary">सार सुनें</span>
+              </button>
+              <button class="btn btn--ghost" type="button" data-document-download>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4" /><path d="M5 17v3h14v-3" /></svg>
+                <span data-en="Download Summary">सार डाउनलोड करें</span>
+              </button>
+              <button class="btn btn--ghost" type="button" data-document-another>
+                <span data-en="Upload Another Document">दूसरा दस्तावेज़ अपलोड करें</span>
+              </button>
+              <button class="btn btn--primary" type="button" data-document-ask-another>
+                <span data-en="Ask Another Question">एक और सवाल पूछें</span>
+              </button>
+            </div>
+            <p class="document-speech-status" data-document-speech-status role="status" aria-live="polite" hidden></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -509,29 +1149,29 @@
           <div class="ask-copy">
             <p class="ask-kicker">
               <span class="ask-kicker-dot" aria-hidden="true"></span>
-              <span data-en="Quick access · AI chat">Quick access · AI chat</span>
+              <span data-en="Quick access · AI chat">त्वरित पहुँच · एआई चैट</span>
             </p>
 
             <h2 class="ask-title" id="ask-title" data-en-html="What Are You <em class=&quot;serif-accent&quot;>Looking For?</em>">
-              Aap Kya <em class="serif-accent">Dhoondh Rahe Hain?</em>
+              आप क्या <em class="serif-accent">ढूँढ़ रहे हैं?</em>
             </h2>
 
             <p class="ask-desc" data-en="Pick a topic below and SarthiX will tell you which schemes fit your situation, what they offer, and where to apply — right inside the chat.">
-              Neeche se apna topic chuniye — SarthiX chat mein hi batayega ki aapke liye kaunsi yojana sahi hai, usme kya fayda hai, aur aavedan kahan karna hai.
+              नीचे कोई विषय चुनें। SarthiX चैट में बताएगा कि आपके लिए कौन-सी योजना उपयुक्त हो सकती है, उससे क्या लाभ मिलते हैं और आवेदन कहाँ करना है।
             </p>
 
             <ul class="ask-benefits">
               <li>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
-                <span data-en="Straight answers, no forms">Seedha jawaab, koi form nahi</span>
+                <span data-en="Straight answers, no forms">सीधे जवाब, कोई फ़ॉर्म नहीं</span>
               </li>
               <li>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
-                <span data-en="In Hindi or English">Hindi ya English mein</span>
+                <span data-en="In Hindi or English">हिंदी या अंग्रेज़ी में</span>
               </li>
               <li>
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
-                <span data-en="Links to official portals">Official portal ke links</span>
+                <span data-en="Links to official portals">आधिकारिक पोर्टल के लिंक</span>
               </li>
             </ul>
 
@@ -540,11 +1180,11 @@
                 <path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 4V6A2.5 2.5 0 0 1 7 3.5h10.5A2.5 2.5 0 0 1 20 6Z" />
                 <path d="M8.5 8h7M8.5 11.5h4.5" />
               </svg>
-              <span data-en="Start Chat with SarthiX">SarthiX se Chat Shuru Karein</span>
+              <span data-en="Start Chat with SarthiX">Sार्थीX से चैट शुरू करें</span>
             </button>
 
             <p class="ask-note" data-en="Helpful guidance is provided here, but final scheme details should be confirmed on the official government portal.">
-              Yahan helpful guidance di jaati hai, lekin yojana ki final jaankari official sarkari portal par confirm karna zaroori hai.
+              यहाँ दी गई जानकारी मार्गदर्शन के लिए है। योजना का अंतिम विवरण आधिकारिक सरकारी पोर्टल पर जाँचें।
             </p>
           </div>
 
@@ -556,8 +1196,8 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8" /><path d="M12 13c0-4.5 3-7 8-7 0 5-3 7-8 7Z" /><path d="M12 17c-3.5 0-5.5-1.8-5.5-5.5C10 11.5 12 13 12 13" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Farming &amp; Farmers">Kheti aur Kisan</strong>
-                <small data-en="Which scheme fits my farm?">Mere khet ke liye yojana?</small>
+                <strong data-en="Farming &amp; Farmers">खेती और किसान</strong>
+                <small data-en="Which scheme fits my farm?">मेरे खेत के लिए कौन-सी योजना?</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -571,8 +1211,8 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3.3 4 5.2 6.6 5.2 9a5.2 5.2 0 0 1-10.4 0c0-2.4 1.9-5 5.2-9Z" /><path d="M9.5 13.5a2.5 2.5 0 0 0 2.5 2.5" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Irrigation">Sinchai</strong>
-                <small data-en="Water support for crops">Kheti mein paani ki madad</small>
+                <strong data-en="Irrigation">सिंचाई</strong>
+                <small data-en="Water support for crops">फसलों के लिए पानी की सहायता</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -586,8 +1226,8 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Solar Energy">Solar Oorja</strong>
-                <small data-en="Solar pump information">Solar pump ki jaankari</small>
+                <strong data-en="Solar Energy">सौर ऊर्जा</strong>
+                <small data-en="Solar pump information">सौर पंप की जानकारी</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -601,8 +1241,8 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5" /><path d="M5.5 10v10h13V10" /><path d="M10 20v-5h4v5" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Housing">Ghar aur Awas</strong>
-                <small data-en="Housing scheme help">Ghar banane ki yojana</small>
+                <strong data-en="Housing">घर और आवास</strong>
+                <small data-en="Housing scheme help">घर बनाने की योजना</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -616,28 +1256,26 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 8.8a4.8 4.8 0 0 0-8.5-3 4.8 4.8 0 0 0-8.5 3c0 5 8.5 10.2 8.5 10.2s8.5-5.2 8.5-10.2Z" /><path d="M7.5 11.5h2.2l1.2-2 1.6 4 1.2-2h2.8" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Health">Swasthya</strong>
-                <small data-en="Government health cover">Sarkari swasthya suvidha</small>
+                <strong data-en="Health">स्वास्थ्य</strong>
+                <small data-en="Government health cover">सरकारी स्वास्थ्य सुविधा</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </span>
             </button>
 
-            <button class="ask-tile" type="button"
-              data-chat-question="Aavedan ke liye kaunse documents chahiye?"
-              data-chat-question-en="Which documents are needed for an application?">
+            <a class="ask-tile" href="#understand-document">
               <span class="ask-tile-icon" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h7l4.5 4.5v12.5h-11.5Z" /><path d="M13.5 3.5V8H18" /><path d="M9.5 12h5.5M9.5 15h5.5" /></svg>
               </span>
               <span class="ask-tile-text">
-                <strong data-en="Documents">Documents</strong>
-                <small data-en="What papers do I need?">Kaunse kagaz chahiye?</small>
+                <strong data-en="Documents">दस्तावेज़</strong>
+                <small data-en="What papers do I need?">कौन-से कागज़ चाहिए?</small>
               </span>
               <span class="ask-tile-arrow" aria-hidden="true">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -649,9 +1287,9 @@
     <section class="section how" id="how-it-works" aria-labelledby="how-title">
       <div class="container">
         <div class="section-head section-head--center reveal">
-          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Simple process">Simple process</span></p>
-          <h2 class="section-title" id="how-title" data-en-html="How Does It <em class=&quot;serif-accent&quot;>Work?</em>">Kaise Kaam <em class="serif-accent">Karta Hai?</em></h2>
-          <p class="section-note" data-en="Four simple steps — from asking a question to knowing the right next step.">Chaar simple steps — sawaal poochhne se lekar sahi agle kadam tak.</p>
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Simple process">सरल प्रक्रिया</span></p>
+          <h2 class="section-title" id="how-title" data-en-html="How Does It <em class=&quot;serif-accent&quot;>Work?</em>">यह कैसे <em class="serif-accent">काम करता है?</em></h2>
+          <p class="section-note" data-en="Four simple steps — from asking a question to knowing the right next step.">सवाल पूछने से लेकर अगला सही कदम जानने तक — चार सरल चरण।</p>
         </div>
 
         <div class="how-grid">
@@ -663,8 +1301,8 @@
               </svg>
             </span>
             <span class="step-num">01</span>
-            <h3 data-en="Ask Your Question">Apna Sawal Poochiye</h3>
-            <p data-en="Speak your question using the mic.">Mic par bolkar apna sawal poochiye.</p>
+            <h3 data-en="Ask Your Question">अपना सवाल पूछें</h3>
+            <p data-en="Speak your question using the mic.">माइक पर बोलकर अपना सवाल पूछें।</p>
           </article>
 
           <span class="step-arrow" aria-hidden="true">
@@ -679,8 +1317,8 @@
               </svg>
             </span>
             <span class="step-num">02</span>
-            <h3 data-en="SarthiX Understands">SarthiX Samajhta Hai</h3>
-            <p data-en="AI understands your question and finds the right information.">AI aapke sawal ko samajhkar sahi jaankari dhoondhta hai.</p>
+            <h3 data-en="SarthiX Understands">SarthiX आपकी बात समझता है</h3>
+            <p data-en="AI understands your question and finds the right information.">एआई आपके सवाल को समझकर सही जानकारी खोजता है।</p>
           </article>
 
           <span class="step-arrow" aria-hidden="true">
@@ -695,8 +1333,8 @@
               </svg>
             </span>
             <span class="step-num">03</span>
-            <h3 data-en="Get Your Answer">Jawaab Paaiye</h3>
-            <p data-en="You get an answer in simple text and voice.">Aapko simple text aur voice mein jawaab milta hai.</p>
+            <h3 data-en="Get Your Answer">अपना जवाब पाएँ</h3>
+            <p data-en="You get an answer in simple text and voice.">आपको सरल लिखित जवाब और आवाज़ में उत्तर मिलेगा।</p>
           </article>
 
           <span class="step-arrow" aria-hidden="true">
@@ -711,8 +1349,8 @@
               </svg>
             </span>
             <span class="step-num">04</span>
-            <h3 data-en="Take the Next Step">Agla Kadam Uthaiye</h3>
-            <p data-en="Understand the next step for a scheme or the information you need.">Yojana ya jaankari ke liye aage ka process samajhiye.</p>
+            <h3 data-en="Take the Next Step">अगला कदम उठाएँ</h3>
+            <p data-en="Understand the next step for a scheme or the information you need.">योजना या ज़रूरी जानकारी के लिए आगे की प्रक्रिया समझें।</p>
           </article>
         </div>
 
@@ -720,9 +1358,9 @@
         <div class="how-cta reveal">
           <span class="how-cta-rings" aria-hidden="true"></span>
           <div class="how-cta-copy">
-            <p class="how-cta-kicker"><span aria-hidden="true"></span>Voice assistant</p>
-            <h3 data-en="Ask your question by speaking.">Apna sawaal bolkar poochhiye.</h3>
-            <p data-en="Tap the mic — SarthiX is ready to listen. Answers in your language.">Mic dabaiye — SarthiX sunne ke liye taiyaar hai. Jawaab aapki bhasha mein.</p>
+            <p class="how-cta-kicker"><span aria-hidden="true"></span>आवाज़ सहायक</p>
+            <h3 data-en="Ask your question by speaking.">बोलकर अपना सवाल पूछें।</h3>
+            <p data-en="Tap the mic — SarthiX is ready to listen. Answers in your language.">माइक दबाएँ — SarthiX सुनने के लिए तैयार है और आपकी भाषा में जवाब देगा।</p>
           </div>
           <div class="how-cta-action">
             <button class="btn btn--amber" type="button" data-start-voice>
@@ -730,9 +1368,9 @@
                 <rect x="9" y="3.5" width="6" height="10" rx="3" />
                 <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7" />
               </svg>
-              <span data-en="Talk Now">Abhi Baat Karo</span>
+              <span data-en="Talk Now">अभी बोलें</span>
             </button>
-            <span class="how-cta-note" data-en="Voice input on Chrome / Edge">Chrome / Edge par voice input</span>
+            <span class="how-cta-note" data-en="Voice input on Chrome / Edge">आवाज़ से पूछने के लिए Chrome या Edge का उपयोग करें</span>
           </div>
         </div>
       </div>
@@ -754,36 +1392,33 @@
             <span class="brand-word">Sarthi<span class="brand-x">X</span></span>
           </a>
           <p class="footer-desc" data-en="Your rural AI companion — government information, farming, health and guidance, in your own language.">
-            Aapka grameen AI saathi — sarkari jaankari, kheti, swasthya aur margdarshan, apni bhasha mein.
+            आपका ग्रामीण एआई साथी — सरकारी जानकारी, खेती, स्वास्थ्य और मार्गदर्शन, आपकी भाषा में।
           </p>
         </div>
 
         <nav class="footer-col" aria-labelledby="footer-links-title">
-          <h3 id="footer-links-title" data-en="Quick links">Quick links</h3>
+          <h3 id="footer-links-title" data-en="Quick links">त्वरित लिंक</h3>
           <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#schemes">Schemes</a></li>
-            <li><a href="#health">Health</a></li>
-            <li><a href="#guidance">Guidance</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#home" data-en="Home">मुखपृष्ठ</a></li>
+            <li><a href="#schemes" data-en="Plans">योजनाएँ</a></li>
+            <li><a href="#eligibility" data-en="Eligibility">पात्रता</a></li>
+            <li><a href="#understand-document" data-en="Document">दस्तावेज़</a></li>
+            <li><a href="#health" data-en="Health">स्वास्थ्य</a></li>
+            <li><a href="#guidance" data-en="Guidance">मार्गदर्शन</a></li>
+            <li><a href="#about" data-en="Introduction">परिचय</a></li>
           </ul>
         </nav>
 
         <div class="footer-col" aria-labelledby="footer-lang-title">
-          <h3 id="footer-lang-title" data-en="Supported languages">Supported languages</h3>
+          <h3 id="footer-lang-title" data-en="Supported languages">उपलब्ध भाषाएँ</h3>
           <ul class="footer-langs">
-            <li>हिन्दी</li>
+            <li>हिंदी</li>
             <li>English</li>
-            <li class="is-soon">मराठी <span>soon</span></li>
-            <li class="is-soon">বাংলা <span>soon</span></li>
-            <li class="is-soon">தமிழ் <span>soon</span></li>
-            <li class="is-soon">తెలుగు <span>soon</span></li>
           </ul>
-          <p class="footer-more" data-en="+ more languages coming soon">+ aur bhi bhashayein jald</p>
         </div>
 
         <div class="footer-col" aria-labelledby="footer-contact-title">
-          <h3 id="footer-contact-title" data-en="Contact">Sampark</h3>
+          <h3 id="footer-contact-title" data-en="Contact">संपर्क</h3>
           <ul class="footer-contact">
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg>
@@ -791,19 +1426,19 @@
             </li>
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
-              <span>Bharat</span>
+              <span data-en="India">भारत</span>
             </li>
             <li>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7.5V12l3 2" /></svg>
-              <span data-en="Mon–Sat · 9am to 6pm">Somvaar–Shanivaar · 9am se 6pm</span>
+              <span data-en="Mon–Sat · 9am to 6pm">सोमवार–शनिवार · सुबह 9 से शाम 6 बजे</span>
             </li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© <span data-year>2026</span> SarthiX. <span data-en="All rights reserved.">All rights reserved.</span></p>
-        <p class="footer-bottom-note" data-en="Voice-first. For Bharat.">Voice-first. Bharat ke liye.</p>
+        <p>© <span data-year>2026</span> SarthiX. <span data-en="All rights reserved.">सर्वाधिकार सुरक्षित।</span></p>
+        <p class="footer-bottom-note" data-en="Voice-first. For Bharat.">आवाज़ से संवाद। भारत के लिए।</p>
       </div>
     </div>
   </footer>
@@ -811,14 +1446,14 @@
   <!-- ═══════════════════════════════════════════════════════════════
        CHAT ASSISTANT
   ════════════════════════════════════════════════════════════════ -->
-  <button class="chat-fab" type="button" id="chat-fab" aria-expanded="false" aria-controls="chat-panel" aria-label="SarthiX chat kholein">
+  <button class="chat-fab" type="button" id="chat-fab" aria-expanded="false" aria-controls="chat-panel" aria-label="SarthiX चैट खोलें">
     <span class="chat-fab-icon" aria-hidden="true">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 4V6A2.5 2.5 0 0 1 7 3.5h10.5A2.5 2.5 0 0 1 20 6Z" />
         <path d="M8.5 8h7M8.5 11.5h4.5" />
       </svg>
     </span>
-    <span class="chat-fab-label" data-en="Ask SarthiX">SarthiX se poochhiye</span>
+    <span class="chat-fab-label" data-en="Ask SarthiX">SarthiX से पूछें</span>
     <span class="chat-fab-dot" aria-hidden="true"></span>
   </button>
 
@@ -835,45 +1470,45 @@
           </svg>
         </span>
         <span class="chat-id-text">
-          <strong id="chat-title">SarthiX Chat</strong>
-          <span class="chat-status"><span class="chat-status-dot" aria-hidden="true"></span><span data-en="AI assistant · online">AI assistant · online</span></span>
+          <strong id="chat-title" data-en="SarthiX Chat">SarthiX चैट</strong>
+          <span class="chat-status"><span class="chat-status-dot" aria-hidden="true"></span><span data-en="AI assistant · online">एआई सहायक · ऑनलाइन</span></span>
         </span>
       </div>
       <span class="chat-language" aria-live="polite">हिन्दी</span>
-      <button class="chat-close" type="button" data-chat-close aria-label="Chat band karein">
+      <button class="chat-close" type="button" data-chat-close aria-label="चैट बंद करें">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </button>
     </header>
 
-    <div class="chat-body" data-chat-messages role="log" aria-live="polite" aria-label="Chat messages">
+    <div class="chat-body" data-chat-messages role="log" aria-live="polite" aria-label="चैट संदेश">
       <div class="chat-msg chat-msg--bot">
         <span class="chat-msg-avatar" aria-hidden="true">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M5.7 5.7l1.4 1.4M3 12h2M19 12h2M17 17l1.3 1.3" /><circle cx="12" cy="12" r="4.2" /><path d="M12 16.2V21M9 21h6" /></svg>
         </span>
         <div class="chat-bubble">
-          <p data-chat-greeting data-en="Namaste! I am SarthiX. Tell me your situation — farming, irrigation, solar, housing, health or documents — and I will suggest the schemes that may fit you.">Namaste! Main SarthiX hoon. Aap apni sthiti bataiye — kheti, sinchai, solar, ghar, swasthya ya documents — aur main aapke liye sahi yojana suggest karunga.</p>
+          <p data-chat-greeting data-en="Namaste! I am SarthiX. Tell me your situation — farming, irrigation, solar, housing, health or documents — and I will suggest the schemes that may fit you.">नमस्ते! मैं SarthiX हूँ। खेती, सिंचाई, सौर ऊर्जा, आवास, स्वास्थ्य या दस्तावेज़ों के बारे में अपनी ज़रूरत बताएँ। मैं आपके लिए उपयुक्त योजनाओं की जानकारी दूँगा।</p>
         </div>
       </div>
     </div>
 
     <div class="chat-suggest" data-chat-suggestions>
-      <button type="button" data-chat-question="Mere khet ke liye kaunsi yojana sahi hai?" data-chat-question-en="Which scheme is right for my farm?" data-en="Farming">Kheti</button>
-      <button type="button" data-chat-question="Ghar banane ke liye kaunsi yojana hai?" data-chat-question-en="Which scheme helps build a house?" data-en="Housing">Ghar</button>
-      <button type="button" data-chat-question="Sarkari swasthya yojana kaunsi hai?" data-chat-question-en="Which government health scheme can I use?" data-en="Health">Swasthya</button>
-      <button type="button" data-chat-question="Aavedan ke liye kaunse documents chahiye?" data-chat-question-en="Which documents are needed for an application?" data-en="Documents">Documents</button>
+      <button type="button" data-chat-question="मेरे खेत के लिए कौन-सी योजना सही है?" data-chat-question-en="Which scheme is right for my farm?" data-en="Farming">खेती</button>
+      <button type="button" data-chat-question="घर बनाने के लिए कौन-सी योजना है?" data-chat-question-en="Which scheme helps build a house?" data-en="Housing">आवास</button>
+      <button type="button" data-chat-question="सरकारी स्वास्थ्य योजना कौन-सी है?" data-chat-question-en="Which government health scheme can I use?" data-en="Health">स्वास्थ्य</button>
+      <button type="button" data-chat-question="आवेदन के लिए कौन-से दस्तावेज़ चाहिए?" data-chat-question-en="Which documents are needed for an application?" data-en="Documents">दस्तावेज़</button>
     </div>
 
     <form class="chat-form" id="chat-form" autocomplete="off">
-      <label class="sr-only" for="chat-input" data-en="Type your question">Apna sawaal likhein</label>
+      <label class="sr-only" for="chat-input" data-en="Type your question">अपना सवाल लिखें</label>
       <input class="chat-input" id="chat-input" name="message" type="text" maxlength="280"
-        placeholder="Apna sawaal likhein…" data-en-placeholder="Type your question…" autocomplete="off" />
-      <button class="chat-send" type="submit" aria-label="Sawaal bhejein">
+        placeholder="अपना सवाल लिखें…" data-en-placeholder="Type your question…" autocomplete="off" />
+      <button class="chat-send" type="submit" aria-label="सवाल भेजें">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 20 4l-4 16-4.5-6.5L4 12Z" /><path d="m11.5 13.5 4-4" /></svg>
       </button>
     </form>
 
     <p class="chat-note" data-en="Helpful guidance is provided, but confirm final scheme details on the official portal.">
-      Helpful guidance di jaati hai, lekin yojana ki final jaankari official portal par confirm karein.
+      यह सहायक जानकारी है। योजना का अंतिम विवरण आधिकारिक पोर्टल पर जाँचें।
     </p>
   </aside>
 
@@ -892,11 +1527,11 @@
           <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7" />
         </svg>
       </div>
-      <h3 id="voice-permission-title" data-voice-permission-title>Talk to SarthiX</h3>
-      <p data-voice-permission-description>Allow microphone access so you can ask your questions naturally in your own language. Your spoken words will appear in the chat box, where you can review them before sending.</p>
+      <h3 id="voice-permission-title" data-voice-permission-title>SarthiX से बात करें</h3>
+      <p data-voice-permission-description>अपने सवाल बोलकर पूछने के लिए माइक्रोफ़ोन की अनुमति दें। आपके बोले हुए शब्द चैट में दिखाई देंगे; भेजने से पहले आप उन्हें जाँच सकते हैं।</p>
       <div class="voice-permission-actions">
-        <button class="btn btn--ghost btn--sm" type="button" data-voice-permission-cancel>Not Now</button>
-        <button class="btn btn--primary btn--sm" type="button" data-voice-permission-allow>Allow Microphone</button>
+        <button class="btn btn--ghost btn--sm" type="button" data-voice-permission-cancel>अभी नहीं</button>
+        <button class="btn btn--primary btn--sm" type="button" data-voice-permission-allow>माइक्रोफ़ोन की अनुमति दें</button>
       </div>
     </div>
   </div>
