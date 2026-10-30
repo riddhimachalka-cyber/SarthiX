@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0F7B6A" />
+  <meta name="description" content="SarthiX — Multilingual Voice Assistant for Rural Citizens. Sign in to continue." />
+
+  <title>SarthiX — Sign In</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#login-form" data-en="Skip to form">फॉर्म पर जाएँ</a>
+
+  <div class="container">
+    <div class="login-shell">
+      <!-- LEFT SECTION -->
+      <section class="login-left" aria-label="SarthiX brand">
+        <div class="brand" aria-label="SarthiX">
+          <span class="brand-mark" aria-hidden="true">SX</span>
+          <span class="brand-name">Sarthi<span class="brand-x">X</span></span>
+        </div>
+
+        <p class="welcome-kicker">Your Voice · Your Rights · Your Opportunities</p>
+        <h1 class="welcome-heading">Empowering Every Voice.</h1>
+        <p class="welcome-sub">
+          One platform. Multiple languages. Unlimited opportunities for rural India.
+        </p>
+
+        <div class="illustration">
+          <div class="illustration-visual" aria-hidden="true">
+            <div class="mic-ring"></div>
+            <div class="mic-ring"></div>
+            <div class="mic-ring"></div>
+            <div class="mic-core" aria-label="Voice assistant">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2a7 7 0 0 0-7 7v4a7 7 0 0 0 7 7 7 7 0 0 0 7-7v-4a7 7 0 0 0-7-7" />
+                <path d="M12 19v3M12 14v3" />
+              </svg>
+            </div>
+          </div>
+          <div class="sound-waves" role="img" aria-label="Sound waves">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+          <div class="multilingual" aria-label="Multilingual support">
+            <span class="lang-dot" aria-hidden="true"></span>
+            <span>Breaking language barriers through AI.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT SECTION -->
+      <section class="login-right" aria-label="Sign in">
+        <div class="login-header-actions">
+          <button class="lang-select" type="button" id="lang-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu">
+            <span class="lang-current" id="lang-current">English</span>
+            <svg class="lang-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="listbox" aria-labelledby="lang-select">
+            <button class="lang-option" type="button" role="option" aria-selected="true" data-lang="en">English</button>
+            <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="hi">हिन्दी</button>
+            <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="mr">मराठी</button>
+            <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="ta">தமிழ்</button>
+            <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="gu">ગુજરાતી</button>
+            <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="bn">বাংলা</button>
+          </div>
+        </div>
+
+        <div class="login-card">
+          <div class="login-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
+            </svg>
+            AI-Powered Assistance
+          </div>
+
+          <h2 class="login-heading">Welcome Back!</h2>
+          <p class="login-sub">Sign in to continue your journey with SarthiX.</p>
+
+          <form class="login-form" id="login-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="mobile">Mobile Number</label>
+              <div class="form-input-wrap">
+                <span class="country-code-wrap">+91</span>
+                <input class="form-input with-country" id="mobile" type="tel" maxlength="10" inputmode="numeric" placeholder="9876543210" aria-required="true" />
+              </div>
+              <p class="error-text" id="mobile-error">Please enter a valid 10-digit mobile number.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <div class="form-input-wrap">
+                <input class="form-input" id="password" type="password" placeholder="••••••••" aria-required="true" />
+                <button class="input-icon toggle-password" type="button" id="toggle-password" aria-label="Show password" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8" /><circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+              <p class="error-text" id="password-error">Please enter your password.</p>
+            </div>
+
+            <div class="form-footer">
+              <label class="remember-wrap">
+                <input type="checkbox" id="remember" />
+                <span>Remember me</span>
+              </label>
+              <a class="forgot-link" href="#" id="forgot-link">Forgot Password?</a>
+            </div>
+
+            <button class="btn-primary" id="login-btn" type="submit">
+              <span class="btn-text">Sign In</span>
+              <span class="loader" aria-hidden="true"></span>
+            </button>
+
+            <!-- Login with OTP toggle -->
+            <div class="signup-divider" style="margin:18px 0;"><span>OR</span></div>
+            <button class="btn-secondary" id="login-with-otp" type="button">
+              Login with OTP
+            </button>
+
+            <div class="divider" style="margin:22px 0;"><span>OR</span></div>
+
+            <button class="btn-google" type="button" id="google-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.52 3.37-4.16 3.37-7.08" />
+                <path fill="#EA4335" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23" />
+                <path fill="#FBBC04" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s0-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12c0 1.77.43 3.45 1.18 4.93l3.66-2.84z" />
+                <path fill="#34A853" d="M12 23c4.3 0 8.01-2.47 9.82-6.16l-3.57-2.77c-.87 2.6-3.29 4.53-6.25 4.53-1.48 0-2.73-.4-3.77-1.06l-3.57 2.77C3.96 21.53 7.68 23 12 23" />
+                <path fill="#4285F4" d="M12 12c-1.48 0-2.73-.4-3.77-1.06l3.57-2.77c.87-2.6 3.29-4.53 6.25-4.53 1.48 0 2.73.4 3.77 1.06l-3.57 2.77c-1.04-.66-2.31-1.06-3.77-1.06-2.86 0-5.29 1.93-6.16 4.53z" />
+              </svg>
+              <span class="g-text">Continue with Google</span>
+            </button>
+
+            <div class="login-footer">
+              Don't have an account? <a href="signup.html">Create Account</a>
+            </div>
+
+            <div class="footer-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms &amp; Conditions</a>
+              <a href="#">Help</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    /* ── Language selector ── */
+    (function () {
+      const langSelect = document.getElementById("lang-select");
+      const langMenu = document.getElementById("lang-menu");
+      const langCurrent = document.getElementById("lang-current");
+      const langOptions = langMenu.querySelectorAll('[role="option"]');
+      const chevron = langSelect.querySelector(".lang-chevron");
+
+      let isOpen = false;
+
+      langSelect.addEventListener("click", () => {
+        isOpen = !isOpen;
+        langSelect.setAttribute("aria-expanded", String(isOpen));
+        langMenu.classList.toggle("is-open", isOpen);
+        chevron.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+      });
+
+      langOptions.forEach((opt) => {
+        opt.addEventListener("click", () => {
+          langCurrent.textContent = opt.textContent;
+          langOptions.forEach((o) => o.setAttribute("aria-selected", "false"));
+          opt.setAttribute("aria-selected", "true");
+          isOpen = false;
+          langSelect.setAttribute("aria-expanded", "false");
+          langMenu.classList.remove("is-open");
+          chevron.style.transform = "rotate(0deg)";
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!langSelect.contains(e.target) && !langMenu.contains(e.target)) {
+          isOpen = false;
+          langSelect.setAttribute("aria-expanded", "false");
+          langMenu.classList.remove("is-open");
+          chevron.style.transform = "rotate(0deg)";
+        }
+      });
+    })();
+
+    /* ── Password toggle ── */
+    (function () {
+      const toggle = document.getElementById("toggle-password");
+      const password = document.getElementById("password");
+
+      toggle.addEventListener("click", () => {
+        const show = password.type === "password";
+        password.type = show ? "text" : "password";
+        toggle.setAttribute("aria-pressed", String(show));
+        toggle.setAttribute("aria-label", show ? "Hide password" : "Show password");
+      });
+    })();
+
+    /* ── Validation helpers ── */
+    const mobile = document.getElementById("mobile");
+    const password = document.getElementById("password");
+    const mobileError = document.getElementById("mobile-error");
+    const passwordError = document.getElementById("password-error");
+    const loginBtn = document.getElementById("login-btn");
+    const btnText = loginBtn.querySelector(".btn-text");
+    const loader = loginBtn.querySelector(".loader");
+    const toast = document.getElementById("toast");
+
+    function clearInputError(input, errorEl) {
+      input.classList.remove("error");
+      errorEl.classList.remove("visible");
+    }
+
+    mobile.addEventListener("input", () => clearInputError(mobile, mobileError));
+    password.addEventListener("input", () => clearInputError(password, passwordError));
+
+    function showToast(message, type = "success") {
+      toast.textContent = message;
+      toast.className = "toast show " + (type === "error" ? "error" : "");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3500);
+    }
+
+    function setLoading(loading) {
+      loginBtn.classList.toggle("loading", loading);
+      loginBtn.disabled = loading;
+      btnText.textContent = loading ? "Signing In…" : "Sign In";
+      loader.style.display = loading ? "block" : "none";
+    }
+
+    /* ── Forgot Password (OTP flow placeholder) ── */
+    document.getElementById("forgot-link").addEventListener("click", (e) => {
+      e.preventDefault();
+      const num = mobile.value.trim();
+      if (!/^\d{10}$/.test(num)) {
+        mobile.classList.add("error");
+        mobileError.classList.add("visible");
+        mobile.focus();
+        return;
+      }
+      showToast("OTP sent to " + num, "success");
+    });
+
+    /* ── Login with OTP ── */
+    document.getElementById("login-with-otp").addEventListener("click", (e) => {
+      e.preventDefault();
+      const num = mobile.value.trim();
+      if (!/^\d{10}$/.test(num)) {
+        mobile.classList.add("error");
+        mobileError.classList.add("visible");
+        mobile.focus();
+        return;
+      }
+      clearInputError(mobile, mobileError);
+      showToast("OTP sent to +" + num, "success");
+      // TODO: Call backend /api/auth/send-otp then show OTP verify UI
+    });
+
+    /* ── Google login (integration-ready) ── */
+    document.getElementById("google-btn").addEventListener("click", () => {
+      showToast("Google sign-in integration ready for backend.", "success");
+    });
+
+    /* ── Login submit ── */
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let valid = true;
+
+      const mobileVal = mobile.value.trim();
+      if (!/^\d{10}$/.test(mobileVal)) {
+        mobile.classList.add("error");
+        mobileError.classList.add("visible");
+        mobile.focus();
+        valid = false;
+      } else {
+        clearInputError(mobile, mobileError);
+      }
+
+      if (password.value.length === 0) {
+        password.classList.add("error");
+        passwordError.classList.add("visible");
+        if (valid) password.focus();
+        valid = false;
+      } else {
+        clearInputError(password, passwordError);
+      }
+
+      if (!valid) return;
+
+      setLoading(true);
+
+      // TODO: POST /api/auth/login { mobile, password }
+      setTimeout(() => {
+        setLoading(false);
+        showToast("Signed in successfully.", "success");
+        // In a real app: redirect to dashboard here
+      }, 1400);
+    });
+  </script>
+</body>
+</html>

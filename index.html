@@ -8,7 +8,7 @@
 
   <title>SarthiX — आपका ग्रामीण एआई साथी</title>
 
-  <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo/Abstract Green Harvest Emblem.png" />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,7 +33,7 @@
     <div class="container nav-shell">
       <a class="brand" href="#home" aria-label="SarthiX — home">
         <span class="brand-mark" aria-hidden="true">
-          <img src="assets/logo/logo-mark.svg" alt="" />
+          <img src="assets/logo/Abstract Green Harvest Emblem.png" alt="" />
         </span>
         <span class="brand-word">Sarthi<span class="brand-x">X</span></span>
       </a>
@@ -43,7 +43,6 @@
         <a class="nav-link" href="#schemes" data-nav="schemes" data-hi="योजनाएँ">Schemes</a>
         <a class="nav-link" href="#eligibility" data-nav="eligibility" data-hi="पात्रता">Eligibility</a>
         <a class="nav-link" href="#understand-document" data-nav="understand-document" data-hi="दस्तावेज़">Documents</a>
-        <a class="nav-link" href="#health" data-nav="health" data-hi="स्वास्थ्य">Health</a>
         <a class="nav-link" href="#guidance" data-nav="guidance" data-hi="मार्गदर्शन">Guidance</a>
         <a class="nav-link" href="#about" data-nav="about" data-hi="परिचय">About</a>
       </nav>
@@ -75,9 +74,8 @@
           </div>
         </div>
 
-        <a class="btn btn--primary btn--sm nav-cta" href="#voice-demo" data-start-voice>
-          <span data-en="Get Started">शुरू करें</span>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        <a class="btn btn--ghost btn--sm" href="login.html">
+          <span data-en="Login">लॉग इन</span>
         </a>
 
         <button class="nav-toggle" type="button" aria-label="मेनू खोलें" aria-expanded="false" aria-controls="mobile-menu">
@@ -94,10 +92,10 @@
           <a class="mobile-link" href="#schemes" data-nav="schemes"><span data-hi="योजनाएँ">Schemes</span><span class="mobile-link-num">02</span></a>
           <a class="mobile-link" href="#eligibility" data-nav="eligibility"><span data-hi="पात्रता">Eligibility</span><span class="mobile-link-num">03</span></a>
           <a class="mobile-link" href="#understand-document" data-nav="understand-document"><span data-hi="दस्तावेज़">Documents</span><span class="mobile-link-num">04</span></a>
-          <a class="mobile-link" href="#health" data-nav="health"><span data-hi="स्वास्थ्य">Health</span><span class="mobile-link-num">05</span></a>
-          <a class="mobile-link" href="#guidance" data-nav="guidance"><span data-hi="मार्गदर्शन">Guidance</span><span class="mobile-link-num">06</span></a>
-          <a class="mobile-link" href="#about" data-nav="about"><span data-hi="परिचय">About</span><span class="mobile-link-num">07</span></a>
-        </nav>
+          <a class="mobile-link" href="#guidance" data-nav="guidance"><span data-hi="मार्गदर्शन">Guidance</span><span class="mobile-link-num">05</span></a>
+        <a class="mobile-link" href="#about" data-nav="about"><span data-hi="परिचय">About</span><span class="mobile-link-num">06</span></a>
+        <a class="mobile-link" href="login.html" data-nav="login"><span data-hi="लॉग इन">Login</span><span class="mobile-link-num">07</span></a>
+      </nav>
 
         <div class="mobile-bottom">
           <p class="mobile-label" data-en="Choose language">भाषा चुनें</p>
@@ -127,7 +125,7 @@
 
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="hero-badge">
+          <p class="hero-badge" data-en="AI-Powered · Voice-First · Hindi and English">
             <span class="hero-badge-dot" aria-hidden="true"></span>
             एआई आधारित <span aria-hidden="true">·</span> आवाज़ से संचालित <span aria-hidden="true">·</span> हिंदी और अंग्रेज़ी
           </p>
@@ -142,6 +140,10 @@
           </p>
 
           <div class="hero-actions">
+            <a class="btn btn--primary btn--lg" href="login.html">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              <span data-en="Login">लॉग इन</span>
+            </a>
             <button class="btn btn--primary btn--lg" type="button" data-start-voice>
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="9" y="3.5" width="6" height="10" rx="3" />
@@ -405,157 +407,131 @@
       <div class="container">
         <div class="section-head section-head--center reveal">
           <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-hi="आपकी ज़रूरतें">YOUR NEEDS</span></p>
-          <h2 class="section-title" id="services-title" data-hi-html="One Saathi, <em class=&quot;serif-accent&quot;>Many Services</em>">One Saathi, <em class="serif-accent">Many Services</em></h2>
-          <p class="section-note" data-hi="सरकारी जानकारी से रोज़मर्रा के निर्णयों तक — सब कुछ सरल भाषा में, एक ही जगह।">
-            From government information to everyday decisions — simple, in your own language, all in one place.
-          </p>
+          <h2 class="section-title services-heading" id="services-title" data-hi-html="One Saathi, <em class=&quot;serif-accent&quot;>Many Services</em>">One Saathi, <em class="serif-accent">Many Services</em></h2>
         </div>
 
         <div class="service-grid" data-service-grid>
-          <article class="service-card reveal" data-service="government-schemes" style="--delay: 0ms">
+          <article class="service-card reveal" data-service="government-schemes" style="--delay: 0ms" role="button" tabindex="0" aria-label="Government Schemes — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /><path d="M9 2v10l3-3" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="सरकारी योजनाएँ">Government Schemes</h3>
-              <p data-hi="सरकारी योजनाओं की जानकारी और पात्रता जाँचें।">Information about government schemes and eligibility check.</p>
-              <button class="service-arrow" type="button" aria-label="Government Schemes — explore">
+              <button class="service-arrow" type="button" aria-label="Government Schemes — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="government-jobs" style="--delay: 40ms">
+          <article class="service-card reveal" data-service="government-jobs" style="--delay: 40ms" role="button" tabindex="0" aria-label="Government Jobs — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="सरकारी नौकरियाँ">Government Jobs</h3>
-              <p data-hi="सरकारी नौकरी की सूचनाएँ, पात्रता और आवेदन प्रक्रिया।">Government job notifications, eligibility and application process.</p>
-              <button class="service-arrow" type="button" aria-label="Government Jobs — explore">
+              <button class="service-arrow" type="button" aria-label="Government Jobs — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="scholarships" style="--delay: 80ms">
+          <article class="service-card reveal" data-service="scholarships" style="--delay: 80ms" role="button" tabindex="0" aria-label="Scholarships — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 3L9 7l-3 3H2" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="छात्रवृत्ति">Scholarships</h3>
-              <p data-hi="शिक्षा के लिए छात्रवृत्ति, पात्रता, दस्तावेज़ और आवेदन की जानकारी।">Scholarships, eligibility, documents and application process for education.</p>
-              <button class="service-arrow" type="button" aria-label="Scholarships — explore">
+              <button class="service-arrow" type="button" aria-label="Scholarships — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="hackathons" style="--delay: 120ms">
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
-            </span>
-            <div class="service-body">
-              <h3 data-hi="हैकाथॉन">Hackathons</h3>
-              <p data-hi="हैकाथॉन प्रतियोगिताएँ, पंजीकरण और भागीदारी की जानकारी।">Hackathon competitions, registration and participation information.</p>
-              <button class="service-arrow" type="button" aria-label="Hackathons — explore">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </button>
-            </div>
-          </article>
-
-          <article class="service-card reveal" data-service="startup-grants" style="--delay: 160ms">
+          <article class="service-card reveal" data-service="startup-grants" style="--delay: 160ms" role="button" tabindex="0" aria-label="Startup Grants — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="स्टार्टअप अनुदान">Startup Grants</h3>
-              <p data-hi="स्टार्टअप के लिए अनुदान, फंडिंग और आवेदन प्रक्रिया की जानकारी।">Grants, funding and application process for startups.</p>
-              <button class="service-arrow" type="button" aria-label="Startup Grants — explore">
+              <button class="service-arrow" type="button" aria-label="Startup Grants — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="farming-advice" style="--delay: 200ms">
+          <article class="service-card reveal" data-service="farming-advice" style="--delay: 200ms" role="button" tabindex="0" aria-label="Farming Advice — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4.93 4.93l14.14 14.14" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="खेती की सलाह">Farming Advice</h3>
-              <p data-hi="फसल, बीज, सिंचाई और मिट्टी के लिए व्यावहारिक सुझाव।">Practical tips on crops, seeds, irrigation and soil.</p>
-              <button class="service-arrow" type="button" aria-label="Farming Advice — explore">
+              <button class="service-arrow" type="button" aria-label="Farming Advice — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="farmer-schemes" style="--delay: 240ms">
+          <article class="service-card reveal" data-service="farmer-schemes" style="--delay: 240ms" role="button" tabindex="0" aria-label="Farmer Schemes — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.5 0 5 1 6.8 2.6L12 22l-6.8-14.4A9.8 9.8 0 0 1 12 3z" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="किसान योजनाएँ">Farmer Schemes</h3>
-              <p data-hi="किसानों के लिए सरकारी योजनाएँ, सब्सिडी और लाभ।">Government schemes, subsidies and benefits for farmers.</p>
-              <button class="service-arrow" type="button" aria-label="Farmer Schemes — explore">
+              <button class="service-arrow" type="button" aria-label="Farmer Schemes — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="health-information" style="--delay: 280ms">
+          <article class="service-card reveal" data-service="health-information" style="--delay: 280ms" role="button" tabindex="0" aria-label="Health Information — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 8.5a4.9 4.9 0 0 0-8.5-3.3A4.9 4.9 0 0 0 3.5 8.5c0 5 8.5 10 8.5 10s8.5-5 8.5-10Z" /><path d="M3.8 11.5h4l1.7-2.5 2.5 5 1.8-2.5h5.4" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="स्वास्थ्य जानकारी">Health Information</h3>
-              <p data-hi="स्वास्थ्य और सरकारी स्वास्थ्य योजनाओं की सरल जानकारी।">Basic health information and government health scheme details.</p>
-              <button class="service-arrow" type="button" aria-label="Health Information — explore">
+              <button class="service-arrow" type="button" aria-label="Health Information — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="healthcare-support" style="--delay: 320ms">
+          <article class="service-card reveal" data-service="healthcare-support" style="--delay: 320ms" role="button" tabindex="0" aria-label="Healthcare Support — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="स्वास्थ्य सहायता">Healthcare Support</h3>
-              <p data-hi="चिकित्सा सहायता, अस्पताल और स्वास्थ्य बीमा की जानकारी।">Medical support, hospital and health insurance information.</p>
-              <button class="service-arrow" type="button" aria-label="Healthcare Support — explore">
+              <button class="service-arrow" type="button" aria-label="Healthcare Support — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="women-welfare" style="--delay: 360ms">
+          <article class="service-card reveal" data-service="women-welfare" style="--delay: 360ms" role="button" tabindex="0" aria-label="Women Welfare — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4 1.23" /><circle cx="12" cy="13" r="3" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="महिला कल्याण">Women Welfare</h3>
-              <p data-hi="महिलाओं के लिए योजनाएँ, सुरक्षा और सशक्तिकरण की जानकारी।">Schemes, safety and empowerment information for women.</p>
-              <button class="service-arrow" type="button" aria-label="Women Welfare — explore">
+              <button class="service-arrow" type="button" aria-label="Women Welfare — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="senior-citizen" style="--delay: 400ms">
+          <article class="service-card reveal" data-service="senior-citizen" style="--delay: 400ms" role="button" tabindex="0" aria-label="Senior Citizen Support — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /><path d="M6 14h12v3a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-3z" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="वरिष्ठ नागरिक सहायता">Senior Citizen Support</h3>
-              <p data-hi="वरिष्ठ नागरिकों के लिए पेंशन, स्वास्थ्य और कल्याण योजनाएँ।">Pension, health and welfare schemes for senior citizens.</p>
-              <button class="service-arrow" type="button" aria-label="Senior Citizen Support — explore">
+              <button class="service-arrow" type="button" aria-label="Senior Citizen Support — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="disability-benefits" style="--delay: 440ms">
+          <article class="service-card reveal" data-service="disability-benefits" style="--delay: 440ms" role="button" tabindex="0" aria-label="Disability Benefits — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11a3 3 0 1 1 6 0a3 3 0 0 1-6 0" /><path d="M12 13v7" /><path d="M5 19h14" /></svg>
             </span>
@@ -568,131 +544,121 @@
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="widow-support" style="--delay: 480ms">
+          <article class="service-card reveal" data-service="widow-support" style="--delay: 480ms" role="button" tabindex="0" aria-label="Widow Support — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17v4" /><path d="M12 3v4" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="विधवा सहायता">Widow Support</h3>
-              <p data-hi="विधवा महिलाओं के लिए पेंशन और कल्याण योजनाएँ।">Pension and welfare schemes for widows.</p>
-              <button class="service-arrow" type="button" aria-label="Widow Support — explore">
+              <button class="service-arrow" type="button" aria-label="Widow Support — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="retirement-support" style="--delay: 520ms">
+          <article class="service-card reveal" data-service="retirement-support" style="--delay: 520ms" role="button" tabindex="0" aria-label="Retirement Support — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="सेवानिवृत्ति सहायता">Retirement Support</h3>
-              <p data-hi="सेवानिवृत्ति के बाद पेंशन, बचत और वित्तीय सहायता।">Pension, savings and financial support after retirement.</p>
-              <button class="service-arrow" type="button" aria-label="Retirement Support — explore">
+              <button class="service-arrow" type="button" aria-label="Retirement Support — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="housing-schemes" style="--delay: 560ms">
+          <article class="service-card reveal" data-service="housing-schemes" style="--delay: 560ms" role="button" tabindex="0" aria-label="Housing Schemes — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5" /><path d="M5.5 10v10h13V10" /><path d="M10 20v-5h4v5" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="आवास योजनाएँ">Housing Schemes</h3>
-              <p data-hi="घर बनाने और आवास के लिए सरकारी योजनाएँ।">Government schemes for home construction and housing.</p>
-              <button class="service-arrow" type="button" aria-label="Housing Schemes — explore">
+              <button class="service-arrow" type="button" aria-label="Housing Schemes — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="sc-st-obenefits" style="--delay: 600ms">
+          <article class="service-card reveal" data-service="sc-st-obenefits" style="--delay: 600ms" role="button" tabindex="0" aria-label="SC / ST / OBC Benefits — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="SC / ST / OBC लाभ">SC / ST / OBC Benefits</h3>
-              <p data-hi="अनुसूचित जाति, जनजाति और पिछड़ा वर्ग के लिए लाभ।">Benefits for SC, ST and OBC categories.</p>
-              <button class="service-arrow" type="button" aria-label="SC / ST / OBC Benefits — explore">
+              <button class="service-arrow" type="button" aria-label="SC / ST / OBC Benefits — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="free-ration" style="--delay: 640ms">
+          <article class="service-card reveal" data-service="free-ration" style="--delay: 640ms" role="button" tabindex="0" aria-label="Free Ration — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9" /><path d="M12 12h3" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="मुफ्त राशन">Free Ration</h3>
-              <p data-hi="राशन कार्ड और खाद्य सुरक्षा योजना के लिए आवेदन।">Ration card and food security scheme application.</p>
-              <button class="service-arrow" type="button" aria-label="Free Ration — explore">
+              <button class="service-arrow" type="button" aria-label="Free Ration — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="marriage-schemes" style="--delay: 680ms">
+          <article class="service-card reveal" data-service="marriage-schemes" style="--delay: 680ms" role="button" tabindex="0" aria-label="Marriage Schemes — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a6 6 0 0 0-6 6" /><circle cx="9" cy="9" r="2" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="विवाह योजनाएँ">Marriage Schemes</h3>
-              <p data-hi="विवाह के लिए वित्तीय सहायता और योजनाएँ।">Financial assistance and schemes for marriage.</p>
-              <button class="service-arrow" type="button" aria-label="Marriage Schemes — explore">
+              <button class="service-arrow" type="button" aria-label="Marriage Schemes — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="life-crisis-help" style="--delay: 720ms">
+          <article class="service-card reveal" data-service="life-crisis-help" style="--delay: 720ms" role="button" tabindex="0" aria-label="Life Crisis Help — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4.5 4V6A2.5 2.5 0 0 1 7 3.5h10.5A2.5 2.5 0 0 1 20 6Z" /><path d="M8.5 8h7M8.5 11.5h4.5" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="जीवन संकट सहायता">Life Crisis Help</h3>
-              <p data-hi="आपात स्थिति में त्वरित सहायता और राहत योजनाएँ।">Immediate assistance and relief schemes in emergencies.</p>
-              <button class="service-arrow" type="button" aria-label="Life Crisis Help — explore">
+              <button class="service-arrow" type="button" aria-label="Life Crisis Help — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="document-guidance" style="--delay: 760ms">
+          <article class="service-card reveal" data-service="document-guidance" style="--delay: 760ms" role="button" tabindex="0" aria-label="Document Guidance — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="दस्तावेज़ मार्गदर्शन">Document Guidance</h3>
-              <p data-hi="ज़रूरी दस्तावेज़ों की सूची और उन्हें कैसे प्राप्त करें।">List of required documents and how to obtain them.</p>
-              <button class="service-arrow" type="button" aria-label="Document Guidance — explore">
+              <button class="service-arrow" type="button" aria-label="Document Guidance — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="application-process" style="--delay: 800ms">
+          <article class="service-card reveal" data-service="application-process" style="--delay: 800ms" role="button" tabindex="0" aria-label="Application Process — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="आवेदन प्रक्रिया">Application Process</h3>
-              <p data-hi="योजना आवेदन की चरण-दर-चरण प्रक्रिया।">Step-by-step application process for schemes.</p>
-              <button class="service-arrow" type="button" aria-label="Application Process — explore">
+              <button class="service-arrow" type="button" aria-label="Application Process — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
           </article>
 
-          <article class="service-card reveal" data-service="required-documents" style="--delay: 840ms">
+          <article class="service-card reveal" data-service="required-documents" style="--delay: 840ms" role="button" tabindex="0" aria-label="Required Documents — open chat">
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>
             </span>
             <div class="service-body">
               <h3 data-hi="आवश्यक दस्तावेज़">Required Documents</h3>
-              <p data-hi="आवेदन के लिए आवश्यक दस्तावेज़ों की पूरी सूची।">Complete list of documents required for application.</p>
-              <button class="service-arrow" type="button" aria-label="Required Documents — explore">
+              <button class="service-arrow" type="button" aria-label="Required Documents — open chat">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>
             </div>
@@ -1474,7 +1440,7 @@
           <span class="chat-status"><span class="chat-status-dot" aria-hidden="true"></span><span data-en="AI assistant · online">एआई सहायक · ऑनलाइन</span></span>
         </span>
       </div>
-      <span class="chat-language" aria-live="polite">हिन्दी</span>
+      <span class="chat-language" aria-live="polite" data-en="English">हिन्दी</span>
       <button class="chat-close" type="button" data-chat-close aria-label="चैट बंद करें">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </button>

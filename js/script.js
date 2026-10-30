@@ -1309,36 +1309,22 @@
       hi: "छात्रवृत्ति",
       en: "Scholarships",
       welcome: {
-        hi: "नमस्ते! छात्रवृत्ति सहायता में आपका स्वागत है। मैं आपकी मदद कर सकता हूँ — छात्रवृत्तियों की जानकारी, पात्रता मानदंड, ज़रूरी दस्तावेज़ और आवेदन प्रक्रिया के बारे में। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Scholarship Assistance. I can help you explore scholarships, understand eligibility criteria, required documents and application procedures. What would you like to know?"
+        hi: "नमस्ते! छात्रवृत्ति सहायता में आपका स्वागत है। मैं सरकारी छात्रवृत्तियों, पात्रता, ज़रूरी दस्तावेज़, आवेदन की अंतिम तिथि और आवेदन प्रक्रिया के बारे में जानकारी दे सकता हूँ। कृपया बताएँ — आपकी वर्तमान शिक्षा स्तर क्या है और आप किस कोर्स में हैं या करना चाहते हैं?",
+        en: "Namaste! Welcome to Scholarship Assistance. I can help you with government scholarships, eligibility criteria, required documents, deadlines and application procedures. Please tell me — what is your current education level and which course are you in or planning to join?"
       },
       suggestions: [
         { hi: "मेरे लिए कौन-सी छात्रवृत्तियाँ उपलब्ध हैं?", en: "Which scholarships are available for me?" },
         { hi: "क्या मैं छात्रवृत्ति के लिए पात्र हूँ?", en: "Am I eligible for a scholarship?" },
-        { hi: "मुझे कौन-से दस्तावेज़ चाहिए?", en: "What documents do I need?" },
-        { hi: "मैं कैसे आवेदन कर सकता हूँ?", en: "How can I apply?" }
-      ]
-    },
-    "hackathons": {
-      hi: "हैकाथॉन",
-      en: "Hackathons",
-      welcome: {
-        hi: "नमस्ते! हैकाथॉन सहायता में आपका स्वागत है। मैं हैकाथॉन प्रतियोगिताओं, पंजीकरण, टीम गठन और पुरस्कारों के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Hackathon Assistance. I can help you with hackathon competitions, registration, team formation and prizes. What would you like to know?"
-      },
-      suggestions: [
-        { hi: "कौन-से हैकाथॉन चल रहे हैं?", en: "Which hackathons are ongoing?" },
-        { hi: "मैं कैसे पंजीकरण करूँ?", en: "How do I register?" },
-        { hi: "टीम कैसे बनाएँ?", en: "How to form a team?" },
-        { hi: "पुरस्कार क्या हैं?", en: "What are the prizes?" }
+        { hi: "आवेदन की अंतिम तिथि क्या है?", en: "What is the application deadline?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
       ]
     },
     "startup-grants": {
       hi: "स्टार्टअप अनुदान",
       en: "Startup Grants",
       welcome: {
-        hi: "नमस्ते! स्टार्टअप अनुदान सहायता में आपका स्वागत है। मैं स्टार्टअप के लिए अनुदान, फंडिंग, पात्रता और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Startup Grants Assistance. I can help you with startup grants, funding, eligibility and application process. What would you like to know?"
+        hi: "नमस्ते! स्टार्टअप अनुदान सहायता में आपका स्वागत है। मैं स्टार्टअप फंडिंग, सरकारी अनुदान, पात्रता और आवेदन प्रक्रिया के बारे में जानकारी दे सकता हूँ। कृपया बताएँ — आपके व्यवसाय या स्टार्टअप का विचार क्या है?",
+        en: "Namaste! Welcome to Startup Grants Assistance. I can help you with startup funding opportunities, government grants, eligibility and application procedures. Please tell me — what is your business or startup idea?"
       },
       suggestions: [
         { hi: "कौन-से स्टार्टअप अनुदान उपलब्ध हैं?", en: "Which startup grants are available?" },
@@ -1351,8 +1337,8 @@
       hi: "खेती की सलाह",
       en: "Farming Advice",
       welcome: {
-        hi: "नमस्ते! खेती सलाह सहायता में आपका स्वागत है। मैं फसल, बीज, सिंचाई, मिट्टी और कीट नियंत्रण के बारे में व्यावहारिक सुझाव दे सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Farming Advice Assistance. I can give you practical tips on crops, seeds, irrigation, soil and pest control. What would you like to know?"
+        hi: "नमस्ते! खेती सलाह सहायता में आपका स्वागत है। मैं फसल चयन, बीज, खाद, सिंचाई, कृषि तकनीक, मौसम संबंधी मार्गदर्शन और किसान योजनाओं के बारे में जानकारी दे सकता हूँ। कृपया बताएँ — आप कौन सी फसल उगाते हैं और आप कहाँ से हैं?",
+        en: "Namaste! Welcome to Farming Advice Assistance. I can help you with crop selection, seeds, fertilizers, irrigation, farming techniques, weather-related guidance and farmer schemes. Please tell me — which crop do you grow and what is your location?"
       },
       suggestions: [
         { hi: "मेरी फसल के लिए कौन-सी सलाह है?", en: "What farming advice do you have for my crop?" },
@@ -1361,12 +1347,40 @@
         { hi: "बीज कहाँ से मिलेंगे?", en: "Where can I get seeds?" }
       ]
     },
+    "government-schemes": {
+      hi: "सरकारी योजनाएँ",
+      en: "Government Schemes",
+      welcome: {
+        hi: "नमस्ते! सरकारी योजना सहायता में आपका स्वागत है। मैं सरकारी कल्याण योजनाओं, पात्रता, लाभ और आवेदन प्रक्रिया के बारे में जानकारी दे सकता हूँ। कृपया बताएँ — आपको किस प्रकार की सरकारी सहायता की ज़रूरत है?",
+        en: "Namaste! Welcome to Government Schemes Assistance. I can help you explore government welfare schemes, understand eligibility, benefits and application procedures. Please tell me — what type of government assistance do you need?"
+      },
+      suggestions: [
+        { hi: "कौन-सी योजनाएँ मेरे लिए उपलब्ध हैं?", en: "Which schemes are available for me?" },
+        { hi: "क्या मैं किसी योजना के लिए पात्र हूँ?", en: "Am I eligible for a scheme?" },
+        { hi: "मुझे कौन-से दस्तावेज़ चाहिए?", en: "What documents do I need?" },
+        { hi: "मैं कैसे आवेदन कर सकता हूँ?", en: "How can I apply?" }
+      ]
+    },
+    "government-jobs": {
+      hi: "सरकारी नौकरियाँ",
+      en: "Government Jobs",
+      welcome: {
+        hi: "नमस्ते! सरकारी नौकरी सहायता में आपका स्वागत है। मैं सरकारी नौकरियों की सूचनाएँ, पात्रता, योग्यता, भर्ती अधिसूचना और आवेदन प्रक्रिया के बारे में बता सकता हूँ। कृपया बताएँ — आपकी शिक्षा क्या है और आप किस क्षेत्र में नौकरी चाहते हैं?",
+        en: "Namaste! Welcome to Government Jobs Assistance. I can help you with government job notifications, eligibility, qualifications, recruitment notifications and application processes. Please tell me — what is your education and which job sector do you prefer?"
+      },
+      suggestions: [
+        { hi: "कौन-सी सरकारी नौकरियाँ निकली हैं?", en: "Which government jobs are available?" },
+        { hi: "क्या मैं आवेदन के लिए पात्र हूँ?", en: "Am I eligible to apply?" },
+        { hi: "आवेदन कैसे करें?", en: "How to apply?" },
+        { hi: "ज़रूरी दस्तावेज़ क्या हैं?", en: "What documents are required?" }
+      ]
+    },
     "farmer-schemes": {
       hi: "किसान योजनाएँ",
       en: "Farmer Schemes",
       welcome: {
-        hi: "नमस्ते! किसान योजना सहायता में आपका स्वागत है। मैं किसानों के लिए सरकारी योजनाओं, सब्सिडी, कृषि लाभ और आवेदन प्रक्रिया के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! I can help you understand government schemes for farmers, subsidies, agricultural benefits and application procedures. What would you like to know?"
+        hi: "नमस्ते! किसान योजना सहायता में आपका स्वागत है। मैं किसानों के लिए सरकारी योजनाओं, सब्सिडी, वित्तीय सहायता और कृषि लाभ के बारे में बता सकता हूँ। कृपया बताएँ — आपकी कृषि संबंधी ज़रूरतें क्या हैं और आप कहाँ से हैं?",
+        en: "Namaste! Welcome to Farmer Schemes Assistance. I can help you understand farmer-specific schemes, subsidies, financial support and agricultural benefits. Please tell me — what are your farming needs and what is your location?"
       },
       suggestions: [
         { hi: "किसानों के लिए कौन-सी योजनाएँ हैं?", en: "Which schemes are available for farmers?" },
@@ -1379,8 +1393,8 @@
       hi: "स्वास्थ्य जानकारी",
       en: "Health Information",
       welcome: {
-        hi: "नमस्ते! स्वास्थ्य जानकारी सहायता में आपका स्वागत है। मैं सरकारी स्वास्थ्य योजनाओं, अस्पतालों और चिकित्सा जानकारी के बारे में बता सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Health Information Assistance. I can help you with government health schemes, hospitals and medical information. What would you like to know?"
+        hi: "नमस्ते! स्वास्थ्य जानकारी सहायता में आपका स्वागत है। मैं सामान्य स्वास्थ्य जानकारी और सरकारी स्वास्थ्य योजनाओं का विवरण दे सकता हूँ। कृपया ध्यान दें — मैं चिकित्सा निदान नहीं कर सकता। आप किस प्रकार की जानकारी ढूँढ रहे हैं?",
+        en: "Namaste! Welcome to Health Information Assistance. I can provide general health information and government health scheme details. Please note — I cannot provide medical diagnoses. What type of information are you looking for?"
       },
       suggestions: [
         { hi: "कौन-सी सरकारी स्वास्थ्य योजना है?", en: "Which government health scheme can I use?" },
@@ -1393,8 +1407,8 @@
       hi: "स्वास्थ्य सहायता",
       en: "Healthcare Support",
       welcome: {
-        hi: "नमस्ते! स्वास्थ्य सहायता में आपका स्वागत है। मैं चिकित्सा सहायता, अस्पताल भर्ती, स्वास्थ्य बीमा और आपात चिकित्सा के बारे में जानकारी दे सकता हूँ। आप क्या जानना चाहते हैं?",
-        en: "Namaste! Welcome to Healthcare Support Assistance. I can help you with medical support, hospital admission, health insurance and emergency care. What would you like to know?"
+        hi: "नमस्ते! स्वास्थ्य सहायता में आपका स्वागत है। मैं स्वास्थ्य सुविधाएँ, सरकारी स्वास्थ्य बीमा योजनाएँ, अस्पताल सहायता और उपलब्ध समर्थन के बारे में जानकारी दे सकता हूँ। कृपया बताएँ — आपको किस प्रकार की स्वास्थ्य सहायता चाहिए?",
+        en: "Namaste! Welcome to Healthcare Support Assistance. I can help you with healthcare facilities, government health insurance schemes, hospital assistance and available support. Please tell me — what kind of healthcare assistance do you need?"
       },
       suggestions: [
         { hi: "मुफ्त इलाज कहाँ मिलेगा?", en: "Where can I get free treatment?" },
@@ -2274,6 +2288,22 @@
     if (!SERVICE_DATA[serviceId]) return;
     sessionStorage.setItem("sarthix-selected-service", serviceId);
     openChat();
+  }
+
+  function initServiceCards() {
+    $$("[data-service]").forEach((card) => {
+      const serviceId = card.getAttribute("data-service");
+      card.addEventListener("click", (event) => {
+        if (event.target.closest(".service-arrow")) return;
+        openChatWithService(serviceId);
+      });
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openChatWithService(serviceId);
+        }
+      });
+    });
   }
 
   function closeChat() {
@@ -3958,4 +3988,6 @@
     startLanguage === "en-IN" ? "English" : "हिंदी",
     { silent: true }
   );
+
+  initServiceCards();
 })();
