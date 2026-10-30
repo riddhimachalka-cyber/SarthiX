@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="SarthiX logo mark">
+  <defs>
+    <linearGradient id="sarthixLeaf" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d7b5b"/>
+      <stop offset="100%" stop-color="#1d4d3d"/>
+    </linearGradient>
+    <linearGradient id="sarthixField" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#74b748"/>
+      <stop offset="100%" stop-color="#2e6b42"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="220" height="220" rx="24" fill="#f3f1ea"/>
+
+  <path d="M31 142c39-51 94-65 155-39 12 5 20 14 28 25v67H22c-3-20-3-35 9-53Z" fill="url(#sarthixField)"/>
+  <path d="M37 137c43-19 85-16 121 11 15 11 29 25 36 49H21c4-23 8-42 16-60Z" fill="#dfe9d6" opacity="0.78"/>
+
+  <path d="M39 91c20-44 60-67 106-63 30 2 54 16 79 42-17 6-33 16-48 28-21 17-38 39-49 63-19-17-58-41-88-70Z" fill="#2b6954"/>
+  <path d="M51 86c21-26 52-41 89-39 22 1 42 9 63 25-16 5-29 15-41 26-16 15-29 31-42 52-20-11-48-37-69-64Z" fill="#1d503f" opacity="0.75"/>
+
+  <path d="M82 73c-2-31 12-52 34-63 26 22 34 57 31 81-18 11-45 16-65-18Z" fill="#f3f1ea"/>
+  <circle cx="98" cy="82" r="17" fill="#1f4f40"/>
+  <path d="M64 91c11-27 34-43 59-41 29 2 56 19 67 45-17 6-28 16-38 30-19 25-34 35-57 37-23 1-41-18-31-71Z" fill="url(#sarthixLeaf)"/>
+
+  <path d="M74 76c0-19 12-32 27-39 17 7 27 23 27 39-12 10-20 15-27 15-8 0-17-5-27-15Z" fill="#f3f1ea"/>
+
+  <path d="M56 75c12-18 33-28 55-28 34 0 64 18 82 49-20 4-39 14-55 30-18 18-31 41-38 69-21-18-38-53-44-120Z" fill="#2b7a55"/>
+  <path d="M131 94c21-12 41-18 69-19-20 20-31 42-37 67-17-12-33-29-32-48Z" fill="#6fae4e"/>
+
+  <path d="M100 48c22 0 42 18 42 42 0 25-20 47-45 47-12 0-25-8-34-19 8-25 20-48 37-70Z" fill="#f3f1ea" opacity="0.9"/>
+  <path d="M112 52c8-12 20-20 34-23 17 6 30 22 33 40-19 7-32 18-41 33-11-4-22-15-26-50Z" fill="#2c6d4b"/>
+
+  <path d="M34 161c28-19 58-27 116-11 8 2 16 5 23 9l-9 19H35c-6-6-8-12-1-17Z" fill="#dfecc9" opacity="0.9"/>
+  <path d="M68 94c-9 6-24 15-31 23 10 7 20 9 32 9-2 0-1-24-1-32Z" fill="#1a5e4a"/>
+
+  <circle cx="161" cy="71" r="25" fill="#f0a432"/>
+  <path d="M144 64c11-10 26-17 42-19" fill="none" stroke="#f0a432" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M162 101c10 0 18 8 18 18s-8 18-18 18-18-8-18-18 8-18 18-18Z" fill="#f3f1ea" opacity="0.2"/>
+
+  <path d="M179 74c8 3 14 8 18 15-11 2-20 9-26 20-11-6-13-14-7-25 4-7 9-12 15-10Z" fill="#74b748"/>
+  <path d="M145 47c7 1 14 5 18 12-9 2-17 8-21 18-9-5-13-12-11-21 2-6 7-10 14-9Z" fill="#74b748"/>
+
+  <path d="M157 122c-10 10-25 16-41 16" fill="none" stroke="#f3f1ea" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M144 142c12-11 18-24 20-41" fill="none" stroke="#f3f1ea" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M157 105c10 0 18 8 18 18" fill="none" stroke="#f3f1ea" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+
+  <path d="M130 185c18 0 30-11 37-28 4 1 7 2 10 4-7 16-18 29-35 38-14 8-25 9-38 10 4-11 13-20 26-24Z" fill="#2e6b42" opacity="0.8"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="SarthiX favicon">
+  <defs>
+    <linearGradient id="sarthixLeaf" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d7b5b"/>
+      <stop offset="100%" stop-color="#1d4d3d"/>
+    </linearGradient>
+    <linearGradient id="sarthixField" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#74b748"/>
+      <stop offset="100%" stop-color="#2e6b42"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="220" height="220" rx="24" fill="#f3f1ea"/>
+  <path d="M31 142c39-51 94-65 155-39 12 5 20 14 28 25v67H22c-3-20-3-35 9-53Z" fill="url(#sarthixField)"/>
+  <path d="M39 91c20-44 60-67 106-63 30 2 54 16 79 42-17 6-33 16-48 28-21 17-38 39-49 63-19-17-58-41-88-70Z" fill="#2b6954"/>
+  <path d="M56 75c12-18 33-28 55-28 34 0 64 18 82 49-20 4-39 14-55 30-18 18-31 41-38 69-21-18-38-53-44-120Z" fill="#2b7a55"/>
+  <path d="M74 76c0-19 12-32 27-39 17 7 27 23 27 39-12 10-20 15-27 15-8 0-17-5-27-15Z" fill="#f3f1ea"/>
+  <circle cx="98" cy="82" r="17" fill="#1f4f40"/>
+  <path d="M64 91c11-27 34-43 59-41 29 2 56 19 67 45-17 6-28 16-38 30-19 25-34 35-57 37-23 1-41-18-31-71Z" fill="url(#sarthixLeaf)"/>
+  <circle cx="161" cy="71" r="25" fill="#f0a432"/>
+  <path d="M111 52c8-12 20-20 34-23 17 6 30 22 33 40-19 7-32 18-41 33-11-4-22-15-26-50Z" fill="#2c6d4b"/>
+</svg>
