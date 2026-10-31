@@ -222,9 +222,10 @@
   const langButton = lang ? $(".lang-btn", lang) : null;
   const langLabel = lang ? $(".lang-current", lang) : null;
   const langOptions = lang ? $$(".lang-option", lang) : [];
-  const langChips = $$(".lang-chip");
+  const langChips = $$(".lang-chip, .footer-lang-option");
 
   const LANG_KEY = "sarthix-language";
+  const LANG_USER_SELECTED_KEY = "sarthix-language-user-selected";
   const supportedLanguages = ["hi-IN", "en-IN"];
 
   let selectedLanguage = "hi-IN";
@@ -320,6 +321,9 @@
 
     try {
       window.localStorage.setItem(LANG_KEY, value);
+      if (!options.silent) {
+        window.localStorage.setItem(LANG_USER_SELECTED_KEY, "true");
+      }
     } catch (error) {
       /* Storage can be blocked; the page still switches for this visit. */
     }
@@ -343,6 +347,12 @@
 
     return /^hi(-|$)/i.test(browserLang) ? "hi-IN" : "en-IN";
   }
+
+  window.addEventListener("sarthix:preferred-language", (event) => {
+    const value = event.detail && event.detail.language;
+    if (!supportedLanguages.includes(value)) return;
+    setLanguage(value, value === "en-IN" ? "English" : "हिंदी", { silent: true });
+  });
 
   if (langButton) {
     langButton.addEventListener("click", () => {
@@ -392,16 +402,12 @@
   });
 
   /* ── 05. Active navigation (scroll spy) ──────────────────────── */
-  // Sections that drive the active state. Because Farming, Health and
-  // Guidance all live inside the features section, they get their active
-  // state from clicks; scroll position maps the section to Farming.
+  // Sections that drive the active navigation state while scrolling.
   const navSections = [
     { el: $("#home"), nav: "home" },
     { el: $("#schemes"), nav: "schemes" },
     { el: $("#eligibility"), nav: "eligibility" },
     { el: $("#understand-document"), nav: "understand-document" },
-    { el: $("#features"), nav: "farming" },
-    { el: $("#how-it-works"), nav: "guidance" },
     { el: $("#about"), nav: "about" }
   ].filter((item) => item.el);
 
@@ -547,6 +553,8 @@
   const permissionAllow = $("[data-voice-permission-allow]");
   const permissionCancelBtn = $("[data-voice-permission-cancel]");
   const permissionBackdrop = $("[data-voice-permission-close]");
+  const chatMic = $("#chat-mic");
+  const chatVoiceStatus = $("#chat-voice-status");
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -554,6 +562,7 @@
   let isListening = false;
   let finalTranscript = "";
   let permissionModalSeen = false;
+  let chatVoiceMode = false;
   let eligibilityVoiceTarget = null;
   let documentVoiceTarget = null;
 
@@ -621,6 +630,17 @@
 
   function setListeningUI(active) {
     isListening = active;
+    if (chatMic) {
+      chatMic.classList.toggle("is-listening", active && chatVoiceMode);
+      chatMic.setAttribute("aria-pressed", String(active && chatVoiceMode));
+      chatMic.setAttribute("aria-label", active && chatVoiceMode ? copy().voice.micStop : copy().voice.micStart);
+    }
+    if (active && chatVoiceMode && chatVoiceStatus) {
+      chatVoiceStatus.classList.remove("is-error");
+      chatVoiceStatus.textContent = copy().voice.listeningHint;
+      chatVoiceStatus.hidden = false;
+    }
+
     if (voiceCard && micBtn) {
       voiceCard.classList.toggle("is-listening", active);
       micBtn.setAttribute("aria-pressed", String(active));
@@ -685,6 +705,12 @@
 
   function voiceError(message) {
     setListeningUI(false);
+    if (chatVoiceMode && chatVoiceStatus) {
+      chatVoiceStatus.textContent = message;
+      chatVoiceStatus.hidden = false;
+      chatVoiceStatus.classList.add("is-error");
+    }
+    chatVoiceMode = false;
     if (voiceStatus) {
       voiceStatus.textContent = message;
       voiceStatus.classList.add("is-error");
@@ -712,6 +738,11 @@
       if (voiceStatus) {
         voiceStatus.classList.remove("is-error");
         voiceStatus.textContent = copy().voice.listeningHint;
+      }
+      if (chatVoiceMode && chatVoiceStatus) {
+        chatVoiceStatus.classList.remove("is-error");
+        chatVoiceStatus.textContent = copy().voice.listeningHint;
+        chatVoiceStatus.hidden = false;
       }
       closePermissionModal();
     };
@@ -748,6 +779,10 @@
         voiceStatus.classList.remove("is-error");
         voiceStatus.textContent = copy().voice.listeningHint;
       }
+      if (chatVoiceMode && chatVoiceStatus) {
+        chatVoiceStatus.classList.remove("is-error");
+        chatVoiceStatus.textContent = copy().voice.listeningHint;
+      }
     };
 
     rec.onerror = function (event) {
@@ -759,6 +794,11 @@
         voiceStatus.textContent = messages[event.error] || copy().voice.genericError;
         voiceStatus.classList.add("is-error");
       }
+      if (chatVoiceMode && chatVoiceStatus) {
+        chatVoiceStatus.textContent = messages[event.error] || copy().voice.genericError;
+        chatVoiceStatus.classList.add("is-error");
+        chatVoiceStatus.hidden = false;
+      }
       const eligibilityStatus = $("[data-eligibility-voice-status]");
       if (eligibilityVoiceTarget && eligibilityStatus) {
         eligibilityStatus.textContent = messages[event.error] || copy().voice.genericError;
@@ -767,6 +807,7 @@
       if (documentVoiceTarget && documentVoiceStatus) {
         documentVoiceStatus.textContent = messages[event.error] || copy().voice.genericError;
       }
+      if (chatVoiceMode) chatVoiceMode = false;
       if ((eligibilityVoiceTarget || documentVoiceTarget || chatInput) && finalTranscript.trim()) {
         populateVoiceToChatInput(finalTranscript.trim());
       }
@@ -797,8 +838,13 @@
           voiceStatus.textContent = copy().voice.nothing;
         }
       }
+      if (chatVoiceMode && chatVoiceStatus) {
+        chatVoiceStatus.classList.remove("is-error");
+        chatVoiceStatus.textContent = cleanText ? copy().voice.recognized : copy().voice.nothing;
+        chatVoiceStatus.hidden = false;
+      }
 
-      const featureIntentHandled = cleanText && !eligibilityVoiceTarget && !documentVoiceTarget
+      const featureIntentHandled = cleanText && !chatVoiceMode && !eligibilityVoiceTarget && !documentVoiceTarget
         ? routeAssistantFeatureIntent(cleanText, { speak: true })
         : false;
       if (cleanText && featureIntentHandled) {
@@ -809,13 +855,16 @@
       }
       if (eligibilityVoiceTarget) eligibilityVoiceTarget = null;
       if (documentVoiceTarget) documentVoiceTarget = null;
+      chatVoiceMode = false;
+      setListeningUI(false);
     };
 
     return rec;
   }
 
-  function startVoiceFromUser() {
-    if ((!voiceCard || !micBtn) && !eligibilityVoiceTarget && !documentVoiceTarget) return;
+  function startVoiceFromUser(target = "main") {
+    chatVoiceMode = target === "chat";
+    if ((!voiceCard || !micBtn) && !eligibilityVoiceTarget && !documentVoiceTarget && !chatMic) return;
 
     if (isListening) {
       stopVoice();
@@ -888,10 +937,17 @@
         ? copy().voice.stoppedWithText
         : copy().voice.stoppedEmpty;
     }
+    if (chatVoiceMode && chatVoiceStatus) {
+      chatVoiceStatus.classList.remove("is-error");
+      chatVoiceStatus.textContent = cleanText ? copy().voice.stoppedWithText : copy().voice.stoppedEmpty;
+      chatVoiceStatus.hidden = false;
+    }
     if (cleanText) {
       populateVoiceToChatInput(cleanText);
       showTranscript(cleanText, copy().voice.final);
     }
+    chatVoiceMode = false;
+    setListeningUI(false);
   }
 
   function cancelVoice() {
@@ -918,10 +974,19 @@
     } else if (chatInput) {
       chatInput.focus({ preventScroll: true });
     }
+    if (chatVoiceStatus) {
+      chatVoiceStatus.hidden = true;
+      chatVoiceStatus.classList.remove("is-error");
+    }
+    chatVoiceMode = false;
   }
 
   if (micBtn) {
     micBtn.addEventListener("click", startVoiceFromUser);
+  }
+
+  if (chatMic) {
+    chatMic.addEventListener("click", () => startVoiceFromUser("chat"));
   }
 
   if (voiceStop) {
@@ -1015,6 +1080,10 @@
     if (micBtn) {
       micBtn.setAttribute("aria-label", isListening ? c.voice.micStop : c.voice.micStart);
     }
+    if (chatMic) {
+      chatMic.setAttribute("aria-label", isListening && chatVoiceMode ? c.voice.micStop : c.voice.micStart);
+      chatMic.title = isListening && chatVoiceMode ? c.voice.micStop : c.voice.micStart;
+    }
 
     if (chatFab) chatFab.setAttribute("aria-label", c.chat.fab);
     if (chatClose) chatClose.setAttribute("aria-label", c.chat.close);
@@ -1049,6 +1118,7 @@
   const chatForm = $("#chat-form");
   const chatInput = $("#chat-input");
   const chatSend = $(".chat-send");
+  const chatSuggest = $("[data-chat-suggestions]");
   const chatLanguageBadge = $(".chat-language");
 
   const BOT_AVATAR =
@@ -1603,8 +1673,8 @@
 
   const CHAT_FALLBACK = {
     hi:
-      "<p>Main abhi ek helpful assistant hoon, lekin har sawaal ka poora jawaab nahi de sakta. Aap in topics par poochh sakte hain: <strong>PM Kisan, sinchai, solar pump, PMAY-G, Ayushman Bharat</strong> ya <strong>documents</strong>.</p>" +
-      "<p>Scheme ki final jaankari ke liye official portal ya nazdeeki CSC/Block office se confirm karein.</p>",
+      "<p>मैं अभी हर सवाल का पूरा जवाब नहीं दे सकता। आप <strong>पीएम किसान, सिंचाई, सौर पंप, पीएमएवाई-जी, आयुष्मान भारत</strong> या <strong>ज़रूरी दस्तावेज़ों</strong> के बारे में पूछ सकते हैं।</p>" +
+      "<p>योजना की अंतिम जानकारी के लिए आधिकारिक पोर्टल या नज़दीकी सीएससी/ब्लॉक कार्यालय से पुष्टि करें।</p>",
     en:
       "<p>I am a helpful assistant, but I cannot answer every question in full. You can ask about: <strong>PM Kisan, irrigation, solar pumps, PMAY-G, Ayushman Bharat</strong> or <strong>documents</strong>.</p>" +
       "<p>For final scheme details, confirm with the official portal or your nearest CSC/Block office.</p>"
@@ -1664,19 +1734,20 @@
   function addChatReplyActions(bubble, audioText, retryText) {
     if (!bubble || !audioText) return;
 
+    const isEnglish = responseLanguageFor(audioText) === "en-IN";
     const actionWrap = document.createElement("div");
     actionWrap.className = "chat-bubble-actions";
 
     const speakBtn = document.createElement("button");
     speakBtn.type = "button";
     speakBtn.className = "chat-action-btn chat-action-btn--speaker";
-    speakBtn.textContent = uiLang === "en" ? "Listen" : "Sunna";
+    speakBtn.textContent = isEnglish ? "Listen" : "सुनें";
     speakBtn.addEventListener("click", () => speakAnswer(audioText));
 
     const pauseBtn = document.createElement("button");
     pauseBtn.type = "button";
     pauseBtn.className = "chat-action-btn";
-    pauseBtn.textContent = uiLang === "en" ? "Pause" : "Rukna";
+    pauseBtn.textContent = isEnglish ? "Pause" : "रोकें";
     pauseBtn.addEventListener("click", () => {
       if ("speechSynthesis" in window && window.speechSynthesis.speaking) {
         window.speechSynthesis.pause();
@@ -1686,7 +1757,7 @@
     const stopBtn = document.createElement("button");
     stopBtn.type = "button";
     stopBtn.className = "chat-action-btn";
-    stopBtn.textContent = uiLang === "en" ? "Stop" : "Band karein";
+    stopBtn.textContent = isEnglish ? "Stop" : "बंद करें";
     stopBtn.addEventListener("click", () => {
       if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
@@ -1696,13 +1767,13 @@
     const copyBtn = document.createElement("button");
     copyBtn.type = "button";
     copyBtn.className = "chat-action-btn chat-action-btn--copy";
-    copyBtn.textContent = uiLang === "en" ? "Copy" : "Copy";
+    copyBtn.textContent = isEnglish ? "Copy" : "कॉपी करें";
     copyBtn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(audioText);
-        showToast(uiLang === "en" ? "Response copied" : "Jawaab copy ho gaya");
+        showToast(isEnglish ? "Response copied" : "जवाब कॉपी हो गया");
       } catch (error) {
-        showToast(uiLang === "en" ? "Copy not supported in this browser" : "Is browser mein copy support nahi hai");
+        showToast(isEnglish ? "Copy not supported in this browser" : "इस ब्राउज़र में कॉपी की सुविधा उपलब्ध नहीं है");
       }
     });
 
@@ -1715,7 +1786,7 @@
       const retryBtn = document.createElement("button");
       retryBtn.type = "button";
       retryBtn.className = "chat-action-btn chat-action-btn--retry";
-      retryBtn.textContent = uiLang === "en" ? "Retry" : "Dobara poochhiye";
+      retryBtn.textContent = isEnglish ? "Retry" : "फिर पूछें";
       retryBtn.addEventListener("click", () => sendChatMessage(retryText, { skipAppend: false }));
       actionWrap.appendChild(retryBtn);
     }
@@ -1841,7 +1912,14 @@
       if (/(mukhe|ka|ap|kya|sarkari)/i.test(lower)) return "hi-IN";
     }
 
-    return /^hi|hindi|namaste|mujhe|main|kaise|kya|yojana|scheme|scholarship|government/i.test(lower) ? "hi-IN" : selectedLanguage || "hi-IN";
+    return /\b(?:hindi|namaste|mujhe|main|mera|meri|mere|kaise|kya|hai|hain|yojana|sarkari|kripya|aap|aapko|aapke|kaun|kaunsi|chahiye|batao|bataiye|karna|karein|milega|milti|sakta|sakti|kitna|kitni|parivaar|umr)\b/i.test(lower)
+      ? "hi-IN"
+      : selectedLanguage || "hi-IN";
+  }
+
+  function responseLanguageFor(text) {
+    const detectedLanguage = detectLanguageFromText(text);
+    return selectedLanguage === "hi-IN" || detectedLanguage === "hi-IN" ? "hi-IN" : "en-IN";
   }
 
   function mergeProfileFromMessage(question) {
@@ -1900,24 +1978,24 @@
     return chatProfile;
   }
 
-  function buildMissingProfileQuestions(profile) {
+  function buildMissingProfileQuestions(profile, answerLanguage = uiLang) {
     const questions = [];
-    const language = uiLang === "en" ? "en" : "hi";
+    const language = answerLanguage === "en" || answerLanguage === "en-IN" ? "en" : "hi";
 
     if (!profile.state) {
-      questions.push(language === "en" ? "Which state do you live in?" : "Aapka state kaun sa hai?");
+      questions.push(language === "en" ? "Which state do you live in?" : "आप किस राज्य में रहते हैं?");
     }
 
     if (!profile.isStudent && !profile.isFarmer && !profile.occupation) {
-      questions.push(language === "en" ? "Are you a student, farmer, or working person?" : "Aap student, farmer ya kaam karne wale log mein se kaun se category ke hain?");
+      questions.push(language === "en" ? "Are you a student, farmer, or working person?" : "आप विद्यार्थी, किसान या नौकरी/काम करने वाले व्यक्ति हैं?");
     }
 
     if (!profile.age) {
-      questions.push(language === "en" ? "How old are you?" : "Aapki age kitni hai?");
+      questions.push(language === "en" ? "How old are you?" : "आपकी उम्र कितनी है?");
     }
 
     if (!profile.familyIncome && !profile.incomeBand) {
-      questions.push(language === "en" ? "What is your approximate annual family income?" : "Aapke parivaar ki approximate annual income kitni hai?");
+      questions.push(language === "en" ? "What is your approximate annual family income?" : "आपके परिवार की अनुमानित सालाना आय कितनी है?");
     }
 
     return questions.slice(0, 3);
@@ -1926,21 +2004,19 @@
   function localAnswer(question) {
     const normalizedQuestion = String(question || "").trim();
     if (!normalizedQuestion) {
-      return { html: CHAT_FALLBACK[uiLang], text: uiLang === "en" ? "Please share your situation." : "Kripya apni sthiti bataiye." };
+      return { html: CHAT_FALLBACK[uiLang], text: uiLang === "en" ? "Please share your situation." : "कृपया अपनी स्थिति के बारे में बताएँ।" };
     }
 
     const profile = mergeProfileFromMessage(normalizedQuestion);
-    const detectedLanguage = detectLanguageFromText(normalizedQuestion);
-    const answerLanguage = detectedLanguage || selectedLanguage || "hi-IN";
-    const isEnglish = answerLanguage.startsWith("en") || uiLang === "en";
+    const isEnglish = responseLanguageFor(normalizedQuestion) === "en-IN";
 
-    const missingQuestions = buildMissingProfileQuestions(profile);
+    const missingQuestions = buildMissingProfileQuestions(profile, isEnglish ? "en" : "hi");
     const shouldAskQuestions = missingQuestions.length > 0 && !/(scholarship|scheme|yojana|benefit|assistance|help|sahayata|kisan|health|ghar|house)/i.test(normalizedQuestion);
 
     if (shouldAskQuestions) {
       const intro = isEnglish
         ? "I can suggest the right support options, but a few details will help narrow it down."
-        : "Main sahi sahayata options suggest kar sakta hoon, lekin thode se details chahiye taaki sahi option mil sake.";
+        : "मैं आपके लिए सही सहायता विकल्प सुझा सकता हूँ। बेहतर सुझाव देने के लिए मुझे कुछ और जानकारी चाहिए।";
       const html = '<p>' + intro + '</p><ul>' + missingQuestions.map((item) => '<li>' + item + '</li>').join("") + '</ul>';
       return { html, text: intro + " " + missingQuestions.join(" ") };
     }
@@ -1949,136 +2025,136 @@
       {
         key: "scholarship",
         match: /(scholarship|scholarship|student|school|college|fee|education|vidya|abhyas|student|padho)/i,
-        name: { hi: "National Scholarship / Student Support Scheme", en: "National Scholarship / Student Support Scheme" },
+        name: { hi: "राष्ट्रीय छात्रवृत्ति / विद्यार्थी सहायता योजना", en: "National Scholarship / Student Support Scheme" },
         intro: {
-          hi: "Aap student hain aur aapke parivaar ki aarthik sthiti seemit lag rahi hai, isliye scholarship aur student support options ka pata lagana upyogi ho sakta hai.",
+          hi: "आप विद्यार्थी हैं और आपके परिवार की आर्थिक स्थिति सीमित हो सकती है। ऐसे में छात्रवृत्ति और शिक्षा सहायता योजनाओं की जानकारी लेना उपयोगी रहेगा।",
           en: "Since you are a student and your family may be facing financial strain, education-support options may be relevant for you."
         },
         why: {
-          hi: "Aapke liye isliye upyogi ho sakta hai kyunki yeh eligible students ko educational assistance, fee help ya support provide karta hai.",
+          hi: "यह योजना पात्र विद्यार्थियों को पढ़ाई और उससे जुड़े खर्चों के लिए सहायता दे सकती है।",
           en: "This may be suitable because it supports eligible students who need assistance with education and related expenses."
         },
         benefits: {
-          hi: "Fee help, academic support, and focused assistance for eligible students.",
+          hi: "पात्र विद्यार्थियों को शुल्क सहायता और शिक्षा से जुड़ी आर्थिक मदद मिल सकती है।",
           en: "Fee assistance, educational support, and focused aid for eligible students."
         },
         eligibility: {
-          hi: "Student ka status hona chahiye, income criteria meet karna chahiye, aur school/college registration hona chahiye.",
+          hi: "आवेदक विद्यार्थी होना चाहिए, आय संबंधी शर्तें पूरी करनी चाहिए और स्कूल या कॉलेज में नामांकित होना चाहिए।",
           en: "The applicant must be a student, meet income-related conditions, and hold valid school or college enrollment."
         },
         docs: {
-          hi: "Aadhaar, income proof, student ID/certificate, caste/income certificate (agar lage), bank details.",
+          hi: "आधार कार्ड, आय प्रमाणपत्र, विद्यार्थी पहचान-पत्र या प्रमाणपत्र, ज़रूरत पड़ने पर जाति प्रमाणपत्र और बैंक विवरण।",
           en: "Aadhaar, income proof, student ID or certificate, caste or income certificate if required, and bank details."
         },
         apply: {
-          hi: "Official portal par apply karein aur required documents upload karein.",
+          hi: "आधिकारिक पोर्टल पर आवेदन करें और मांगे गए दस्तावेज़ अपलोड करें।",
           en: "Apply on the official portal and upload the requested documents."
         },
         website: "https://scholarships.gov.in/",
         note: {
-          hi: "Final eligibility aur kya support mil sakta hai, official portal par verify karna zaroori hai.",
+          hi: "पात्रता और मिलने वाली सहायता की अंतिम जानकारी आधिकारिक पोर्टल पर ज़रूर जाँचें।",
           en: "Final eligibility and support details should be verified on the official portal."
         }
       },
       {
         key: "farmer",
         match: /(farmer|kisan|farm|khet|agriculture|krishi|crop|irrigation|paani|kheti)/i,
-        name: { hi: "PM Kisan Samman Nidhi / Krishi Support", en: "PM Kisan Samman Nidhi / Farm Support" },
+        name: { hi: "पीएम-किसान सम्मान निधि / कृषि सहायता", en: "PM Kisan Samman Nidhi / Farm Support" },
         intro: {
-          hi: "Aapke khet aur kisani se jude zaroorat ko dekhte hue, agricultural support yojanaen aapke liye relevant ho sakti hain.",
+          hi: "खेती से जुड़ी आपकी ज़रूरतों के लिए कृषि सहायता योजनाएँ उपयोगी हो सकती हैं।",
           en: "Given your farming context, agricultural support schemes may be relevant for your livelihood and crop needs."
         },
         why: {
-          hi: "Kisani karne wale logon ko direct financial support, irrigation support ya crop-related assistance mil sakti hai.",
+          hi: "पात्र किसानों को आर्थिक सहायता, सिंचाई सहायता या फसल से जुड़ी मदद मिल सकती है।",
           en: "This may suit farmers who need direct financial aid, irrigation support, or crop-related assistance."
         },
         benefits: {
-          hi: "Direct cash support, irrigation benefits, and farm-related assistance depending on eligibility.",
+          hi: "पात्रता के अनुसार आर्थिक सहायता, सिंचाई लाभ और खेती से जुड़ी मदद मिल सकती है।",
           en: "Direct cash support, irrigation-related benefits, and farm assistance depending on eligibility."
         },
         eligibility: {
-          hi: "Eligible farmer families, valid land records, and government-defined criteria.",
+          hi: "किसान परिवार को योजना की शर्तें पूरी करनी होंगी और भूमि के वैध रिकॉर्ड देने पड़ सकते हैं।",
           en: "Eligible farmer families and compliance with land and government criteria."
         },
         docs: {
-          hi: "Land documents, Aadhaar, bank details, and farmer ID or supporting records if requested.",
+          hi: "भूमि के दस्तावेज़, आधार कार्ड, बैंक विवरण और मांगे जाने पर किसान पहचान-पत्र या अन्य प्रमाण।",
           en: "Land records, Aadhaar, bank details, and farmer ID or supporting documents if requested."
         },
         apply: {
-          hi: "PM Kisan portal ya district agriculture office ke through apply karein.",
+          hi: "पीएम-किसान पोर्टल या ज़िला कृषि कार्यालय के माध्यम से आवेदन करें।",
           en: "Apply through the PM Kisan portal or the district agriculture office."
         },
         website: "https://pmkisan.gov.in/",
         note: {
-          hi: "Kist, eligibility aur land status official portal par validate hota hai.",
+          hi: "किस्त, पात्रता और भूमि की स्थिति आधिकारिक पोर्टल पर जाँचें।",
           en: "Installment, eligibility, and land-status checks should be validated on the official portal."
         }
       },
       {
         key: "health",
         match: /(health|swasthya|medical|doctor|hospital|disease|treatment|bimari|hospital)/i,
-        name: { hi: "Ayushman Bharat / Health Support", en: "Ayushman Bharat / Health Support" },
+        name: { hi: "आयुष्मान भारत / स्वास्थ्य सहायता", en: "Ayushman Bharat / Health Support" },
         intro: {
-          hi: "Agar swasthya ya medical assistance chahiye, to government health support schemes bhi practical option ho sakti hain.",
+          hi: "स्वास्थ्य या इलाज के खर्चों के लिए सरकारी स्वास्थ्य सहायता योजनाएँ उपयोगी हो सकती हैं।",
           en: "If you need healthcare support, government health schemes may provide useful assistance."
         },
         why: {
-          hi: "Yeh scheme eligible families ko treatment aur healthcare support dene ke liye design kiya gaya hai.",
+          hi: "यह योजना पात्र परिवारों को इलाज और स्वास्थ्य सेवाओं में सहायता देने के लिए है।",
           en: "This type of scheme is designed to support eligible families with treatment and healthcare-related assistance."
         },
         benefits: {
-          hi: "Cashless treatment support and hospital assistance, subject to scheme rules.",
+          hi: "योजना के नियमों के अनुसार बिना नकद भुगतान इलाज और अस्पताल में सहायता मिल सकती है।",
           en: "Cashless treatment support and hospital assistance, subject to scheme rules."
         },
         eligibility: {
-          hi: "Eligible family status, valid identity proof, and scheme-specific conditions.",
+          hi: "परिवार की पात्रता, पहचान का वैध प्रमाण और योजना की अन्य शर्तें लागू होंगी।",
           en: "Eligible family status, valid identity proof, and scheme-specific conditions."
         },
         docs: {
-          hi: "Aadhaar, ration card, family proof, treatment details, and hospital records.",
+          hi: "आधार कार्ड, राशन कार्ड, परिवार का प्रमाण और ज़रूरत के अनुसार इलाज तथा अस्पताल के दस्तावेज़।",
           en: "Aadhaar, ration card, family proof, treatment records, and hospital documents."
         },
         apply: {
-          hi: "Health card ya hospital process ke through apply karne ki information official portal se check karein.",
+          hi: "स्वास्थ्य कार्ड और अस्पताल में इलाज की प्रक्रिया की जानकारी आधिकारिक पोर्टल से लें।",
           en: "Check the official portal for the health-card or treatment process and apply as directed."
         },
         website: "https://pmjay.gov.in/",
         note: {
-          hi: "Health-related guidance general information hai; serious medical issues ke liye doctor ya authorized center se consult karein.",
+          hi: "यह सामान्य जानकारी है। गंभीर स्वास्थ्य समस्या में डॉक्टर या अधिकृत स्वास्थ्य केंद्र से सलाह लें।",
           en: "Health guidance is general information only; serious medical cases need a qualified doctor or authorized health center."
         }
       },
       {
         key: "housing",
         match: /(house|ghar|housing|makan|home|bhawan|roof|pucca)/i,
-        name: { hi: "PM Awas Yojana / Housing Support", en: "PM Awas Yojana / Housing Support" },
+        name: { hi: "प्रधानमंत्री आवास योजना / आवास सहायता", en: "PM Awas Yojana / Housing Support" },
         intro: {
-          hi: "Ghar aur housing support ke liye central/state schemes kabhi kabhi eligible families ko help kar sakti hain.",
+          hi: "घर बनाने या सुधारने के लिए केंद्र और राज्य की आवास योजनाएँ पात्र परिवारों की मदद कर सकती हैं।",
           en: "Housing support programs may assist eligible families with home construction or improvement needs."
         },
         why: {
-          hi: "Agar aapke parivaar ke paas ghar ya sanrachana ki zaroorat hai, to yeh scheme suitability ko check kar sakta hai.",
+          hi: "यदि आपके परिवार को घर की ज़रूरत है, तो इस योजना की पात्रता जाँचना उपयोगी रहेगा।",
           en: "If your family needs housing support, this may be a relevant avenue to review."
         },
         benefits: {
-          hi: "Housing or home-construction assistance, subject to eligibility and regional guidelines.",
+          hi: "पात्रता और क्षेत्रीय नियमों के अनुसार घर बनाने या आवास से जुड़ी आर्थिक सहायता मिल सकती है।",
           en: "Housing or home-construction assistance, depending on eligibility and regional guidelines."
         },
         eligibility: {
-          hi: "Family category, income, and housing need conditions may apply.",
+          hi: "परिवार की श्रेणी, आय और आवास की ज़रूरत से जुड़ी शर्तें लागू हो सकती हैं।",
           en: "Family category, income, and housing need conditions may apply."
         },
         docs: {
-          hi: "Identity proof, land or house documents, income proof, and application forms.",
+          hi: "पहचान पत्र, भूमि या घर के दस्तावेज़, आय प्रमाण और आवेदन पत्र।",
           en: "Identity proof, land or house documents, income proof, and application forms."
         },
         apply: {
-          hi: "State housing department ya official portal se aavedan process seekhein.",
+          hi: "आवेदन प्रक्रिया के लिए राज्य के आवास विभाग या आधिकारिक पोर्टल से संपर्क करें।",
           en: "Review the application process via the state housing department or official portal."
         },
         website: "https://pmaymis.gov.in/",
         note: {
-          hi: "Regional requirement aur eligibility official portal par verify karna zaroori hai.",
+          hi: "क्षेत्रीय नियम और पात्रता आधिकारिक पोर्टल पर ज़रूर जाँचें।",
           en: "Regional requirements and eligibility must be confirmed on the official portal."
         }
       }
@@ -2089,10 +2165,10 @@
     if (!candidateSchemes.length) {
       const fallbackIntro = isEnglish
         ? "I can help identify the most relevant scheme, but I need a little more context about your situation."
-        : "Main aapke liye sabse upyogi yojana identify kar sakta hoon, lekin aapki situation ke baare mein thoda aur context chahiye.";
+        : "मैं आपके लिए उपयोगी योजना ढूँढ़ सकता हूँ। आपकी स्थिति समझने के लिए मुझे थोड़ी और जानकारी चाहिए।";
       const fallbackText = isEnglish
         ? "Please tell me your age, state, occupation, education, and family income, and I’ll narrow the options."
-        : "Kripya age, state, occupation, education aur family income bataiye, phir main option ko narrow kar dunga.";
+        : "कृपया अपनी उम्र, राज्य, काम, शिक्षा और परिवार की आय बताएँ। इससे मैं सही विकल्प सुझा पाऊँगा।";
       return {
         html: '<p>' + fallbackIntro + '</p><p>' + fallbackText + '</p>',
         text: fallbackIntro + " " + fallbackText
@@ -2115,19 +2191,19 @@
           '<div class="scheme-card">' +
           '<p><strong>' + (index + 1) + '. ' + name + '</strong></p>' +
           '<p>' + intro + '</p>' +
-          '<p><strong>' + (isEnglish ? 'Why this may be suitable for you' : 'Aapke liye yeh kyun suitable ho sakta hai') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'Why this may be suitable for you' : 'यह आपके लिए क्यों उपयुक्त हो सकती है') + '</strong></p>' +
           '<p>' + why + '</p>' +
-          '<p><strong>' + (isEnglish ? 'Benefits' : 'Benefits') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'Benefits' : 'लाभ') + '</strong></p>' +
           '<p>' + benefits + '</p>' +
-          '<p><strong>' + (isEnglish ? 'Eligibility' : 'Eligibility') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'Eligibility' : 'पात्रता') + '</strong></p>' +
           '<p>' + eligibility + '</p>' +
-          '<p><strong>' + (isEnglish ? 'Documents Required' : 'Documents Required') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'Documents Required' : 'ज़रूरी दस्तावेज़') + '</strong></p>' +
           '<p>' + docs + '</p>' +
-          '<p><strong>' + (isEnglish ? 'How to Apply' : 'How to Apply') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'How to Apply' : 'आवेदन कैसे करें') + '</strong></p>' +
           '<p>' + apply + '</p>' +
-          '<p><strong>' + (isEnglish ? 'Official Website' : 'Official Website') + '</strong></p>' +
-          '<p><a class="chat-link" href="' + scheme.website + '" target="_blank" rel="noopener noreferrer">' + LINK_ICON + (isEnglish ? 'Official website' : 'Official website') + '</a></p>' +
-          '<p><strong>' + (isEnglish ? 'Important Note' : 'Important Note') + '</strong></p>' +
+          '<p><strong>' + (isEnglish ? 'Official Website' : 'आधिकारिक वेबसाइट') + '</strong></p>' +
+          '<p><a class="chat-link" href="' + scheme.website + '" target="_blank" rel="noopener noreferrer">' + LINK_ICON + (isEnglish ? 'Official website' : 'आधिकारिक वेबसाइट') + '</a></p>' +
+          '<p><strong>' + (isEnglish ? 'Important Note' : 'महत्वपूर्ण जानकारी') + '</strong></p>' +
           '<p>' + note + '</p>' +
           '</div>'
         );
@@ -2135,7 +2211,7 @@
       .join("");
 
     return {
-      html: '<p>' + (isEnglish ? 'Here are the most relevant options for your situation:' : 'Aapki situation ke liye sabse relevant options yeh hain:') + '</p>' + schemeHtml,
+      html: '<p>' + (isEnglish ? 'Here are the most relevant options for your situation:' : 'आपकी स्थिति के अनुसार ये विकल्प उपयोगी हो सकते हैं:') + '</p>' + schemeHtml,
       text: selected.map((scheme) => scheme.name[isEnglish ? "en" : "hi"]).join(". ")
     };
   }
@@ -2143,6 +2219,7 @@
   async function fetchAIAnswer(question) {
     if (!AI_CONFIG.endpoint) return null;
 
+    const responseLanguage = responseLanguageFor(question);
     const controller = new AbortController();
     const timer = window.setTimeout(() => controller.abort(), AI_CONFIG.timeout);
 
@@ -2152,8 +2229,10 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: question,
-          language: selectedLanguage,
-          context: "SarthiX rural government scheme guidance"
+          language: responseLanguage,
+          context: responseLanguage === "hi-IN"
+            ? "SarthiX rural government scheme guidance. Reply only in natural Hindi using Devanagari script; do not use Hinglish or Latin-script Hindi."
+            : "SarthiX rural government scheme guidance. Reply in English."
         }),
         signal: controller.signal
       });
@@ -2187,8 +2266,8 @@
       });
     } else {
       appendBotMessage(CHAT_FALLBACK[uiLang], {
-        audioText: uiLang === "en" ? "I am a helpful assistant." : "Main ek helpful assistant hoon.",
-        retryText: uiLang === "en" ? "I am a helpful assistant." : "Main ek helpful assistant hoon."
+        audioText: uiLang === "en" ? "I am a helpful assistant." : "मैं एक उपयोगी सहायक हूँ।",
+        retryText: uiLang === "en" ? "I am a helpful assistant." : "मैं एक उपयोगी सहायक हूँ।"
       });
     }
 
@@ -2251,7 +2330,8 @@
       const svc = SERVICE_DATA[preSelected];
       const english = uiLang === "en";
       const welcome = english ? svc.welcome.en : svc.welcome.hi;
-      sendChatMessage(welcome);
+      const greeting = chatMessages?.querySelector("[data-chat-greeting]");
+      if (greeting) greeting.textContent = welcome;
       renderServiceSuggestions(preSelected, english);
       sessionStorage.removeItem("sarthix-selected-service");
     } else if (question) {
@@ -2270,18 +2350,37 @@
     const svc = SERVICE_DATA[serviceId];
     if (!svc) return;
     chatSuggest.replaceChildren();
+
+    const heading = document.createElement("div");
+    heading.className = "chat-suggest-heading";
+    const title = document.createElement("strong");
+    title.textContent = english ? "Popular topics" : "लोकप्रिय विषय";
+    title.dataset.en = "Popular topics";
+    title.dataset.original = "लोकप्रिय विषय";
+    const hint = document.createElement("span");
+    hint.textContent = english ? "Choose one to get started" : "शुरू करने के लिए एक चुनें";
+    hint.dataset.en = "Choose one to get started";
+    hint.dataset.original = "शुरू करने के लिए एक चुनें";
+    heading.append(title, hint);
+    chatSuggest.appendChild(heading);
+
+    const options = document.createElement("div");
+    options.className = "chat-suggest-options";
     svc.suggestions.forEach((s) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.textContent = english ? s.en : s.hi;
+      btn.dataset.en = s.en;
+      btn.dataset.original = s.hi;
       btn.className = "";
       btn.addEventListener("click", () => {
         const q = english ? s.en : s.hi;
         chatInput.value = q;
         chatInput.focus({ preventScroll: true });
       });
-      chatSuggest.appendChild(btn);
+      options.appendChild(btn);
     });
+    chatSuggest.appendChild(options);
   }
 
   function openChatWithService(serviceId) {
@@ -2297,7 +2396,12 @@
         if (event.target.closest(".service-arrow")) return;
         openChatWithService(serviceId);
       });
+      card.querySelector(".service-arrow")?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        openChatWithService(serviceId);
+      });
       card.addEventListener("keydown", (event) => {
+        if (event.target !== card) return;
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           openChatWithService(serviceId);
@@ -2312,6 +2416,10 @@
     chatPanel.hidden = true;
     chatPanel.classList.remove("is-open");
     chatPanel.setAttribute("aria-hidden", "true");
+    const greeting = chatMessages?.querySelector("[data-chat-greeting]");
+    if (greeting) {
+      greeting.textContent = uiLang === "en" ? greeting.dataset.en : greeting.dataset.original;
+    }
     if (chatFab) {
       chatFab.setAttribute("aria-expanded", "false");
       chatFab.focus({ preventScroll: true });
