@@ -1323,6 +1323,14 @@
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </button>
     </header>
+    <div class="chat-tools">
+      <button type="button" data-chat-new data-en="New chat">नई बातचीत</button>
+      <button type="button" data-chat-history-toggle aria-expanded="false" data-en="Saved chats">पुरानी बातचीत</button>
+    </div>
+    <section class="chat-history-panel" data-chat-history-panel hidden aria-label="सहेजी गई बातचीत">
+      <p data-chat-history-status aria-live="polite" data-en="Your saved conversations">आपकी सहेजी गई बातचीत</p>
+      <ul data-chat-history-list></ul>
+    </section>
 
     <div class="chat-body" data-chat-messages role="log" aria-live="polite" aria-label="चैट संदेश">
       <div class="chat-msg chat-msg--bot">
@@ -1394,7 +1402,9 @@
     </div>
   </div>
 
+  <script src="js/config.js" defer></script>
   <script src="js/script.js?v=chat-voice-composer" defer></script>
   <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/chat-api.js"></script>
 </body>
 </html>

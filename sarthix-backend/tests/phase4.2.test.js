@@ -207,15 +207,15 @@ test('chat validates message, profile, history count, roles, and total request s
   assert.deepEqual(validated.history, [{ role: 'user', content: 'prior message' }]);
 });
 
-test('answer generation uses documented Google SDK interaction call and selected model', async () => {
+test('answer generation uses the Google generateContent API and selected model', async () => {
   let request;
   const generator = createAnswerGenerationService({
     apiKey: 'server-side-test-key',
     client: {
-      interactions: {
-        async create(params) {
+      models: {
+        async generateContent(params) {
           request = params;
-          return { output_text: JSON.stringify(generatedAnswer()) };
+          return { text: JSON.stringify(generatedAnswer()) };
         },
       },
     },
@@ -228,18 +228,18 @@ test('answer generation uses documented Google SDK interaction call and selected
   });
   assert.equal(DEFAULT_GEMINI_TEXT_MODEL, 'gemini-3.8-flash');
   assert.equal(request.model, DEFAULT_GEMINI_TEXT_MODEL);
-  assert.equal(request.system_instruction.includes('Never invent'), true);
-  assert.equal(request.generation_config.thinking_level, 'low');
-  assert.match(request.input, /verifiedSchemeContext/);
+  assert.equal(request.config.systemInstruction.includes('Never invent'), true);
+  assert.equal(request.config.responseMimeType, 'application/json');
+  assert.match(request.contents, /verifiedSchemeContext/);
   assert.equal(result.answer, generatedAnswer().answer);
 });
 
 test('answer-generation prompt asks for the latest user language and excludes generated sources', async () => {
   let request;
   const generator = createAnswerGenerationService({
-    client: { interactions: { async create(params) {
+    client: { models: { async generateContent(params) {
       request = params;
-      return { output_text: JSON.stringify(generatedAnswer()) };
+      return { text: JSON.stringify(generatedAnswer()) };
     } } },
   });
   await generator.generate({
@@ -248,10 +248,10 @@ test('answer-generation prompt asks for the latest user language and excludes ge
     history: [],
     chunks: [verifiedChunk()],
   });
-  assert.match(request.system_instruction, /language and script used by the latest user message/);
-  assert.match(request.system_instruction, /Never invent or infer/);
-  assert.match(request.system_instruction, /source URLs in generated fields/);
-  assert.match(request.input, /"question":"મને આ યોજના વિશે જણાવો"/);
+  assert.match(request.config.systemInstruction, /language and script used by the latest user message/);
+  assert.match(request.config.systemInstruction, /Never invent or infer/);
+  assert.match(request.config.systemInstruction, /source URLs in generated fields/);
+  assert.match(request.contents, /"question":"મને આ યોજના વિશે જણાવો"/);
 });
 
 test('malformed Gemini answers and model-generated URLs fail safely', async () => {
@@ -262,7 +262,7 @@ test('malformed Gemini answers and model-generated URLs fail safely', async () =
     JSON.stringify({ answer: 'Check https://invented.example for details.', relevance: '' }),
   ]) {
     const generator = createAnswerGenerationService({
-      client: { interactions: { async create() { return { output_text: output }; } } },
+      client: { models: { async generateContent() { return { text: output }; } } },
     });
     await assert.rejects(generator.generate({ question: 'Help', profileContext: {}, chunks: [] }), (error) => {
       assert.equal(error.statusCode, 502);
@@ -277,13 +277,14 @@ test('Gemini provider errors, rate limits, and timeouts map to safe API errors',
   const cases = [
     { status: 429, expectedStatus: 503, expectedCode: 'GEMINI_RATE_LIMITED' },
     { status: 503, expectedStatus: 502, expectedCode: 'GEMINI_PROVIDER_FAILURE' },
+    { status: 504, expectedStatus: 504, expectedCode: 'GEMINI_TIMEOUT' },
     { name: 'AbortError', expectedStatus: 504, expectedCode: 'GEMINI_TIMEOUT' },
   ];
   for (const item of cases) {
     const generator = createAnswerGenerationService({
       client: {
-        interactions: {
-          async create() {
+        models: {
+          async generateContent() {
             const error = new Error('provider internal detail');
             Object.assign(error, item);
             throw error;
@@ -294,6 +295,7 @@ test('Gemini provider errors, rate limits, and timeouts map to safe API errors',
     await assert.rejects(generator.generate({ question: 'Help', profileContext: {}, chunks: [] }), (error) => {
       assert.equal(error.statusCode, item.expectedStatus);
       assert.equal(error.code, item.expectedCode);
+      assert.equal(error.providerStatus, item.status ?? null);
       assert.doesNotMatch(error.message, /provider internal detail/);
       return true;
     });
@@ -319,15 +321,57 @@ test('retrieval failures are returned as sanitized errors', async () => {
   });
 });
 
-test('chat endpoint validates bad requests and remains independent of user identity', async (t) => {
+test('guest chat remains available without exposing or loading account chat history', async (t) => {
   const server = createServer(app);
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   t.after(() => new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve())));
-  const response = await fetch(`http://127.0.0.1:${server.address().port}/api/chat`, {
+  const baseUrl = `http://127.0.0.1:${server.address().port}/api/chat`;
+  const historyResponse = await fetch(`${baseUrl}/history`);
+  assert.equal(historyResponse.status, 200);
+  assert.deepEqual(await historyResponse.json(), {
+    success: true,
+    conversationId: null,
+    profileContext: {},
+    messages: [],
+  });
+
+  const response = await fetch(baseUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ message: '' }),
   });
   assert.equal(response.status, 400);
+  assert.equal((await response.json()).success, false);
+});
+
+test('saved conversation management requires a verified signed-in account', async (t) => {
+  const server = createServer(app);
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve())));
+  const baseUrl = `http://127.0.0.1:${server.address().port}/api/chat/conversations`;
+
+  const listResponse = await fetch(baseUrl);
+  assert.equal(listResponse.status, 401);
+  assert.equal((await listResponse.json()).success, false);
+
+  const readResponse = await fetch(`${baseUrl}/1`);
+  assert.equal(readResponse.status, 401);
+  assert.equal((await readResponse.json()).success, false);
+
+  const deleteResponse = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
+  assert.equal(deleteResponse.status, 401);
+  assert.equal((await deleteResponse.json()).success, false);
+});
+
+test('PostgreSQL session bootstrap requires a verified Firebase ID token', async (t) => {
+  const server = createServer(app);
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve())));
+  const response = await fetch(`http://127.0.0.1:${server.address().port}/api/auth/session`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ uid: 'untrusted', phoneNumber: '+919999999999' }),
+  });
+  assert.equal(response.status, 401);
   assert.equal((await response.json()).success, false);
 });

@@ -9,13 +9,34 @@ import { errorHandler } from './middleware/error.middleware.js';
 
 const app = express();
 
+export function isAllowedFrontendOrigin(origin, {
+  configuredOrigin = config.frontendOrigin,
+  nodeEnv = config.nodeEnv,
+} = {}) {
+  if (!origin || origin === configuredOrigin) return true;
+  if (nodeEnv !== 'development') return false;
+  try {
+    const url = new URL(origin);
+    return url.origin === origin
+      && url.protocol === 'http:'
+      && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)
+      && !url.username
+      && !url.password;
+  } catch {
+    return false;
+  }
+}
+
 // Security headers
 app.use(helmet());
 
 // CORS
 app.use(cors({
-  origin: config.frontendOrigin,
+  origin(origin, callback) {
+    callback(null, isAllowedFrontendOrigin(origin));
+  },
   credentials: false,
+  exposedHeaders: ['X-Chat-Conversation-Id'],
 }));
 
 // Rate limiting

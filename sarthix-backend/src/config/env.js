@@ -19,14 +19,31 @@ export function resolveLocalMockMode(nodeEnv, flag) {
   return flag === 'true';
 }
 
+export function resolveFirebaseCheckRevoked(nodeEnv, flag) {
+  if (flag == null || flag === '') return nodeEnv === 'production';
+  if (flag !== 'true' && flag !== 'false') {
+    throw new Error('FIREBASE_CHECK_REVOKED must be true or false');
+  }
+  if (nodeEnv === 'production' && flag !== 'true') {
+    throw new Error('FIREBASE_CHECK_REVOKED must be true in production');
+  }
+  return flag === 'true';
+}
+
 const config = {
   port: process.env.PORT || 5000,
   nodeEnv: process.env.NODE_ENV || 'development',
   localMockMode: resolveLocalMockMode(process.env.NODE_ENV || 'development', process.env.LOCAL_MOCK_MODE),
-  frontendOrigin: process.env.FRONTEND_ORIGIN || 'http://localhost:5500',
+  firebaseCheckRevoked: resolveFirebaseCheckRevoked(
+    process.env.NODE_ENV || 'development',
+    process.env.FIREBASE_CHECK_REVOKED,
+  ),
+  frontendOrigin: process.env.FRONTEND_ORIGIN
+    || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5500'),
   databaseUrl: process.env.DATABASE_URL || '',
   geminiApiKey: process.env.GEMINI_API_KEY || '',
   geminiTextModel: process.env.GEMINI_TEXT_MODEL || 'gemini-3.8-flash',
+  firebaseProjectId: process.env.FIREBASE_PROJECT_ID || 'sarthix-72168',
   db: {
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 5432,
@@ -34,10 +51,14 @@ const config = {
     user: process.env.DB_USER || '',
     password: process.env.DB_PASSWORD || '',
     ssl: process.env.DB_SSL === 'true',
+    sslCaFile: process.env.DB_SSL_CA_FILE || '',
   },
 };
 
 function validateConfig() {
+  if (config.nodeEnv === 'production' && !config.frontendOrigin) {
+    throw new Error('FRONTEND_ORIGIN is required in production');
+  }
   if (typeof config.port !== 'number' && isNaN(Number(config.port))) {
     throw new Error('Invalid PORT');
   }

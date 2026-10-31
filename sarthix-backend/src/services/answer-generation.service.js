@@ -14,7 +14,7 @@ Use empty arrays when missingInformation or followUpQuestions have no entries. D
 
 function providerFailure(error) {
   const status = Number(error?.status);
-  const isTimeout = error?.name === 'AbortError' || error?.code === 'ETIMEDOUT';
+  const isTimeout = error?.name === 'AbortError' || error?.code === 'ETIMEDOUT' || status === 504;
   const isRateLimit = status === 429;
   const wrapped = new Error(
     isTimeout
@@ -25,6 +25,7 @@ function providerFailure(error) {
   );
   wrapped.statusCode = isTimeout ? 504 : isRateLimit ? 503 : 502;
   wrapped.code = isTimeout ? 'GEMINI_TIMEOUT' : isRateLimit ? 'GEMINI_RATE_LIMITED' : 'GEMINI_PROVIDER_FAILURE';
+  wrapped.providerStatus = Number.isInteger(status) && status >= 400 && status < 600 ? status : null;
   return wrapped;
 }
 
@@ -79,7 +80,13 @@ export function createAnswerGenerationService({
       apiKey,
       httpOptions: {
         timeout: timeoutMs,
-        retryOptions: { attempts: 1 },
+        retryOptions: {
+          attempts: 2,
+          initialDelay: 1,
+          expBase: 2,
+          jitter: 0,
+          httpStatusCodes: [429, 503, 504],
+        },
       },
     })
     : null);
@@ -107,20 +114,23 @@ export function createAnswerGenerationService({
         })),
       });
 
-      let interaction;
+      let response;
       try {
-        interaction = await genai.interactions.create({
+        response = await genai.models.generateContent({
           model,
-          system_instruction: SYSTEM_INSTRUCTION,
-          input,
-          generation_config: { thinking_level: 'low' },
+          contents: input,
+          config: {
+            systemInstruction: SYSTEM_INSTRUCTION,
+            responseMimeType: 'application/json',
+            maxOutputTokens: 1024,
+          },
         });
       } catch (error) {
         throw providerFailure(error);
       }
 
       try {
-        return parseStructuredAnswer(interaction?.output_text);
+        return parseStructuredAnswer(response?.text);
       } catch {
         const error = new Error('Answer provider returned an invalid response');
         error.statusCode = 502;

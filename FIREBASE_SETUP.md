@@ -10,30 +10,17 @@ The Firebase Web App configuration for project `sarthix-72168` is set in `fireba
 2. In **Authentication → Settings → Authorized domains**, add the deployed host. For local browser development, open the site using `http://localhost:8765` (not `127.0.0.1`) and make sure `localhost` is listed. If using another host or port, authorize its hostname; ports are not part of the authorized-domain entry.
 3. In **Authentication → Settings → SMS region policy**, allow **India (+91)**. If this country is blocked, Firebase rejects SMS with `auth/operation-not-allowed` even when the reCAPTCHA succeeds.
 4. For repeatable tests, add a Firebase Authentication test phone number and test code under **Authentication → Sign-in method → Phone numbers for testing**. Firebase will not send an SMS to these numbers.
-5. Enable **Cloud Firestore** and publish the owner-only rules below. The signup form writes the profile only after phone verification, to `users/{uid}`. Existing profile documents are never overwritten. The saved Hindi/English preference is applied on the home page and used for chatbot responses; Hindi replies use Devanagari rather than Hinglish.
-
-```text
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow create: if request.auth != null
-        && request.auth.uid == userId
-        && request.resource.data.uid == userId
-        && request.resource.data.phoneNumber == request.auth.token.phone_number;
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow update, delete: if false;
-    }
-  }
-}
-```
+5. Set `FIREBASE_PROJECT_ID=sarthix-72168` in the backend environment. In production, configure Google Application Default Credentials (prefer the deployment platform's workload identity) so Firebase Admin can check token revocation; do not commit or expose a service-account key. Development does not require admin credentials.
+6. Configure PostgreSQL for the backend and run `npm run migrate` from `sarthix-backend` to add Firebase account identity, profile, login tracking, and chat-history fields. Signup writes the verified Firebase UID and phone number to PostgreSQL `users`, and all signup profile details to `user_profiles`; successful logins update the account's login count and timestamp. Signed-in chat messages and chat profile context are saved in PostgreSQL; guest chat remains available but is not saved. Firebase Authentication is used only as the OTP identity provider. Application account, profile, login, and signed-in chat data are stored in PostgreSQL. Firestore is not used by the application.
 
 ## Local testing
 
-Serve this project over HTTP (for example, with VS Code Live Server); do not open the HTML files using `file://`. Browse to `http://localhost:<port>/login.html`, not `http://127.0.0.1:<port>/login.html`, so Firebase sees the authorized `localhost` domain. Allow third-party Google reCAPTCHA scripts/cookies and complete the checkbox/challenge if one appears. If Firebase reports `auth/unauthorized-domain`, add the hostname shown in the browser URL to **Authentication → Settings → Authorized domains**, then reload.
+Serve this project over HTTP (for example, with VS Code Live Server); do not open the HTML files using `file://`. Browse to `http://localhost:<port>/login.html`, not `http://127.0.0.1:<port>/login.html`, so Firebase sees the authorized `localhost` domain. Set the backend `FRONTEND_ORIGIN` to the same origin (the default is `http://localhost:5500`) so browser API requests pass CORS. The frontend chat API defaults to `http://localhost:5000/api`; for deployment, change `apiBaseUrl` in `js/config.js` to the HTTPS backend API base. Allow third-party Google reCAPTCHA scripts/cookies and complete the checkbox/challenge if one appears. If Firebase reports `auth/unauthorized-domain`, add the hostname shown in the browser URL to **Authentication → Settings → Authorized domains**, then reload.
 
-For Firebase's local emulators, start the Authentication and Firestore emulators on ports `9099` and `8080`, then set `useFirebaseEmulators` to `true` in `firebase-config.js`. The emulator setting is off by default. Any page that should require authentication can set `data-auth-required="true"` on its `<body>` element; no current page is marked protected because `index.html` is the public landing page and there is no separate dashboard in this project.
+For Firebase's local Authentication emulator, install Java 17+ and run `npx firebase-tools emulators:start --only auth --project demo-sarthix-otp-test` from the repository root. Open `http://localhost:<port>/login.html?firebaseAuthEmulator=true#signup` to opt that local browser tab into the emulator; the flag is rejected on non-local hosts and switches to an isolated demo Firebase project ID. Start the backend with `FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099` and `FIREBASE_PROJECT_ID=demo-sarthix-otp-test` so it verifies emulator tokens. No real SMS or production Firebase project is used. The emulator setting is off by default. In backend development mode, the API accepts HTTP origins on `localhost`, `127.0.0.1`, and `[::1]` at any port so Firebase-confirmation/profile requests work with Live Server's chosen port. Production continues to allow only the exact configured `FRONTEND_ORIGIN`. Any page that should require authentication can set `data-auth-required="true"` on its `<body>` element; the public landing page remains available to guests.
 
-Test a new account by completing the signup form, sending an OTP, entering the valid test/emulator code, and confirming that a `users/{uid}` profile is created. Test login using that same phone number. Also check a wrong/expired code, resend after the 30-second countdown, sign out, then refresh `index.html` to verify sign-in persistence.
+Test a new account by completing signup, sending an OTP, entering the valid test/emulator code, and confirming that one row is created in PostgreSQL `users` and one matching row in `user_profiles`. Test login using that phone number and confirm the profile can be read from PostgreSQL and the login count/timestamp are updated. Send a chat while signed in, reload, and confirm the latest conversation is restored from PostgreSQL. Send a chat while signed out and confirm that it is not saved. Also check a wrong/expired code, resend after the 30-second countdown, sign out, then refresh `index.html` to verify sign-in persistence.
 
 Real SMS OTP tests must use an authorized HTTPS domain. Browser SMS verification is not a reliable localhost test; use Firebase test phone numbers or the Authentication Emulator locally.
+
+If Firebase returns `auth/operation-not-allowed`, the app cannot override the project policy: enable **Phone** in **Authentication → Sign-in method**, allow India (+91) under **Authentication → Settings → SMS region policy**, and verify the test phone is listed in **Phone numbers for testing**. The app accepts either the 10-digit Indian number or its `+91` form and normalizes it before calling Firebase.

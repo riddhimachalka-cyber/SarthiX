@@ -75,7 +75,9 @@
         error: "संपर्क में समस्या हुई। नीचे दिए गए विषयों में से कोई चुनकर फिर पूछें।",
         empty: "भेजने से पहले अपना सवाल लिखें।",
         networkError: "SarthiX सर्वर से संपर्क नहीं हो सका। कृपया कनेक्शन जाँचकर फिर प्रयास करें।",
-        apiError: (status) => `सवाल का जवाब नहीं मिल सका (त्रुटि ${status})। कृपया फिर प्रयास करें।`,
+        apiError: (status) => status === 503
+          ? "सेवा अभी अस्थायी रूप से उपलब्ध नहीं है। कृपया कुछ देर बाद फिर प्रयास करें।"
+          : `सवाल का जवाब नहीं मिल सका (त्रुटि ${status})। कृपया फिर प्रयास करें।`,
         invalidResponse: "सर्वर से जवाब पढ़ा नहीं जा सका। कृपया फिर प्रयास करें।",
         demo: "डेमो जवाब — यह सत्यापित सरकारी जानकारी नहीं है।",
         sources: "स्रोत",
@@ -135,7 +137,9 @@
         error: "Something went wrong. Please try one of the topics below.",
         empty: "Type a question before sending.",
         networkError: "Could not reach the SarthiX server. Check your connection and try again.",
-        apiError: (status) => `The request failed (error ${status}). Please try again.`,
+        apiError: (status) => status === 503
+          ? "The service is temporarily unavailable. Please try again in a little while."
+          : `The request failed (error ${status}). Please try again.`,
         invalidResponse: "Could not read the server response. Please try again.",
         demo: "DEMO RESPONSE — this is not verified government information.",
         sources: "Sources",
@@ -1153,7 +1157,7 @@
     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4 10 14" /><path d="M18 14v5.5H4.5V6H10" /></svg>';
 
   const AI_CONFIG = {
-    endpoint: "http://localhost:5000/api/chat",
+    endpoint: `${String(window.SARTHIX_CONFIG?.apiBaseUrl || "http://localhost:5000/api").replace(/\/+$/, "")}/chat`,
     timeout: 30000
   };
 
@@ -1879,24 +1883,8 @@
     return row;
   }
 
-  function loadChatProfile() {
-    try {
-      const saved = sessionStorage.getItem("sarthix-chat-profile");
-      return saved ? JSON.parse(saved) : {};
-    } catch (error) {
-      return {};
-    }
-  }
-
-  function saveChatProfile(profile) {
-    try {
-      sessionStorage.setItem("sarthix-chat-profile", JSON.stringify(profile));
-    } catch (error) {
-      // Ignore storage issues, but keep the in-memory profile active.
-    }
-  }
-
-  const chatProfile = loadChatProfile();
+  const chatProfile = {};
+  let conversationId = null;
 
   function getLanguageName(code) {
     const names = {
@@ -1998,7 +1986,6 @@
     if (/(health|swasthya|medical|hospital|disease|doctor|treatment|bimari)/i.test(message)) chatProfile.need = "healthcare";
     if (/(scholarship|fee|education|studentship|vidya|school|college)/i.test(message)) chatProfile.need = "education";
 
-    saveChatProfile(chatProfile);
     return chatProfile;
   }
 
@@ -2240,55 +2227,68 @@
     };
   }
 
-<<<<<<< HEAD
   async function fetchAIAnswer(question, history) {
-=======
-  async function fetchAIAnswer(question) {
-    if (!AI_CONFIG.endpoint) return null;
-
-    const responseLanguage = responseLanguageFor(question);
->>>>>>> 7c41ee9a28bc77f73d8c10cd7ca3fb7d3de75e99
     const controller = new AbortController();
     const timer = window.setTimeout(() => controller.abort(), AI_CONFIG.timeout);
 
     try {
-      const response = await fetch(AI_CONFIG.endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: question,
-<<<<<<< HEAD
-          history: history.slice(-8)
-=======
-          language: responseLanguage,
-          context: responseLanguage === "hi-IN"
-            ? "SarthiX rural government scheme guidance. Reply only in natural Hindi using Devanagari script; do not use Hinglish or Latin-script Hindi."
-            : "SarthiX rural government scheme guidance. Reply in English."
->>>>>>> 7c41ee9a28bc77f73d8c10cd7ca3fb7d3de75e99
-        }),
-        signal: controller.signal
-      });
-
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        const error = new Error("invalid-response");
-        error.kind = "invalid-response";
-        throw error;
+      const profileContext = {};
+      if (Number.isInteger(chatProfile.age) && chatProfile.age >= 0 && chatProfile.age <= 120) {
+        profileContext.age = chatProfile.age;
+      }
+      for (const field of ["state", "district", "occupation"]) {
+        const value = chatProfile[field];
+        if (typeof value === "string" && value.trim()) profileContext[field] = value.trim().slice(0, 200);
+      }
+      if (typeof chatProfile.isFarmer === "boolean") profileContext.is_farmer = chatProfile.isFarmer;
+      if (typeof chatProfile.isStudent === "boolean") profileContext.is_student = chatProfile.isStudent;
+      if (typeof chatProfile.incomeBand === "string" && chatProfile.incomeBand.trim()) {
+        profileContext.family_income_range = chatProfile.incomeBand.trim().slice(0, 200);
+      }
+      const statedNeed = chatProfile.need || chatProfile.familyCircumstances;
+      if (typeof statedNeed === "string" && statedNeed.trim()) {
+        profileContext.statedNeed = statedNeed.trim().slice(0, 200);
       }
 
-      if (!response.ok || !data || data.success !== true) {
-        const error = new Error("api-error");
-        error.kind = "api";
-        error.status = response.status;
-        throw error;
+      let data;
+      if (window.SarthiXChatApi?.sendMessage) {
+        data = await window.SarthiXChatApi.sendMessage({
+          message: question,
+          history: history.slice(-8),
+          profileContext
+        });
+      } else {
+        const response = await fetch(AI_CONFIG.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: question,
+            history: history.slice(-8),
+            profileContext,
+            ...(conversationId ? { conversationId } : {})
+          }),
+          signal: controller.signal
+        });
+        try {
+          data = await response.json();
+        } catch {
+          const error = new Error("invalid-response");
+          error.kind = "invalid-response";
+          throw error;
+        }
+        if (!response.ok || !data || data.success !== true) {
+          const error = new Error("api-error");
+          error.kind = "api";
+          error.status = response.status;
+          throw error;
+        }
       }
       if (typeof data.answer !== "string" || !data.answer.trim()) {
         const error = new Error("invalid-response");
         error.kind = "invalid-response";
         throw error;
       }
+      if (data.conversationId) conversationId = data.conversationId;
       return data;
     } catch (error) {
       if (error.kind) throw error;
@@ -2405,6 +2405,144 @@
     scrollChat();
   }
 
+  function restoreChatConversation(conversation) {
+    if (!chatMessages || !conversation) return;
+    conversationId = conversation.conversationId || null;
+    chatHistory = [];
+    Object.keys(chatProfile).forEach((key) => delete chatProfile[key]);
+    const storedProfile = conversation.profileContext || {};
+    Object.assign(chatProfile, {
+      age: storedProfile.age,
+      state: storedProfile.state,
+      district: storedProfile.district,
+      occupation: storedProfile.occupation,
+      isFarmer: storedProfile.is_farmer,
+      isStudent: storedProfile.is_student,
+      incomeBand: storedProfile.family_income_range,
+      need: storedProfile.statedNeed
+    });
+
+    const greetingRow = chatMessages.querySelector("[data-chat-greeting]")?.closest(".chat-msg");
+    chatMessages.replaceChildren();
+    if (greetingRow) chatMessages.appendChild(greetingRow);
+
+    const messages = Array.isArray(conversation.messages) ? conversation.messages : [];
+    messages.forEach((message) => {
+      if (message.role === "user") {
+        appendUserMessage(message.content);
+      } else if (message.role === "assistant" && message.response) {
+        appendChatApiResponse(message.response);
+      } else if (message.role === "assistant") {
+        appendBotText(message.content);
+      }
+    });
+    chatHistory = messages
+      .filter((message) => ["user", "assistant"].includes(message.role))
+      .slice(-6)
+      .map((message) => ({ role: message.role, content: message.content.slice(0, 1000) }));
+    scrollChat();
+  }
+
+  window.addEventListener("sarthix:chat-history", (event) => {
+    restoreChatConversation(event.detail);
+  });
+
+  const chatHistoryPanel = $("[data-chat-history-panel]");
+  const chatHistoryList = $("[data-chat-history-list]");
+  const chatHistoryStatus = $("[data-chat-history-status]");
+  const chatHistoryToggle = $("[data-chat-history-toggle]");
+  const newChatButton = $("[data-chat-new]");
+
+  const chatHistoryCopy = (hindi, english) => uiLang === "en" ? english : hindi;
+
+  function setChatHistoryStatus(message) {
+    if (chatHistoryStatus) chatHistoryStatus.textContent = message;
+  }
+
+  async function refreshSavedConversations() {
+    if (!chatHistoryList || !window.SarthiXChatApi?.loadConversations) return;
+    chatHistoryList.replaceChildren();
+    setChatHistoryStatus(chatHistoryCopy("बातचीत लोड हो रही है…", "Loading saved conversations…"));
+    try {
+      const { conversations } = await window.SarthiXChatApi.loadConversations();
+      if (!conversations.length) {
+        setChatHistoryStatus(chatHistoryCopy(
+          "अभी कोई सहेजी गई बातचीत नहीं है।",
+          "You do not have any saved conversations yet."
+        ));
+        return;
+      }
+      setChatHistoryStatus(chatHistoryCopy("सहेजी गई बातचीत", "Saved conversations"));
+      conversations.forEach((conversation) => {
+        const row = document.createElement("li");
+        row.className = "chat-history-item";
+        const openButton = document.createElement("button");
+        openButton.type = "button";
+        openButton.textContent = conversation.title || chatHistoryCopy("बिना शीर्षक की बातचीत", "Untitled conversation");
+        openButton.setAttribute("aria-label", chatHistoryCopy(
+          `बातचीत खोलें: ${openButton.textContent}`,
+          `Open conversation: ${openButton.textContent}`
+        ));
+        openButton.addEventListener("click", async () => {
+          try {
+            const selected = await window.SarthiXChatApi.loadConversation(conversation.conversationId);
+            restoreChatConversation(selected);
+            chatHistoryPanel.hidden = true;
+            chatHistoryToggle?.setAttribute("aria-expanded", "false");
+          } catch (error) {
+            setChatHistoryStatus(error.message);
+          }
+        });
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = chatHistoryCopy("हटाएँ", "Delete");
+        deleteButton.setAttribute("aria-label", chatHistoryCopy(
+          `बातचीत हटाएँ: ${openButton.textContent}`,
+          `Delete conversation: ${openButton.textContent}`
+        ));
+        deleteButton.addEventListener("click", async () => {
+          if (!window.confirm(chatHistoryCopy(
+            `इस बातचीत को हमेशा के लिए हटाएँ?\n${openButton.textContent}`,
+            `Delete this conversation permanently?\n${openButton.textContent}`
+          ))) return;
+          const deletingActiveConversation = Number(conversation.conversationId) === conversationId;
+          try {
+            await window.SarthiXChatApi.deleteConversation(conversation.conversationId);
+            if (deletingActiveConversation) {
+              restoreChatConversation({ conversationId: null, profileContext: {}, messages: [] });
+            }
+            await refreshSavedConversations();
+          } catch (error) {
+            setChatHistoryStatus(error.message);
+          }
+        });
+        row.append(openButton, deleteButton);
+        chatHistoryList.appendChild(row);
+      });
+    } catch (error) {
+      setChatHistoryStatus(error.message);
+    }
+  }
+
+  chatHistoryToggle?.addEventListener("click", async () => {
+    const open = chatHistoryPanel.hidden;
+    chatHistoryPanel.hidden = !open;
+    chatHistoryToggle.setAttribute("aria-expanded", String(open));
+    if (open) await refreshSavedConversations();
+  });
+
+  newChatButton?.addEventListener("click", () => {
+    window.SarthiXChatApi?.startNewConversation();
+    restoreChatConversation({ conversationId: null, profileContext: {}, messages: [] });
+    if (chatHistoryPanel) chatHistoryPanel.hidden = true;
+    chatHistoryToggle?.setAttribute("aria-expanded", "false");
+  });
+
+  window.addEventListener("sarthix:chat-auth-state", (event) => {
+    if (chatHistoryToggle) chatHistoryToggle.hidden = !event.detail?.signedIn;
+    if (!event.detail?.signedIn && chatHistoryPanel) chatHistoryPanel.hidden = true;
+  });
+
   function finishReply(reply, typing, error) {
     if (typing && typing.isConnected) typing.remove();
 
@@ -2421,14 +2559,7 @@
     } else if (reply) {
       appendChatApiResponse(reply);
     } else {
-<<<<<<< HEAD
       appendBotText(copy().chat.invalidResponse);
-=======
-      appendBotMessage(CHAT_FALLBACK[uiLang], {
-        audioText: uiLang === "en" ? "I am a helpful assistant." : "मैं एक उपयोगी सहायक हूँ।",
-        retryText: uiLang === "en" ? "I am a helpful assistant." : "मैं एक उपयोगी सहायक हूँ।"
-      });
->>>>>>> 7c41ee9a28bc77f73d8c10cd7ca3fb7d3de75e99
     }
 
     chatBusy = false;
@@ -2463,6 +2594,7 @@
 
     if (routeAssistantFeatureIntent(message)) return;
 
+    mergeProfileFromMessage(message);
     chatBusy = true;
     if (chatSend) chatSend.disabled = true;
     if (chatForm) chatForm.setAttribute("aria-busy", "true");

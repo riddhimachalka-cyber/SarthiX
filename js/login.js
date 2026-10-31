@@ -1,14 +1,14 @@
 import {
   RecaptchaVerifier,
   browserLocalPersistence,
-  deleteUser,
   onAuthStateChanged,
   setPersistence,
   signInWithPhoneNumber,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-import { auth, db, isFirebaseConfigured } from "../firebase-config.js";
+import { auth, isFirebaseConfigured } from "../firebase-config.js";
+import { establishAuthSession, recordOwnLogin, requestOwnProfile } from "./profile-api.js";
+import { normalizeIndianPhoneNumber } from "./phone-number.js";
 
 const form = document.getElementById("login-form");
 const mobileInput = document.getElementById("mobile");
@@ -31,6 +31,9 @@ let confirmationResult = null;
 let countdownTimer = null;
 let secondsLeft = 0;
 let otpFlowStarted = false;
+let otpRequestPending = false;
+let pendingPhoneNumber = null;
+let verifiedUser = null;
 let redirecting = false;
 
 onAuthStateChanged(auth, (user) => {
@@ -66,7 +69,15 @@ function resetRecaptcha() {
     size: "normal",
     "expired-callback": () => {
       confirmationResult = null;
-      showToast("Verification expired. Please complete the security check again.", "error");
+      pendingPhoneNumber = null;
+      window.clearInterval(countdownTimer);
+      countdownTimer = null;
+      resendButton.disabled = false;
+      otpGroup.hidden = true;
+      resendButton.hidden = true;
+      resendDivider.hidden = true;
+      loginButtonText.textContent = "Send OTP";
+      showToast("Verification expired. Send a new OTP to continue.", "error");
     }
   });
 }
@@ -81,16 +92,19 @@ function friendlyAuthError(error) {
     "auth/missing-client-identifier": "Firebase could not verify this website. Use localhost or authorize this host in Firebase Authentication → Settings → Authorized domains.",
     "auth/captcha-check-failed": "reCAPTCHA could not verify this browser. Allow Google reCAPTCHA scripts/cookies, reload the page, and try again.",
     "auth/invalid-app-credential": "The reCAPTCHA check failed or expired. Reload the page and complete the security check again.",
-    "auth/operation-not-allowed": "Firebase blocked this SMS request. Enable Phone in Authentication → Sign-in method and allow India (+91) in Authentication → Settings → SMS region policy.",
+    "auth/app-not-authorized": "This Firebase web app is not authorized for phone sign-in. Check the Firebase project and API-key restrictions.",
+    "auth/invalid-api-key": "Firebase rejected the web API key. Check that firebase-config.js uses the API key for the configured Firebase project.",
+    "auth/operation-not-allowed": "Firebase has blocked Phone Authentication. Enable Phone in Authentication → Sign-in method, allow India (+91) in SMS region policy, and confirm any test number is listed under Phone numbers for testing.",
     "auth/network-request-failed": "Network error. Check your internet connection and try again.",
     "auth/quota-exceeded": "SMS sending is temporarily unavailable. Please try again later."
   };
-  return messages[error.code] || "We could not complete phone verification. Please try again.";
+  return messages[error.code]
+    || `We could not complete phone verification (${error.code || "unknown Firebase error"}). Check the Firebase Authentication setup and try again.`;
 }
 
 function validatedPhoneNumber() {
-  const digits = mobileInput.value.trim();
-  if (!/^[6-9]\d{9}$/.test(digits)) {
+  const phone = normalizeIndianPhoneNumber(mobileInput.value);
+  if (!phone) {
     mobileInput.classList.add("error");
     mobileError.classList.add("visible");
     mobileInput.focus();
@@ -98,7 +112,8 @@ function validatedPhoneNumber() {
   }
   mobileInput.classList.remove("error");
   mobileError.classList.remove("visible");
-  return `+91${digits}`;
+  mobileInput.value = phone.nationalNumber;
+  return phone.e164;
 }
 
 function startCountdown() {
@@ -122,6 +137,7 @@ function updateCountdown() {
 }
 
 async function sendCode() {
+  if (otpRequestPending) return;
   const phoneNumber = validatedPhoneNumber();
   if (!phoneNumber) return;
   if (!isFirebaseConfigured) {
@@ -129,6 +145,7 @@ async function sendCode() {
     return;
   }
 
+  otpRequestPending = true;
   otpFlowStarted = true;
   setLoading(true, confirmationResult ? "Resending…" : "Sending OTP…");
   try {
@@ -136,53 +153,102 @@ async function sendCode() {
     resetRecaptcha();
     await recaptchaVerifier.render();
     confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+    pendingPhoneNumber = phoneNumber;
     otpGroup.hidden = false;
     resendButton.hidden = false;
     resendDivider.hidden = false;
     loginButtonText.textContent = "Verify OTP";
     resendText.textContent = "Resend OTP";
     startCountdown();
-    showToast("OTP sent. Enter the 6-digit code from your SMS.");
+    showToast(isFirebaseAuthEmulator()
+      ? "Test code requested. No SMS is sent in the local emulator; use the code shown in its terminal."
+      : "OTP sent. Enter the 6-digit code from your SMS.");
     otpInput.focus();
   } catch (error) {
     console.error("Firebase phone sign-in request failed.", error);
     clearRecaptcha();
     showToast(friendlyAuthError(error), "error");
   } finally {
+    otpRequestPending = false;
     setLoading(false, confirmationResult ? "Verify OTP" : "Send OTP");
   }
 }
 
+function isFirebaseAuthEmulator() {
+  return new URLSearchParams(window.location.search).get("firebaseAuthEmulator") === "true";
+}
+
 async function verifyCode() {
-  const code = otpInput.value.trim();
-  if (!/^\d{6}$/.test(code)) {
-    otpInput.classList.add("error");
-    otpError.textContent = "Please enter the 6-digit OTP.";
-    otpError.classList.add("visible");
-    otpInput.focus();
-    return;
+  if (!verifiedUser) {
+    if (!confirmationResult || !pendingPhoneNumber) {
+      showToast("Send a new OTP before verifying.", "error");
+      return;
+    }
+    if (validatedPhoneNumber() !== pendingPhoneNumber) {
+      confirmationResult = null;
+      pendingPhoneNumber = null;
+      showToast("The mobile number changed. Send a new OTP for this number.", "error");
+      return;
+    }
+    const code = otpInput.value.trim();
+    if (!/^\d{6}$/.test(code)) {
+      otpInput.classList.add("error");
+      otpError.textContent = "Please enter the 6-digit OTP.";
+      otpError.classList.add("visible");
+      otpInput.focus();
+      return;
+    }
   }
 
-  setLoading(true, "Verifying…");
+  setLoading(true, verifiedUser ? "Connecting…" : "Verifying…");
   try {
-    const result = await confirmationResult.confirm(code);
-    const profileRef = doc(db, "users", result.user.uid);
-    const profileSnapshot = await getDoc(profileRef);
-    if (!profileSnapshot.exists()) {
-      await deleteUser(result.user);
+    if (!verifiedUser) {
+      const result = await confirmationResult.confirm(otpInput.value.trim());
+      if (result.user.phoneNumber !== pendingPhoneNumber) {
+        await signOut(auth);
+        confirmationResult = null;
+        pendingPhoneNumber = null;
+        showToast("The verified phone number did not match the number used to request the OTP.", "error");
+        return;
+      }
+      verifiedUser = result.user;
       confirmationResult = null;
-      showToast("No SarthiX account is registered with this number. Please create an account.", "error");
+      pendingPhoneNumber = null;
+      window.clearInterval(countdownTimer);
+      countdownTimer = null;
+      resendButton.hidden = true;
+      resendDivider.hidden = true;
+    }
+    await verifiedUser.getIdToken(true);
+    await establishAuthSession();
+    try {
+      await requestOwnProfile();
+    } catch (profileError) {
+      if (profileError.kind !== "profile-api" || profileError.status !== 404) throw profileError;
+
+      await signOut(auth);
+      verifiedUser = null;
+      otpFlowStarted = false;
+      showToast("No SarthiX profile exists in PostgreSQL for this number. Please create your account.", "error");
       window.setTimeout(() => {
-        window.location.href = "signup.html";
+        window.location.hash = "signup";
       }, 1200);
       return;
     }
 
+    await recordOwnLogin();
     redirecting = true;
     window.location.replace("index.html");
   } catch (error) {
     console.error("Firebase phone sign-in verification failed.", error);
-    if (error.code === "auth/invalid-verification-code" || error.code === "auth/code-expired") {
+    if (error.kind === "profile-api") {
+      if (error.status === 409) {
+        await signOut(auth);
+        verifiedUser = null;
+        otpFlowStarted = false;
+      }
+      showToast(error.message, "error");
+    } else if (error.code === "auth/invalid-verification-code" || error.code === "auth/code-expired") {
       otpError.textContent = friendlyAuthError(error);
       otpError.classList.add("visible");
     } else {
@@ -194,16 +260,18 @@ async function verifyCode() {
         }
       }
       confirmationResult = null;
+      verifiedUser = null;
+      pendingPhoneNumber = null;
       showToast(friendlyAuthError(error), "error");
     }
   } finally {
-    setLoading(false, confirmationResult ? "Verify OTP" : "Send OTP");
+    setLoading(false, verifiedUser ? "Continue" : confirmationResult ? "Verify OTP" : "Send OTP");
   }
 }
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  if (confirmationResult) {
+  if (verifiedUser || confirmationResult) {
     await verifyCode();
   } else {
     await sendCode();
@@ -217,6 +285,16 @@ resendButton.addEventListener("click", async () => {
 mobileInput.addEventListener("input", () => {
   mobileInput.classList.remove("error");
   mobileError.classList.remove("visible");
+  if (confirmationResult && `+91${mobileInput.value.trim()}` !== pendingPhoneNumber) {
+    confirmationResult = null;
+    pendingPhoneNumber = null;
+    window.clearInterval(countdownTimer);
+    countdownTimer = null;
+    otpGroup.hidden = true;
+    resendButton.hidden = true;
+    resendDivider.hidden = true;
+    loginButtonText.textContent = "Send OTP";
+  }
 });
 otpInput.addEventListener("input", () => {
   otpInput.classList.remove("error");

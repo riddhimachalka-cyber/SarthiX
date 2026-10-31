@@ -2,8 +2,8 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-import { auth, db } from "../firebase-config.js";
+import { auth } from "../firebase-config.js";
+import { requestOwnProfile } from "./profile-api.js";
 
 const loginLinks = document.querySelectorAll("[data-auth-login]");
 const logoutButtons = document.querySelectorAll("[data-auth-logout]");
@@ -32,10 +32,8 @@ onAuthStateChanged(auth, async (user) => {
   if (!user || languageWasChosenByUser()) return;
 
   try {
-    const profileSnapshot = await getDoc(doc(db, "users", user.uid));
-    if (!profileSnapshot.exists()) return;
-
-    const preferredLanguage = profileSnapshot.data().preferredLanguage;
+    const profile = await requestOwnProfile();
+    const preferredLanguage = profile.preferredLanguage;
     const languageByPreference = { en: "en-IN", hi: "hi-IN", hinglish: "hi-IN" };
     const language = languageByPreference[preferredLanguage] || null;
     if (!language) return;
@@ -49,7 +47,9 @@ onAuthStateChanged(auth, async (user) => {
       detail: { language }
     }));
   } catch (error) {
-    console.error("Could not load the user's preferred language.", error);
+    if (error.status !== 404) {
+      console.error("Could not load the user's preferred language.", error);
+    }
   }
 });
 

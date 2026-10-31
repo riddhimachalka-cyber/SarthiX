@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import app from '../src/app.js';
+import app, { isAllowedFrontendOrigin } from '../src/app.js';
 import { parseSchemeDocument } from '../src/services/scheme-document.service.js';
 import { chunkScheme } from '../src/services/scheme-chunking.service.js';
 import { ingestSchemeDocument } from '../src/services/scheme-ingestion.service.js';
@@ -9,8 +9,31 @@ import { EMBEDDING_DIMENSIONS, GeminiEmbeddingProvider, normalizeEmbedding, vali
 import { createSchemeRetrievalService, validateProfileContext } from '../src/services/scheme-retrieval.service.js';
 import { buildSchemeChunkSearchQuery, ingestScheme, searchSchemeChunks } from '../src/repositories/scheme.repository.js';
 import { errorHandler } from '../src/middleware/error.middleware.js';
+import { resolveFirebaseCheckRevoked } from '../src/config/env.js';
+import {
+  createFirebaseAuthMiddleware,
+  createOptionalFirebaseAuthMiddleware,
+  createFirebaseTokenVerifier,
+} from '../src/middleware/firebase-auth.middleware.js';
+import { validateAccountProfile } from '../src/controllers/user-profile.controller.js';
 
 const sourceUrl = 'https://sources.example.org/reference';
+
+test('development CORS allows local frontend ports but production stays restricted', () => {
+  const options = { configuredOrigin: 'http://localhost:5500', nodeEnv: 'development' };
+  assert.equal(isAllowedFrontendOrigin('http://localhost:8765', options), true);
+  assert.equal(isAllowedFrontendOrigin('http://127.0.0.1:8080', options), true);
+  assert.equal(isAllowedFrontendOrigin('https://localhost:8765', options), false);
+  assert.equal(isAllowedFrontendOrigin('http://localhost.example.com', options), false);
+  assert.equal(isAllowedFrontendOrigin('https://app.example.com', {
+    configuredOrigin: 'https://app.example.com',
+    nodeEnv: 'production',
+  }), true);
+  assert.equal(isAllowedFrontendOrigin('https://other.example.com', {
+    configuredOrigin: 'https://app.example.com',
+    nodeEnv: 'production',
+  }), false);
+});
 
 function document(overrides = {}) {
   return {
@@ -475,11 +498,104 @@ test('API validates retrieval input and fails closed for unavailable features', 
 
   const ingestion = await fetch(`${baseUrl}/schemes/ingest`, { method: 'POST' });
   assert.equal(ingestion.status, 503);
-  const profile = await fetch(`${baseUrl}/users/1/profile`);
-  assert.equal(profile.status, 503);
+  const profile = await fetch(`${baseUrl}/users/profile`);
+  assert.equal(profile.status, 401);
 
   const badId = await fetch(`${baseUrl}/schemes/nope`);
   assert.equal(badId.status, 400);
+});
+
+test('account profile validation accepts signup data and rejects malformed fields', () => {
+  const profile = validateAccountProfile({
+    fullName: 'Test User',
+    dob: '1990-04-12',
+    gender: 'prefer_not',
+    pincode: '123456',
+    state: 'Maharashtra',
+    district: 'Pune',
+    postOffice: 'Pune GPO',
+    tehsil: 'Haveli',
+    village: 'Pune',
+    gramPanchayat: '',
+    address: 'Example address',
+    userCategory: 'farmer',
+    preferredLanguage: 'hi',
+  });
+  assert.equal(profile.fullName, 'Test User');
+  assert.equal(profile.gender, 'prefer_not');
+  assert.equal(profile.gramPanchayat, null);
+  assert.throws(() => validateAccountProfile({ ...profile, pincode: '12345' }), /pincode/);
+  assert.throws(() => validateAccountProfile({ ...profile, userCategory: 'admin' }), /userCategory/);
+  assert.throws(() => validateAccountProfile({ ...profile, dob: 'not-a-date' }), /dob/);
+});
+
+test('Firebase profile middleware requires a verified phone identity', async () => {
+  const verifyCalls = [];
+  const middleware = createFirebaseAuthMiddleware(async (token) => {
+    verifyCalls.push(token);
+    if (token === 'invalid') {
+      const error = new Error('invalid token');
+      error.code = 'auth/invalid-id-token';
+      throw error;
+    }
+    return { uid: 'firebase-user-1', phone_number: '+911234567890' };
+  });
+
+  const invoke = async (authorization) => {
+    const req = { get: () => authorization };
+    let forwarded;
+    await middleware(req, {}, (error) => { forwarded = error; });
+    return { req, error: forwarded };
+  };
+
+  const missing = await invoke(undefined);
+  assert.equal(missing.error.statusCode, 401);
+  assert.deepEqual(verifyCalls, []);
+
+  const invalid = await invoke('Bearer invalid');
+  assert.equal(invalid.error.statusCode, 401);
+
+  const valid = await invoke('Bearer valid-token');
+  assert.equal(valid.error, undefined);
+  assert.equal(valid.req.auth.uid, 'firebase-user-1');
+  assert.deepEqual(verifyCalls, ['invalid', 'valid-token']);
+});
+
+test('Firebase ID-token revocation checks are enabled in production and enforced by the verifier', async () => {
+  assert.equal(resolveFirebaseCheckRevoked('development', undefined), false);
+  assert.equal(resolveFirebaseCheckRevoked('production', undefined), true);
+  assert.throws(() => resolveFirebaseCheckRevoked('production', 'false'), /must be true in production/);
+  assert.throws(() => resolveFirebaseCheckRevoked('development', 'enabled'), /must be true or false/);
+
+  let verifierArguments;
+  const verifyIdToken = createFirebaseTokenVerifier({
+    async verifyIdToken(...args) {
+      verifierArguments = args;
+      return { uid: 'firebase-user-1', phone_number: '+911234567890' };
+    },
+  }, true);
+  const decoded = await verifyIdToken('signed-firebase-id-token');
+  assert.equal(decoded.uid, 'firebase-user-1');
+  assert.deepEqual(verifierArguments, ['signed-firebase-id-token', true]);
+});
+
+test('optional Firebase authentication allows guests and verifies supplied account tokens', async () => {
+  const middleware = createOptionalFirebaseAuthMiddleware(async (token) => ({
+    uid: token,
+    phone_number: '+911234567890',
+  }));
+  const invoke = async (authorization) => {
+    const req = { get: () => authorization };
+    let forwarded;
+    await middleware(req, {}, (error) => { forwarded = error; });
+    return { req, error: forwarded };
+  };
+  const guest = await invoke(undefined);
+  assert.equal(guest.error, undefined);
+  assert.equal(guest.req.auth, undefined);
+  const signedIn = await invoke('Bearer firebase-uid');
+  assert.equal(signedIn.error, undefined);
+  assert.equal(signedIn.req.auth.uid, 'firebase-uid');
 });
 
 test('central error middleware preserves client status and hides unexpected internals', () => {

@@ -4,15 +4,11 @@ import {
   onAuthStateChanged,
   setPersistence,
   signInWithPhoneNumber,
-  signOut,
-  updateProfile
+  signOut
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import {
-  doc,
-  getDoc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-import { auth, db, isFirebaseConfigured } from "../firebase-config.js";
+import { auth, isFirebaseConfigured } from "../firebase-config.js";
+import { establishAuthSession, requestOwnProfile } from "./profile-api.js";
+import { normalizeIndianPhoneNumber } from "./phone-number.js";
 
 const signupCard = document.querySelector("#signup-panel .signup-card");
 const getSignupElement = (id) => signupCard.querySelector(`#${id}`);
@@ -35,6 +31,8 @@ let recaptchaVerifier = null;
 let confirmationResult = null;
 let verifiedUser = null;
 let otpFlowStarted = false;
+let otpRequestPending = false;
+let pendingPhoneNumber = null;
 let countdownTimer = null;
 let secondsLeft = 0;
 let profileDraft = null;
@@ -78,7 +76,7 @@ function clearFieldError(input) {
 }
 
 function validIndianMobile(value) {
-  return /^[6-9]\d{9}$/.test(value.trim());
+  return normalizeIndianPhoneNumber(value) !== null;
 }
 
 const dobInput = getSignupElement("dob");
@@ -102,7 +100,15 @@ function validateStep(step) {
   if (step === 1) {
     check("full-name", "Please enter your full name.");
     check("dob", "Please enter your date of birth.");
-    check("mobile", "Please enter a valid 10-digit Indian mobile number.", /^[6-9]\d{9}$/);
+    const mobile = getSignupElement("mobile");
+    const normalizedMobile = normalizeIndianPhoneNumber(mobile.value);
+    if (!normalizedMobile) {
+      showFieldError(mobile, "Please enter a valid 10-digit Indian mobile number.");
+      valid = false;
+    } else {
+      mobile.value = normalizedMobile.nationalNumber;
+      clearFieldError(mobile);
+    }
   } else if (step === 2) {
     check("pincode", "Please enter a valid 6-digit PIN code.", /^\d{6}$/);
     check("state", "Please enter state.");
@@ -193,7 +199,11 @@ function resetRecaptcha() {
     size: "normal",
     "expired-callback": () => {
       confirmationResult = null;
-      showToast("Verification expired. Please complete the security check again.", "error");
+      pendingPhoneNumber = null;
+      window.clearInterval(countdownTimer);
+      countdownTimer = null;
+      resendButton.disabled = false;
+      showToast("Verification expired. Send a new OTP to continue.", "error");
     }
   });
 }
@@ -208,11 +218,14 @@ function friendlyAuthError(error) {
     "auth/missing-client-identifier": "Firebase could not verify this website. Use localhost or authorize this host in Firebase Authentication → Settings → Authorized domains.",
     "auth/captcha-check-failed": "reCAPTCHA could not verify this browser. Allow Google reCAPTCHA scripts/cookies, reload the page, and try again.",
     "auth/invalid-app-credential": "The reCAPTCHA check failed or expired. Reload the page and complete the security check again.",
-    "auth/operation-not-allowed": "Firebase blocked this SMS request. Enable Phone in Authentication → Sign-in method and allow India (+91) in Authentication → Settings → SMS region policy.",
+    "auth/app-not-authorized": "This Firebase web app is not authorized for phone sign-in. Check the Firebase project and API-key restrictions.",
+    "auth/invalid-api-key": "Firebase rejected the web API key. Check that firebase-config.js uses the API key for the configured Firebase project.",
+    "auth/operation-not-allowed": "Firebase has blocked Phone Authentication. Enable Phone in Authentication → Sign-in method, allow India (+91) in SMS region policy, and confirm any test number is listed under Phone numbers for testing.",
     "auth/network-request-failed": "Network error. Check your internet connection and try again.",
     "auth/quota-exceeded": "SMS sending is temporarily unavailable. Please try again later."
   };
-  return messages[error.code] || "We could not complete phone verification. Please try again.";
+  return messages[error.code]
+    || `We could not complete phone verification (${error.code || "unknown Firebase error"}). Check the Firebase Authentication setup and try again.`;
 }
 
 function startCountdown() {
@@ -237,6 +250,7 @@ function updateCountdown() {
 }
 
 async function sendCode(isResend = false) {
+  if (otpRequestPending) return;
   if (!validIndianMobile(otpMobile.value)) {
     showFieldError(otpMobile, "Please enter a valid 10-digit Indian mobile number.");
     return;
@@ -250,26 +264,42 @@ async function sendCode(isResend = false) {
   const textElement = button.querySelector(".resend-text") || button;
   const loaderElement = button.querySelector(".loader") || document.createElement("span");
   const originalLabel = isResend ? "Resend OTP" : "Send OTP";
+  const normalizedPhone = normalizeIndianPhoneNumber(otpMobile.value);
+  if (!normalizedPhone) {
+    showFieldError(otpMobile, "Please enter a valid Indian mobile number, with or without +91.");
+    return;
+  }
+  otpMobile.value = normalizedPhone.nationalNumber;
+  const phoneNumber = normalizedPhone.e164;
+  otpRequestPending = true;
   setButtonLoading(button, true, textElement, loaderElement, isResend ? "Resending…" : "Sending OTP…");
   try {
     await setPersistence(auth, browserLocalPersistence);
     resetRecaptcha();
     await recaptchaVerifier.render();
-    confirmationResult = await signInWithPhoneNumber(auth, `+91${otpMobile.value.trim()}`, recaptchaVerifier);
+    confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+    pendingPhoneNumber = phoneNumber;
     otpInputGroup.style.display = "block";
     sendOtpButton.hidden = true;
     resendButton.hidden = false;
     startCountdown();
-    showToast(isResend ? "OTP resent." : "OTP sent. Enter the 6-digit code from your SMS.");
+    showToast(isFirebaseAuthEmulator()
+      ? "Test code requested. No SMS is sent in the local emulator; use the code shown in its terminal."
+      : isResend ? "OTP resent." : "OTP sent. Enter the 6-digit code from your SMS.");
     otpCode.focus();
   } catch (error) {
     console.error("Firebase phone signup request failed.", error);
     clearRecaptcha();
     showToast(friendlyAuthError(error), "error");
   } finally {
+    otpRequestPending = false;
     setButtonLoading(button, false, textElement, loaderElement, originalLabel);
     if (isResend && countdownTimer) resendButton.disabled = true;
   }
+}
+
+function isFirebaseAuthEmulator() {
+  return new URLSearchParams(window.location.search).get("firebaseAuthEmulator") === "true";
 }
 
 async function verifyAndSaveProfile() {
@@ -281,6 +311,12 @@ async function verifyAndSaveProfile() {
 
   setButtonLoading(nextButton, true, nextText, nextLoader, "Verifying…");
   try {
+    if (confirmationResult && `+91${otpMobile.value.trim()}` !== pendingPhoneNumber) {
+      confirmationResult = null;
+      pendingPhoneNumber = null;
+      showToast("The mobile number changed. Send a new OTP for this number.", "error");
+      return;
+    }
     if (!verifiedUser) {
       if (!confirmationResult) {
         showToast("Send an OTP first, then enter the code.", "error");
@@ -289,32 +325,22 @@ async function verifyAndSaveProfile() {
       otpFlowStarted = true;
       window.SarthiXAuthState.registrationInProgress = true;
       const credential = await confirmationResult.confirm(code);
+      if (credential.user.phoneNumber !== pendingPhoneNumber) {
+        await signOut(auth);
+        confirmationResult = null;
+        pendingPhoneNumber = null;
+        otpFlowStarted = false;
+        window.SarthiXAuthState.registrationInProgress = false;
+        const error = new Error("The verified phone number did not match the number used to request the OTP.");
+        error.kind = "phone-mismatch";
+        throw error;
+      }
       verifiedUser = credential.user;
+      await verifiedUser.getIdToken(true);
     }
 
-    const profileRef = doc(db, "users", verifiedUser.uid);
-    const existingProfile = await getDoc(profileRef);
-    if (existingProfile.exists()) {
-      await signOut(auth);
-      verifiedUser = null;
-      confirmationResult = null;
-      otpFlowStarted = false;
-      window.SarthiXAuthState.registrationInProgress = false;
-      showToast("An account already exists for this number. Please sign in instead.", "error");
-      return;
-    }
-
-    if (!verifiedUser.displayName && profileDraft.fullName) {
-      await updateProfile(verifiedUser, { displayName: profileDraft.fullName });
-    }
-
-    const profile = {
-      ...profileDraft,
-      uid: verifiedUser.uid,
-      phoneNumber: verifiedUser.phoneNumber,
-      createdAt: new Date().toISOString()
-    };
-    await setDoc(profileRef, profile);
+    await establishAuthSession();
+    await requestOwnProfile("POST", profileDraft);
     try {
       localStorage.setItem("sarthix-language", profileDraft.preferredLanguage === "en" ? "en-IN" : "hi-IN");
       localStorage.removeItem("sarthix-language-user-selected");
@@ -331,7 +357,20 @@ async function verifyAndSaveProfile() {
     redirecting = true;
     window.setTimeout(() => window.location.replace("index.html"), 1200);
   } catch (error) {
-    console.error("Firebase signup verification or profile save failed.", error);
+    console.error("Phone signup verification or profile save failed.", error);
+    if (error.kind === "profile-api" && error.status === 409) {
+      await signOut(auth);
+      verifiedUser = null;
+      confirmationResult = null;
+      otpFlowStarted = false;
+      window.SarthiXAuthState.registrationInProgress = false;
+      showToast("An account already exists for this number. Please sign in instead.", "error");
+      return;
+    }
+    if (error.kind === "phone-mismatch") {
+      showToast(error.message, "error");
+      return;
+    }
     const otpError = getSignupElement("otp-verify-error");
     if (error.code === "auth/invalid-verification-code" || error.code === "auth/code-expired") {
       otpError.textContent = friendlyAuthError(error);

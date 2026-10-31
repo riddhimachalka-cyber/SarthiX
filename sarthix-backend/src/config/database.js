@@ -1,4 +1,5 @@
 import pg from 'pg';
+import { readFileSync } from 'node:fs';
 import { config } from './env.js';
 import { logDatabaseError } from '../utils/database-diagnostics.js';
 
@@ -6,33 +7,46 @@ const { Pool } = pg;
 
 let pool;
 
-function createPool() {
-  if (pool) return pool;
-  
-  let poolConfig;
-  if (config.databaseUrl) {
-    // Supabase Session Pooler with SSL required
-    poolConfig = {
-      connectionString: config.databaseUrl,
-      ssl: { rejectUnauthorized: false },
-      max: 10,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
-    };
-  } else {
-    poolConfig = {
-      host: config.db.host,
-      port: config.db.port,
-      database: config.db.name,
-      user: config.db.user,
-      password: config.db.password,
-      ssl: config.db.ssl ? { rejectUnauthorized: false } : { rejectUnauthorized: false },
+export function buildPoolConfig(databaseConfig) {
+  const sslEnabled = Boolean(databaseConfig.databaseUrl)
+    || databaseConfig.db.ssl
+    || databaseConfig.nodeEnv === 'production';
+  const ssl = sslEnabled
+    ? {
+      rejectUnauthorized: databaseConfig.nodeEnv === 'production',
+      ...(databaseConfig.db.sslCaFile
+        ? { ca: readFileSync(databaseConfig.db.sslCaFile, 'utf8') }
+        : {}),
+    }
+    : false;
+
+  if (databaseConfig.databaseUrl) {
+    return {
+      connectionString: databaseConfig.databaseUrl,
+      ssl,
       max: 10,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 5000,
     };
   }
-  
+
+  return {
+    host: databaseConfig.db.host,
+    port: databaseConfig.db.port,
+    database: databaseConfig.db.name,
+    user: databaseConfig.db.user,
+    password: databaseConfig.db.password,
+    ssl,
+    max: 10,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 5000,
+  };
+}
+
+function createPool() {
+  if (pool) return pool;
+
+  const poolConfig = buildPoolConfig(config);
   pool = new Pool(poolConfig);
   
   pool.on('error', (err) => {

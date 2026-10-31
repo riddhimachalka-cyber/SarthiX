@@ -53,4 +53,36 @@ describe('Migration runner - safety tests', () => {
     assert(content.includes('vector_cosine_ops'));
     assert(content.includes('scheme_chunks'));
   });
+
+  it('004 adds Firebase identity and signup profile fields', () => {
+    const migrations = discoverMigrations();
+    assert(migrations.includes('004_firebase_user_profiles.sql'));
+    const content = fs.readFileSync(path.join(__dirname, '..', 'src', 'db', 'migrations', '004_firebase_user_profiles.sql'), 'utf8');
+    assert(content.includes('firebase_uid TEXT'));
+    assert(content.includes('CREATE UNIQUE INDEX'));
+    for (const column of ['phone_number', 'full_name', 'dob', 'pincode', 'address', 'user_category']) {
+      assert(content.includes(column));
+    }
+  });
+
+  it('005 adds persistent login and chat context fields', () => {
+    const migrations = discoverMigrations();
+    assert(migrations.includes('005_persist_login_and_chat_history.sql'));
+    const content = fs.readFileSync(path.join(__dirname, '..', 'src', 'db', 'migrations', '005_persist_login_and_chat_history.sql'), 'utf8');
+    assert(content.includes('last_login_at'));
+    assert(content.includes('login_count'));
+    assert(content.includes('profile_context JSONB'));
+  });
+
+  it('006 adds account identity and per-user profile uniqueness without deleting data', () => {
+    const sql = fs.readFileSync(path.join(__dirname, '..', 'src', 'db', 'migrations', '006_auth_account_constraints.sql'), 'utf8');
+    assert.match(sql, /ADD COLUMN IF NOT EXISTS email TEXT/);
+    assert.match(sql, /ADD COLUMN IF NOT EXISTS full_name VARCHAR\(100\)/);
+    assert.match(sql, /ALTER COLUMN firebase_uid SET NOT NULL/);
+    assert.match(sql, /ALTER COLUMN phone_number SET NOT NULL/);
+    assert.match(sql, /CREATE UNIQUE INDEX IF NOT EXISTS idx_users_phone_number/);
+    assert.match(sql, /CREATE UNIQUE INDEX IF NOT EXISTS idx_user_profiles_user_id/);
+    assert.doesNotMatch(sql, /\bDELETE\s+FROM\b/i);
+    assert.doesNotMatch(sql, /\bDROP\s+(TABLE|COLUMN)\b/i);
+  });
 });

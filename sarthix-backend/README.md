@@ -54,15 +54,31 @@ Configure `.env`:
 | `LOCAL_MOCK_MODE` | Explicit local-only mock mode (`false` by default; production rejects `true`) |
 | `FRONTEND_ORIGIN` | Allowed CORS origin |
 | `DATABASE_URL` | Supabase Session Pooler URL (preferred) |
-| `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_SSL` | Alternative database connection settings |
+| `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_SSL`, `DB_SSL_CA_FILE` | Alternative database connection settings; production TLS verifies certificates and can use a trusted CA bundle |
 | `GEMINI_API_KEY` | Server-only Google Gemini API key used for embeddings; never expose it to browser code |
 | `GEMINI_TEXT_MODEL` | Separate text-generation model; defaults to `gemini-3.8-flash` |
+| `FIREBASE_PROJECT_ID` | Firebase project used to verify client ID tokens (defaults to `sarthix-72168`) |
+| `FIREBASE_CHECK_REVOKED` | `true` enables server-side revoked-session checks; defaults to `true` in production and `false` in development. Production cannot disable this. |
 
-Use an appropriately restricted database role and protect `.env`. Never put API keys or credentials into source files, frontend configuration, logs, or API responses. The provider sends the key in Google's `x-goog-api-key` request header.
+Profile API authorization verifies Firebase ID tokens against the configured project ID. Production also checks whether tokens have been revoked; configure Google Application Default Credentials (for example, the deployment platform's workload identity) for the backend runtime so Firebase Admin can perform that lookup. Do not commit or expose a service-account key. Development defaults to signature/expiry checks without a revocation lookup.
+
+Use an appropriately restricted database role and protect `.env`. Production requires an explicit `FRONTEND_ORIGIN` and validates PostgreSQL TLS certificates; if the database uses a private CA, configure `DB_SSL_CA_FILE`. Local development allows localhost frontend ports and permits a self-signed database TLS chain for the configured local Supabase endpoint. Never put API keys or credentials into source files, frontend configuration, logs, or API responses. The provider sends the key in Google's `x-goog-api-key` request header.
+
+### Frontend API configuration
+
+The static frontend reads its API base URL from `js/config.js`. The default is `http://localhost:5000/api` for local development. For deployment, set `apiBaseUrl` there to the deployed backend's HTTPS API base (ending in `/api`); do not put credentials in this file. Set `FRONTEND_ORIGIN` in the backend environment to the exact deployed frontend origin, including scheme and port when applicable. The local default is `http://localhost:5500`.
+
+The chat client sends `message`, recent `history`, and only supported `profileContext` fields to `POST /api/chat`. For signed-in accounts, history and the current chat profile context are persisted in PostgreSQL; guest chat is not persisted.
+
+### Account profiles
+
+Run `npm run migrate` after configuring PostgreSQL to apply migrations `004_firebase_user_profiles.sql`, `005_persist_login_and_chat_history.sql`, and `006_auth_account_constraints.sql`. Only after Firebase confirms the phone OTP does the frontend send the Firebase ID token to `POST /api/auth/session`; the backend verifies it, derives the UID, verified phone, and (if verified) email from token claims, and idempotently creates or updates one PostgreSQL `users` row. The API returns that PostgreSQL account identity; profile creation follows via the protected profile API. The verified phone number, Firebase UID, optional verified email, full name, login count, and last-login timestamp are stored in PostgreSQL `users`; all signup profile fields are stored in PostgreSQL `user_profiles`. UID and phone are unique, and each user has at most one profile. Signed-in chat sessions, complete user/assistant messages, and request-scoped profile context are stored in PostgreSQL `chat_sessions` and `chat_messages`; signed-in users can list, open, and delete their own saved conversations. Guests can chat, but their conversations are not persisted. The browser does not submit an account ID or phone number to establish the session. Firebase Authentication is used only as the OTP identity provider; passwords, OTP codes, and bearer tokens are never stored in PostgreSQL. Firebase client persistence manages the browser sign-in session; the backend uses stateless verified ID tokens, so a separate PostgreSQL `user_sessions` table is unnecessary. The application does not read or write Firestore.
+
+For local Firebase Authentication Emulator testing, run `npx firebase-tools emulators:start --only auth --project demo-sarthix-otp-test` from the repository root and open the local frontend with `?firebaseAuthEmulator=true`. Start the backend with `FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099` and `FIREBASE_PROJECT_ID=demo-sarthix-otp-test`. This local-only opt-in uses an isolated demo Firebase project and never sends real SMS.
 
 The configured model is Google's `gemini-embedding-001`, with `outputDimensionality: 768` to match `extensions.vector(768)` in the existing schema. Calls use the official `@google/genai` SDK's `GoogleGenAI` client and `models.embedContent({ model, contents, config })` method. Google documents this model's task types and embedding API at [Gemini API embeddings](https://ai.google.dev/gemini-api/docs/embeddings). Query text uses `RETRIEVAL_QUERY`; scheme chunks use `RETRIEVAL_DOCUMENT`.
 
-Text generation is separate from embeddings: the default `GEMINI_TEXT_MODEL` is `gemini-3.8-flash`, using the official SDK's `ai.interactions.create({ model, input, system_instruction })` method. Google currently demonstrates this model and SDK call in its [text generation guide](https://ai.google.dev/gemini-api/docs/text-generation), with model availability listed in the [Gemini model catalog](https://ai.google.dev/gemini-api/docs/models). Both services use the backend-only `GEMINI_API_KEY`; changing the text model does not change the embedding model or vector contract.
+Text generation is separate from embeddings: the default `GEMINI_TEXT_MODEL` is `gemini-3.8-flash`, using the official SDK's `ai.models.generateContent({ model, contents, config })` method with structured JSON output. Google documents this API in its [text generation guide](https://ai.google.dev/gemini-api/docs/text-generation), with model availability listed in the [Gemini model catalog](https://ai.google.dev/gemini-api/docs/models). Both services use the backend-only `GEMINI_API_KEY`; changing the text model does not change the embedding model or vector contract. Provider rate limits (HTTP 429) require available quota or a later retry; the API returns a temporary-unavailable response instead of claiming the answer succeeded.
 
 Google requires reduced `gemini-embedding-001` vectors to be manually L2-normalized. `normalizeEmbedding()` applies the same stable normalization process to provider responses, ingestion inputs immediately before persistence, and retrieval inputs before the vector query. It rejects zero-magnitude, non-finite, or incorrectly sized vectors.
 
@@ -110,10 +126,17 @@ Base path: `/api`. All responses are JSON.
 | `GET` | `/api/health/db` | Database connectivity |
 | `GET` | `/api/schemes/:id` | Scheme details, applicability, and provenance |
 | `POST` | `/api/schemes/search` | Context retrieval; accepts question, optional profile context and filters |
-| `POST` | `/api/chat` | Grounded answer using verified retrieved scheme context; no authenticated identity |
+| `POST` | `/api/auth/session` | Verify Firebase ID token and create/update the corresponding PostgreSQL account after OTP confirmation |
+| `POST` | `/api/chat` | Grounded answer using verified retrieved scheme context; optional Firebase auth enables history persistence |
+| `GET` | `/api/chat/history` | Latest saved conversation for a signed-in user; guests receive an empty history |
+| `GET` | `/api/chat/conversations` | Up to 50 saved conversations for the signed-in user |
+| `GET` | `/api/chat/conversations/:conversationId` | One saved conversation owned by the signed-in user |
+| `DELETE` | `/api/chat/conversations/:conversationId` | Delete one owned conversation and its messages |
 | `POST` | `/api/schemes/ingest` | Disabled (`503`) until admin authentication/authorization exists |
-| `GET` | `/api/users/:userId/profile` | Disabled (`503`) until authenticated user authorization exists |
-| `PUT` | `/api/users/:userId/profile` | Disabled (`503`) until authenticated user authorization exists |
+| `GET` | `/api/users/profile` | Read the authenticated user's PostgreSQL profile |
+| `POST` | `/api/users/profile` | Create the authenticated user's PostgreSQL profile after phone verification |
+| `PUT` | `/api/users/profile` | Update the authenticated user's PostgreSQL profile |
+| `POST` | `/api/users/login` | Record a successful signed-in login in PostgreSQL |
 
 When `LOCAL_MOCK_MODE=true`, `/api/health` and the database health, scheme search/details, and chat endpoints visibly report `mode: "mock"`. Search returns an empty result set. Chat returns a fixed insufficient-information response with no scheme facts or sources; it does not call Gemini. Database-dependent operations are guarded and cannot silently fall through to Supabase.
 
@@ -136,9 +159,9 @@ Example retrieval request:
 }
 ```
 
-Accepted profile context is limited to age, state, district, occupation, farmer/student status, education level, income range, and the user's stated need. Only supplied values are used. State defaults to the supplied profile state unless an explicit state filter is provided. Profile context is request-scoped and is not persisted by retrieval.
+Accepted chat profile context is limited to age, state, district, occupation, farmer/student status, education level, income range, and the user's stated need. Only supplied values are used. State defaults to the supplied profile state unless an explicit state filter is provided. For signed-in accounts, this context is saved on the PostgreSQL chat session; guest context is request-scoped only.
 
-The public profile routes remain unavailable rather than exposing records through caller-controlled user IDs. The profile repository implements reads and updates using the existing tables for later integration behind authentication. The ingestion API likewise fails closed; do not expose the local CLI or its database credentials through a network endpoint.
+Profile routes require a Firebase Admin verified ID token and phone number claim. Ownership is derived from that token rather than caller-controlled user IDs. The ingestion API remains disabled; do not expose the local CLI or its database credentials through a network endpoint.
 
 ### Grounded chat
 
@@ -153,9 +176,9 @@ The public profile routes remain unavailable rather than exposing records throug
 }
 ```
 
-The endpoint is not identity-authenticated because the project has no authentication system. It does not look up or persist profiles, does not accept or infer a user ID, and applies both the global API rate limit and a stricter 15-request-per-15-minute chat limit. Only explicitly supplied, validated profile context is used. Recent history is request-scoped, limited to 8 messages/6,000 characters, and is not stored. Requests are limited to 12,000 serialized characters and messages to 2,000 characters.
+Guest chat remains available without sign-in and is not persisted. When a valid Firebase ID token is supplied, the API derives account ownership from its verified UID and phone claim, stores the conversation in PostgreSQL, and loads the previous messages from that account's session rather than trusting client-supplied history. Each account's conversation session is private to that account. The API applies both the global rate limit and a stricter 15-request-per-15-minute chat limit. Profile context is validated and stored with the session. Requests are limited to 12,000 serialized characters and messages to 2,000 characters.
 
-The route calls the existing scheme retrieval service with recent user messages and the current message (bounded to 2,000 characters) and a 0.35 minimum cosine-similarity floor, then passes only published chunks with verified metadata, a verification date, and an HTTPS official source to the separate answer-generation service. If no such context is available, it returns a localized insufficient-information response without calling text generation. Sources and structured eligibility/benefit/document/application fields in responses are built from retrieved metadata and matching verified sections, not generated by Gemini. Generated URLs are rejected. The model is instructed to avoid unsupported claims and eligibility guarantees, match the question's language, and ask only relevant follow-ups for missing details. Model output is schema-validated; provider details and prompts are not returned.
+The route calls the existing scheme retrieval service with recent persisted user messages and the current message (bounded to 2,000 characters) and a 0.35 minimum cosine-similarity floor, then passes only published chunks with verified metadata, a verification date, and an HTTPS official source to the separate answer-generation service. If no such context is available, it returns a localized insufficient-information response without calling text generation. Sources and structured eligibility/benefit/document/application fields in responses are built from retrieved metadata and matching verified sections, not generated by Gemini. Generated URLs are rejected. The model is instructed to avoid unsupported claims and eligibility guarantees, match the question's language, and ask only relevant follow-ups for missing details. Model output is schema-validated; provider details and prompts are not returned.
 
 Example response:
 
@@ -199,6 +222,7 @@ The Gemini embedding provider remains replaceable through the `EmbeddingProvider
 npm test
 npm run test:vector
 npm run test:gemini:smoke
+npm run test:gemini:text-smoke
 npm run dev
 npm start
 ```
@@ -206,6 +230,8 @@ npm start
 `npm run test:vector` is an opt-in live-database integration test. It requires both `RUN_VECTOR_INTEGRATION=true` and a dedicated non-production `VECTOR_TEST_DATABASE_URL` with the existing schema; it never uses the application `DATABASE_URL`. It inserts a temporary test record in a transaction and rolls it back. The normal unit/API suite needs no database.
 
 `npm run test:gemini:smoke` is a separate opt-in live API test; it is not included in `npm test`. Set `RUN_GEMINI_SMOKE=true` and configure the backend-only `GEMINI_API_KEY` before running. It creates one query and one document embedding from harmless fixed sentences, checks model, dimensions, finite values, and normalized magnitude, and prints neither credentials nor vectors. It does not import or connect to the database.
+
+`npm run test:gemini:text-smoke` is a separate opt-in live API test; it is not included in `npm test`. Set `RUN_GEMINI_TEXT_SMOKE=true` and configure the backend-only `GEMINI_API_KEY` before running. It sends one short non-scheme prompt, validates the structured response, and prints no generated content or credentials.
 
 ## Security and operations
 
@@ -217,8 +243,8 @@ npm start
 - Chat sends the user question, optional supplied profile values, recent history, and verified scheme context to Google's Gemini services. Do not include sensitive personal information in the message or profile context.
 - Gemini quotas and billing apply to both ingestion and retrieval. Retry behavior is bounded; operators should monitor provider quotas and service errors.
 - API errors use centralized JSON handling; unexpected failures return a generic `500`.
-- Phase 4.2 does not run migrations or modify frontend files.
+- The test suite does not automatically run database migrations or call live external providers.
 
 ## Remaining Phase 4 requirements
 
-Before frontend integration, provide authentication/authorization if the frontend needs account-bound profile or chat history; profile routes and public ingestion must remain disabled until then. Configure valid Gemini credentials and ingest real, reviewed official scheme documents before relying on answers. Define a model-version/re-embedding strategy before changing embedding models or dimensions. BHASHINI and persistent chat history remain out of scope.
+Configure Firebase project ID and run database migrations before using account profiles or persistent chat in a deployment. Configure valid Gemini credentials and ingest real, reviewed official scheme documents before relying on answers. Define a model-version/re-embedding strategy before changing embedding models or dimensions. Current browser voice input/output uses the platform Web Speech APIs; this repository contains no Sarvam API adapter, so setting a Sarvam key alone does not enable Sarvam speech services.

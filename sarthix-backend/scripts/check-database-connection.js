@@ -1,6 +1,12 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { logDatabaseError } from '../src/utils/database-diagnostics.js';
 import { isExpectedIntegrationUrl } from '../src/utils/database-url.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 function parseProjectRef(args) {
   const index = args.indexOf('--project-ref');
