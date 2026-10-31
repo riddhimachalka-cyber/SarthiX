@@ -1081,8 +1081,10 @@
   /* ── 08. Scheme buttons / toast ──────────────────────────────── */
   $$(".scheme-link").forEach((button) => {
     button.addEventListener("click", () => {
-      const scheme = button.dataset.scheme || "is yojana";
-      showToast(copy().schemeDemo(scheme));
+      const scheme = button.dataset.scheme || (uiLang === "en" ? "this scheme" : "इस योजना");
+      openChat(uiLang === "en"
+        ? `Using verified scheme data, explain the eligibility conditions, benefits, required paperwork, and application steps for ${scheme}.`
+        : `${scheme} के सत्यापित रिकॉर्ड से पात्रता की शर्तें, लाभ, ज़रूरी कागज़ात और आवेदन के चरण समझाएँ।`, { skipIntent: true });
     });
   });
 
@@ -2592,7 +2594,7 @@
       return;
     }
 
-    if (routeAssistantFeatureIntent(message)) return;
+    if (!options.skipIntent && routeAssistantFeatureIntent(message)) return;
 
     mergeProfileFromMessage(message);
     chatBusy = true;
@@ -2612,7 +2614,7 @@
     }
   }
 
-  function openChat(question) {
+  function openChat(question, options = {}) {
     if (!chatPanel) return;
 
     chatPanel.hidden = false;
@@ -2631,7 +2633,7 @@
       renderServiceSuggestions(preSelected, english);
       sessionStorage.removeItem("sarthix-selected-service");
     } else if (question) {
-      sendChatMessage(question);
+      sendChatMessage(question, options);
     } else if (!chatBusy) {
       window.setTimeout(() => {
         if (chatInput) chatInput.focus({ preventScroll: true });
@@ -2789,6 +2791,9 @@
   const eligibilityResultLinks = $("[data-result-links]");
   const eligibilityResultLinkList = $("[data-result-link-list]");
   const eligibilityResultDemoNotice = $("[data-result-demo-notice]");
+  const eligibilityResultContent = $("[data-eligibility-result-content]");
+  const eligibilityApiStatus = $("[data-eligibility-api-status]");
+  const eligibilityRetryButton = $("[data-eligibility-retry]");
   const eligibilityResultDownload = $("[data-eligibility-download]");
   const eligibilityResultFollowup = $("[data-eligibility-followup]");
   const eligibilityNext = $("[data-eligibility-next]");
@@ -2799,6 +2804,11 @@
       continue: "आगे बढ़ें", review: "जानकारी देखें",
       missingScheme: "योजना का नाम लिखें या उसके बारे में थोड़ा बताएँ।",
       missingAnswer: "आगे बढ़ने के लिए जवाब चुनें या लिखें।",
+      analysisLoading: "सत्यापित योजना जानकारी खोजी जा रही है…",
+      analysisUnavailable: "योजना डेटाबेस अभी उपलब्ध नहीं है। कृपया कुछ देर बाद फिर कोशिश करें।",
+      analysisRateLimited: "सेवा पर अभी अधिक अनुरोध हैं। कृपया कुछ देर बाद फिर कोशिश करें।",
+      analysisFailed: "योजना की जानकारी नहीं मिल सकी। कृपया फिर कोशिश करें।",
+      retry: "फिर कोशिश करें",
       assistantDefault: "ठीक है, हम एक-एक करके सवाल करेंगे। आप बोलकर या लिखकर जवाब दे सकते हैं।",
       assistantTips: {
         state: "योजना के नियम राज्य के अनुसार अलग हो सकते हैं।",
@@ -2843,6 +2853,11 @@
       continue: "Continue", review: "Review details",
       missingScheme: "Enter the scheme name or tell us a little about it.",
       missingAnswer: "Choose or enter an answer to continue.",
+      analysisLoading: "Searching verified scheme information…",
+      analysisUnavailable: "The scheme database is currently unavailable. Please try again shortly.",
+      analysisRateLimited: "The service is receiving too many requests. Please try again shortly.",
+      analysisFailed: "Scheme information could not be retrieved. Please try again.",
+      retry: "Try again",
       assistantDefault: "All right, we’ll take it one question at a time. You can speak or type your answers.",
       assistantTips: {
         state: "Scheme rules can differ from one state to another.",
@@ -2939,7 +2954,8 @@
 
   const eligibilityResultCopy = {
     hi: {
-      demoNotice: "केवल उदाहरण · योजना के आधिकारिक नियमों की जाँच नहीं हुई है। यह सरकारी निर्णय नहीं है।",
+      demoNotice: "यह जानकारी सत्यापित योजना रिकॉर्ड से तैयार की गई है। यह पात्रता का आधिकारिक निर्णय नहीं है।",
+      noVerifiedInfo: "इस योजना से जुड़ी सत्यापित जानकारी डेटाबेस में नहीं मिली। इसे सरकारी निर्णय न मानें।",
       statusLabels: {
         likely_eligible: "आप पात्र हो सकते हैं",
         not_eligible: "आप पात्र नहीं लगते",
@@ -2979,7 +2995,7 @@
         "यदि आप प्रकाशित शर्तें पूरी करते हैं, तो केवल आधिकारिक पोर्टल या अधिकृत केंद्र से आवेदन करें।"
       ],
       followup: "कृपया इस योजना की आधिकारिक पात्रता शर्तें और अगले कदम समझाएँ।",
-      saved: "पात्रता का परिणाम सहेजा गया",
+      saved: "पात्रता जानकारी डाउनलोड की गई",
       links: [
         { match: /pm\s*kisan/i, url: "https://pmkisan.gov.in/", label: "PM Kisan का आधिकारिक पोर्टल" },
         { match: /pm\s*[- ]?kusum/i, url: "https://pmkusum.mnre.gov.in/", label: "PM-KUSUM का आधिकारिक पोर्टल" },
@@ -2990,7 +3006,8 @@
       ]
     },
     en: {
-      demoNotice: "DEMONSTRATION ONLY · No official scheme rules were checked. This is not a government decision.",
+      demoNotice: "This guidance uses verified scheme records. It is not an official eligibility decision.",
+      noVerifiedInfo: "No verified information for this scheme was found in the database. This is not a government decision.",
       statusLabels: {
         likely_eligible: "Likely Eligible",
         not_eligible: "Not Eligible",
@@ -3030,7 +3047,7 @@
         "If you meet the published conditions, apply only through the official portal or an authorised centre."
       ],
       followup: "Please explain the official eligibility rules and next steps for this scheme.",
-      saved: "Eligibility demonstration result saved",
+      saved: "Eligibility guidance downloaded",
       links: [
         { match: /pm\s*kisan/i, url: "https://pmkisan.gov.in/", label: "PM Kisan official portal" },
         { match: /pm\s*[- ]?kusum/i, url: "https://pmkusum.mnre.gov.in/", label: "PM-KUSUM official portal" },
@@ -3048,6 +3065,7 @@
   let eligibilityAnswers = {};
   let eligibilityProfile = "general";
   let eligibilityCurrentResult = null;
+  let eligibilityRequestRevision = 0;
 
   function eligibilityCopy() {
     return eligibilityQuestionCopy[uiLang];
@@ -3112,9 +3130,24 @@
 
     if (stage === "questions") renderEligibilityQuestion(focusHeading);
     if (stage === "review") {
-      eligibilityCurrentResult = buildEligibilityDemoResult();
       renderEligibilitySummary();
-      renderEligibilityResult(eligibilityCurrentResult);
+      eligibilityCurrentResult = null;
+      eligibilityRequestRevision += 1;
+      if (eligibilityResultContent) eligibilityResultContent.hidden = true;
+      if (eligibilityResultReason) eligibilityResultReason.textContent = "";
+      if (eligibilityResultReasonDetail) eligibilityResultReasonDetail.textContent = "";
+      if (eligibilityResultRequirements) eligibilityResultRequirements.replaceChildren();
+      if (eligibilityResultDocuments) eligibilityResultDocuments.replaceChildren();
+      if (eligibilityResultNextSteps) eligibilityResultNextSteps.replaceChildren();
+      if (eligibilityResultLinkList) eligibilityResultLinkList.replaceChildren();
+      if (eligibilityResultLinks) eligibilityResultLinks.hidden = true;
+      if (eligibilityResultDemoNotice) eligibilityResultDemoNotice.hidden = true;
+      if (eligibilityApiStatus) {
+        eligibilityApiStatus.textContent = "";
+        eligibilityApiStatus.hidden = true;
+      }
+      if (eligibilityRetryButton) eligibilityRetryButton.hidden = true;
+      void requestEligibilityResult();
     }
 
     if (focusHeading) {
@@ -3326,23 +3359,6 @@
     });
   }
 
-  const eligibilityRequirementSets = {
-    scholarship: ["state", "education", "studying", "income", "category", "documents"],
-    employment: ["state", "age", "education", "employment", "income", "documents"],
-    agriculture: ["state", "land", "income", "documents"],
-    healthcare: ["state", "age", "income", "category", "documents"],
-    housing: ["state", "housing", "income", "documents"],
-    women: ["state", "age", "employment", "income", "category", "documents"],
-    financial: ["state", "age", "employment", "income", "category", "documents"],
-    general: ["state", "age", "income", "documents"]
-  };
-
-  const eligibilityRequirementAnswers = {
-    state: "state", age: "age", education: "qualification", studying: "studying",
-    income: "income", category: "eligibleCategory", land: "farmland",
-    housing: "home", employment: "employment", documents: "documents"
-  };
-
   function getEligibilityAnswerLabel(questionId) {
     const answer = eligibilityAnswers[questionId];
     if (!answer) return "";
@@ -3351,42 +3367,154 @@
     return eligibilityCopy()[answer] || answer;
   }
 
-  function buildEligibilityDemoResult() {
-    const copy = eligibilityResultCopy[uiLang];
+  function buildEligibilityRequest() {
     const schemeName = eligibilityName && eligibilityName.value.trim()
       ? eligibilityName.value.trim()
-      : (eligibilityDescription && eligibilityDescription.value.trim()) || (uiLang === "en" ? "the scheme you described" : "aapki batayi yojana");
-    const schemeText = `${schemeName} ${eligibilityDescription ? eligibilityDescription.value : ""}`;
-    const links = copy.links
-      .filter((link) => link.match.test(schemeText))
-      .map(({ url, label }) => ({ url, label }));
+      : (eligibilityDescription && eligibilityDescription.value.trim())
+        || (uiLang === "en" ? "the scheme you described" : "आपके बताए योजना");
+    const description = eligibilityDescription ? eligibilityDescription.value.trim() : "";
+    const answers = eligibilityQuestions
+      .map((question) => {
+        const answer = getEligibilityAnswerLabel(question.id);
+        return answer ? `${eligibilityCopy()[question.label]}: ${answer}` : "";
+      })
+      .filter(Boolean);
+    const profileContext = {};
+    if (typeof eligibilityAnswers.state === "string" && eligibilityAnswers.state.trim()) {
+      profileContext.state = eligibilityAnswers.state.trim().slice(0, 200);
+    }
+    if (eligibilityAnswers.age != null && /^\d+$/.test(eligibilityAnswers.age)) {
+      profileContext.age = Number(eligibilityAnswers.age);
+    }
+    if (eligibilityProfile === "agriculture") profileContext.is_farmer = true;
+    if (eligibilityProfile === "scholarship") profileContext.is_student = true;
 
-    return {
-      source: "demo",
-      status: "more_information_required",
-      schemeName,
-      reason: copy.statusReason(schemeName),
-      reasoning: copy.reasoning,
-      requirements: (eligibilityRequirementSets[eligibilityProfile] || eligibilityRequirementSets.general).map((key) => {
-        const answerId = eligibilityRequirementAnswers[key];
-        return {
-          condition: copy.requirementLabels[key],
-          status: "verification_required",
-          detail: copy.requirementDetail(getEligibilityAnswerLabel(answerId))
-        };
-      }),
-      documents: (copy.documents[eligibilityProfile] || copy.documents.general).map((name) => ({
-        name,
-        note: copy.documentNote
-      })),
-      nextSteps: copy.nextSteps,
-      officialLinks: links
-    };
+    const message = uiLang === "en"
+      ? [
+        "Using only verified scheme records, explain the published eligibility conditions, benefits, required documents, and application steps for this scheme.",
+        "Do not decide or guarantee whether the applicant is eligible. If no verified information is available, say so clearly.",
+        `Scheme: ${schemeName}`,
+        description ? `What I know about it: ${description}` : "",
+        answers.length ? `Applicant's answers:\n${answers.join("\n")}` : ""
+      ].filter(Boolean).join("\n\n")
+      : [
+        "केवल सत्यापित योजना रिकॉर्ड के आधार पर इस योजना की प्रकाशित पात्रता शर्तें, लाभ, आवश्यक दस्तावेज़ और आवेदन के चरण सरल हिंदी में समझाएँ।",
+        "यह निर्णय न दें और न गारंटी दें कि आवेदक पात्र है या नहीं। सत्यापित जानकारी उपलब्ध न हो तो स्पष्ट रूप से बताएँ।",
+        `योजना: ${schemeName}`,
+        description ? `मेरी जानकारी: ${description}` : "",
+        answers.length ? `आवेदक के जवाब:\n${answers.join("\n")}` : ""
+      ].filter(Boolean).join("\n\n");
+
+    return { schemeName, message, profileContext };
+  }
+
+  async function requestEligibilityResult() {
+    const revision = ++eligibilityRequestRevision;
+    const request = buildEligibilityRequest();
+    const copy = eligibilityQuestionCopy[uiLang];
+    if (eligibilityResultContent) eligibilityResultContent.hidden = true;
+    if (eligibilityApiStatus) {
+      eligibilityApiStatus.textContent = copy.analysisLoading;
+      eligibilityApiStatus.hidden = false;
+      eligibilityApiStatus.classList.remove("is-error");
+    }
+    if (eligibilityRetryButton) eligibilityRetryButton.hidden = true;
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 35000);
+    try {
+      const baseUrl = String(window.SARTHIX_CONFIG?.apiBaseUrl || "http://localhost:5000/api").replace(/\/+$/, "");
+      const response = await fetch(`${baseUrl}/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept-Language": uiLang === "en" ? "en-IN" : "hi-IN"
+        },
+        body: JSON.stringify({
+          message: request.message,
+          profileContext: request.profileContext
+        }),
+        signal: controller.signal
+      });
+      let payload;
+      try {
+        payload = await response.json();
+      } catch {
+        throw Object.assign(new Error("Invalid scheme guidance response"), { status: response.status });
+      }
+      if (!response.ok || payload?.success !== true || payload?.mode === "mock"
+        || typeof payload.answer !== "string" || !payload.answer.trim()) {
+        throw Object.assign(new Error(payload?.message || "Scheme guidance failed"), {
+          status: response.status,
+          code: payload?.mode === "mock" ? "LOCAL_MOCK_MODE" : payload?.code
+        });
+      }
+      if (revision !== eligibilityRequestRevision || eligibilityStage !== "review") return;
+
+      const sourceFacts = (values) => Array.isArray(values)
+        ? values.filter((value) => typeof value === "string" && value.trim())
+        : [];
+      const links = Array.isArray(payload.sources)
+        ? payload.sources.filter((source) => source && typeof source.url === "string" && typeof source.schemeName === "string")
+          .map((source) => ({
+            url: source.url,
+            label: source.organisation ? `${source.schemeName} — ${source.organisation}` : source.schemeName
+          }))
+        : [];
+      eligibilityCurrentResult = {
+        source: "backend",
+        status: "more_information_required",
+        schemeName: request.schemeName,
+        reason: payload.answer.trim(),
+        reasoning: payload.relevance || payload.answer.trim(),
+        requirements: sourceFacts(payload.eligibility).map((condition) => ({
+          condition,
+          status: "verification_required"
+        })).concat(sourceFacts(payload.missingInformation).map((condition) => ({
+          condition: uiLang === "en" ? "Information still needed" : "अभी आवश्यक जानकारी",
+          detail: condition,
+          status: "verification_required"
+        }))),
+        documents: sourceFacts(payload.requiredDocuments).map((name) => ({
+          name,
+          note: uiLang === "en" ? "Verify this against the current official checklist." : "मौजूदा आधिकारिक सूची से इसकी पुष्टि करें।"
+        })),
+        nextSteps: sourceFacts(payload.applicationSteps),
+        officialLinks: links,
+        followUpQuestions: sourceFacts(payload.followUpQuestions),
+        insufficientInformation: payload.insufficientInformation === true
+      };
+      if (!eligibilityCurrentResult.nextSteps.length) {
+        eligibilityCurrentResult.nextSteps.push(uiLang === "en"
+          ? "Confirm current rules with the linked official source or the relevant scheme office."
+          : "लिंक किए गए आधिकारिक स्रोत या संबंधित योजना कार्यालय से मौजूदा नियमों की पुष्टि करें।");
+      }
+      if (eligibilityApiStatus) eligibilityApiStatus.hidden = true;
+      renderEligibilityResult(eligibilityCurrentResult);
+    } catch (error) {
+      if (revision !== eligibilityRequestRevision || eligibilityStage !== "review") return;
+      const message = error?.name === "AbortError"
+        ? copy.analysisUnavailable
+        : error?.status === 429 || (error?.status === 503 && error?.code === "GEMINI_RATE_LIMITED")
+          ? copy.analysisRateLimited
+          : !error?.status || error?.status >= 500
+            ? copy.analysisUnavailable
+            : copy.analysisFailed;
+      if (eligibilityApiStatus) {
+        eligibilityApiStatus.textContent = message;
+        eligibilityApiStatus.classList.add("is-error");
+        eligibilityApiStatus.hidden = false;
+      }
+      if (eligibilityRetryButton) eligibilityRetryButton.hidden = false;
+    } finally {
+      window.clearTimeout(timeout);
+    }
   }
 
   function renderEligibilityResult(result) {
     if (!result) return;
     const copy = eligibilityResultCopy[uiLang];
+    if (eligibilityResultContent) eligibilityResultContent.hidden = false;
     const validStatuses = ["likely_eligible", "not_eligible", "more_information_required"];
     const status = validStatuses.includes(result.status) ? result.status : "more_information_required";
     const statusLabels = copy.statusLabels;
@@ -3396,8 +3524,10 @@
     if (eligibilityResultReason) eligibilityResultReason.textContent = result.reason || "";
     if (eligibilityResultReasonDetail) eligibilityResultReasonDetail.textContent = result.reasoning || result.reason || "";
     if (eligibilityResultDemoNotice) {
-      eligibilityResultDemoNotice.hidden = result.source !== "demo";
-      eligibilityResultDemoNotice.textContent = copy.demoNotice;
+      eligibilityResultDemoNotice.hidden = result.source !== "backend";
+      eligibilityResultDemoNotice.textContent = result.insufficientInformation
+        ? copy.noVerifiedInfo
+        : copy.demoNotice;
     }
 
     if (eligibilityResultRequirements) {
@@ -3470,7 +3600,7 @@
       (Array.isArray(result.officialLinks) ? result.officialLinks : []).forEach((officialLink) => {
         try {
           const safeUrl = new URL(officialLink.url);
-          if (!['https:', 'http:'].includes(safeUrl.protocol)) return;
+          if (safeUrl.protocol !== "https:") return;
           const item = document.createElement("li");
           const anchor = document.createElement("a");
           anchor.href = safeUrl.href;
@@ -3515,7 +3645,7 @@
     const url = URL.createObjectURL(file);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = "sarthix-eligibility-demo-result.txt";
+    anchor.download = "sarthix-eligibility-guidance.txt";
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
@@ -3528,15 +3658,16 @@
     if (eligibilityVoiceButton) eligibilityVoiceButton.setAttribute("aria-label", eligibilityCopy().voiceButtonLabel);
     if (eligibilityStage === "questions") renderEligibilityQuestion(false);
     if (eligibilityStage === "review") {
-      if (eligibilityCurrentResult && eligibilityCurrentResult.source === "demo") {
-        eligibilityCurrentResult = buildEligibilityDemoResult();
-      }
       renderEligibilitySummary();
-      renderEligibilityResult(eligibilityCurrentResult);
+      eligibilityRequestRevision += 1;
+      void requestEligibilityResult();
     }
   }
 
   if (eligibilityForm) {
+    if (eligibilityRetryButton) {
+      eligibilityRetryButton.addEventListener("click", () => { void requestEligibilityResult(); });
+    }
     eligibilityForm.addEventListener("submit", (event) => {
       event.preventDefault();
       if (eligibilityStage !== "scheme") {
@@ -3649,7 +3780,7 @@
     }
   }
 
-  /* ── 12. Document intake prototype ──────────────────────────── */
+  /* ── 12. Document analysis ───────────────────────────────────── */
   const documentApp = $("[data-document-app]");
   const documentDropzone = $("[data-document-dropzone]");
   const documentFileInput = $("[data-document-file]");
@@ -3690,22 +3821,42 @@
   const documentUiCopy = {
     hi: {
       invalidType: "कृपया JPG, JPEG, PNG या PDF फ़ाइल चुनें।",
-      fileReady: "फ़ाइल केवल इसी ब्राउज़र में दिखाई जा रही है। इसे कहीं नहीं भेजा गया है।",
-      textReady: "पाठ तैयार है। इस नमूने में इसे कहीं नहीं भेजा जाएगा।",
-      voiceGuide: "नोटिस या पत्र अपलोड करें, या उसका पाठ यहाँ चिपकाएँ। दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है।",
-      notConnected: "दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है। आपकी सामग्री कहीं नहीं भेजी जाएगी।",
-      unavailable: "विश्लेषण सेवा अभी उपलब्ध नहीं है। आपकी फ़ाइल या पाठ कहीं नहीं भेजा गया।",
+      fileReady: "फ़ाइल तैयार है। विश्लेषण शुरू करने पर इसे SarthiX backend और Gemini को भेजा जाएगा; डेटाबेस में सहेजा नहीं जाएगा।",
+      textReady: "पाठ तैयार है। विश्लेषण शुरू करने पर इसे SarthiX backend और Gemini को भेजा जाएगा; डेटाबेस में सहेजा नहीं जाएगा।",
+      voiceGuide: "Notice या पत्र अपलोड करें, या उसका पाठ यहाँ चिपकाएँ।",
+      notConnected: "शुरू करने के लिए दस्तावेज़ जोड़ें या पाठ चिपकाएँ।",
+      unavailable: "विश्लेषण सेवा तक पहुँचा नहीं जा सका। कृपया backend चालू होने पर फिर कोशिश करें।",
+      tooLarge: "फ़ाइल 10 MB से बड़ी है। कृपया छोटी फ़ाइल चुनें।",
+      tooMuchText: "पाठ 30,000 अक्षरों से अधिक है। कृपया इसे छोटा करें।",
+      analyzing: "दस्तावेज़ का विश्लेषण हो रहा है…",
+      rateLimited: "बहुत अधिक अनुरोध हुए हैं। कृपया कुछ देर बाद कोशिश करें।",
+      providerFailed: "AI विश्लेषण अभी उपलब्ध नहीं है। कृपया बाद में फिर कोशिश करें।",
+      timedOut: "विश्लेषण में समय अधिक लग रहा है। कृपया फिर कोशिश करें।",
+      analysisFailed: "विश्लेषण पूरा नहीं हो सका। कृपया फ़ाइल या पाठ जाँचकर फिर कोशिश करें।",
+      questionFailed: "इस सवाल का जवाब नहीं मिल सका। कृपया फिर कोशिश करें।",
+      questionLoading: "दस्तावेज़ से जवाब खोजा जा रहा है…",
+      chooseOne: "कृपया फ़ाइल अपलोड करें या पाठ चिपकाएँ—दोनों एक साथ नहीं।",
       onlyOneFile: "एक बार में केवल एक दस्तावेज़ चुनें।",
       chooseFile: "JPG, JPEG, PNG या PDF दस्तावेज़ चुनें",
       pdf: "PDF दस्तावेज़", image: "चित्र", previewAlt: "अपलोड किए गए दस्तावेज़ का पूर्वावलोकन"
     },
     en: {
       invalidType: "Choose a JPG, JPEG, PNG or PDF file.",
-      fileReady: "This file is previewed only in this browser. Nothing has been sent.",
-      textReady: "Your text is ready. This prototype will not send it anywhere.",
-      voiceGuide: "Upload the notice or letter, or paste its text. Document analysis is not connected yet.",
-      notConnected: "Document analysis is not connected yet. Your content will not be sent.",
-      unavailable: "The analysis service is not available yet. Your file or text was not sent.",
+      fileReady: "Your file is ready. When analysis starts, it will be sent to the SarthiX backend and Gemini; it will not be saved in the database.",
+      textReady: "Your text is ready. When analysis starts, it will be sent to the SarthiX backend and Gemini; it will not be saved in the database.",
+      voiceGuide: "Upload the notice or letter, or paste its text.",
+      notConnected: "Add a supported document or paste text to begin.",
+      unavailable: "The analysis service could not be reached. Please check that the backend is running and try again.",
+      tooLarge: "The file is larger than 10 MB. Choose a smaller file.",
+      tooMuchText: "The text exceeds 30,000 characters. Please shorten it.",
+      analyzing: "Analysing your document…",
+      rateLimited: "There have been too many requests. Please wait a while and try again.",
+      providerFailed: "AI analysis is temporarily unavailable. Please try again later.",
+      timedOut: "Analysis is taking too long. Please try again.",
+      analysisFailed: "Analysis could not be completed. Check the document or text and try again.",
+      questionFailed: "The question could not be answered. Please try again.",
+      questionLoading: "Finding an answer in your document…",
+      chooseOne: "Upload a file or paste text, but not both at once.",
       onlyOneFile: "Choose one document at a time.",
       chooseFile: "Choose a JPG, JPEG, PNG or PDF document",
       pdf: "PDF document", image: "Image document", previewAlt: "Uploaded document preview"
@@ -3758,6 +3909,7 @@
   let documentStatusKey = "notConnected";
   let documentQuestionStatusKey = "";
   let currentDocumentAnalysisResult = null;
+  let documentRequestInProgress = false;
 
   function documentCopy() {
     return documentUiCopy[uiLang];
@@ -3844,7 +3996,7 @@
     if (!documentAnalyseButton) return;
     const hasFile = Boolean(localDocumentFile);
     const hasText = Boolean(documentPastedText && documentPastedText.value.trim());
-    documentAnalyseButton.disabled = !hasFile && !hasText;
+    documentAnalyseButton.disabled = documentRequestInProgress || (!hasFile && !hasText);
     if (!hasFile && documentPastedText && hasText && documentStatusKey === "notConnected") {
       setDocumentStatus("textReady");
     } else if (!hasFile && !hasText && documentStatusKey === "textReady") {
@@ -3880,12 +4032,18 @@
 
   function setDocumentFile(file) {
     if (!file || !documentPreview || !documentDropzone) return;
+    if (file.size > 10 * 1024 * 1024) {
+      removeDocumentFile();
+      setDocumentStatus("tooLarge");
+      return;
+    }
     const extension = file.name.split(".").pop().toLowerCase();
     const acceptedMimeByExtension = {
       jpg: ["image/jpeg"], jpeg: ["image/jpeg"], png: ["image/png"], pdf: ["application/pdf"]
     };
     const acceptedMimes = acceptedMimeByExtension[extension] || [];
     if (!acceptedMimes.length || (file.type && file.type !== "application/octet-stream" && !acceptedMimes.includes(file.type))) {
+      removeDocumentFile();
       setDocumentStatus("invalidType");
       return;
     }
@@ -4235,6 +4393,127 @@
     if (currentDocumentAnalysisResult) renderDocumentAnalysisResult(currentDocumentAnalysisResult, false);
   }
 
+  function documentRequestErrorKey(error, hasFile, isQuestion) {
+    if (error?.name === "AbortError" || error?.code === "GEMINI_TIMEOUT") return "timedOut";
+    if (error?.status === 429 || (error?.status === 503 && error?.code === "GEMINI_RATE_LIMITED")) return "rateLimited";
+    if (error?.status === 413) return hasFile ? "tooLarge" : "tooMuchText";
+    if (error?.status === 502 || error?.status === 503 || error?.status === 504
+      || error?.code === "GEMINI_PROVIDER_FAILURE" || error?.code === "GEMINI_NOT_CONFIGURED") return "providerFailed";
+    if (!error?.status) return "unavailable";
+    return isQuestion ? "questionFailed" : "analysisFailed";
+  }
+
+  async function sendDocumentAnalysis(question = "") {
+    const hasFile = Boolean(localDocumentFile);
+    const text = documentPastedText ? documentPastedText.value.trim() : "";
+    if (!hasFile && !text) return null;
+
+    const baseUrl = String(window.SARTHIX_CONFIG?.apiBaseUrl || "http://localhost:5000/api").replace(/\/+$/, "");
+    const language = uiLang === "en" ? "en-IN" : "hi-IN";
+    const headers = { "Accept-Language": language };
+    let body;
+
+    if (hasFile) {
+      const extension = localDocumentFile.name.split(".").pop().toLowerCase();
+      const mimeType = localDocumentFile.type && localDocumentFile.type !== "application/octet-stream"
+        ? localDocumentFile.type
+        : ({ jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", pdf: "application/pdf" }[extension] || "");
+      headers["Content-Type"] = mimeType;
+      if (question) headers["X-Document-Question"] = question;
+      body = localDocumentFile;
+    } else {
+      headers["Content-Type"] = "application/json";
+      body = JSON.stringify({ text, language, question });
+    }
+
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 70000);
+    let response;
+    try {
+      response = await fetch(`${baseUrl}/documents/analyze`, {
+        method: "POST",
+        headers,
+        body,
+        signal: controller.signal
+      });
+    } finally {
+      window.clearTimeout(timeout);
+    }
+
+    let payload;
+    try {
+      payload = await response.json();
+    } catch {
+      const error = new Error("The document service returned an invalid response");
+      error.status = response.status;
+      throw error;
+    }
+    if (!response.ok || payload.success !== true || !payload.analysis) {
+      const error = new Error(payload.message || "Document analysis failed");
+      error.status = response.status;
+      error.code = payload.code;
+      throw error;
+    }
+    return payload.analysis;
+  }
+
+  async function runDocumentAnalysis(question = "") {
+    if (documentRequestInProgress || !documentApp) return;
+    const isQuestion = Boolean(question);
+    if (!isQuestion && localDocumentFile && documentPastedText && documentPastedText.value.trim()) {
+      if (documentAnalysisStatus) {
+        documentAnalysisStatus.textContent = documentCopy().chooseOne;
+        documentAnalysisStatus.classList.add("is-error");
+        documentAnalysisStatus.hidden = false;
+      }
+      return;
+    }
+    documentRequestInProgress = true;
+    if (documentAnalyseButton) {
+      documentAnalyseButton.disabled = true;
+      documentAnalyseButton.setAttribute("aria-busy", "true");
+    }
+    const questionSubmitButton = documentQuestionForm?.querySelector('[type="submit"]');
+    if (questionSubmitButton) questionSubmitButton.disabled = true;
+    if (documentAnalysisStatus && !isQuestion) {
+      documentAnalysisStatus.textContent = documentCopy().analyzing;
+      documentAnalysisStatus.classList.remove("is-error");
+      documentAnalysisStatus.hidden = false;
+    }
+    if (documentQuestionStatus && isQuestion) {
+      documentQuestionStatus.textContent = documentCopy().questionLoading;
+      documentQuestionStatus.classList.remove("is-error");
+      documentQuestionStatus.hidden = false;
+    }
+
+    try {
+      const result = await sendDocumentAnalysis(question);
+      if (isQuestion) {
+        documentQuestionStatusKey = "";
+        documentQuestionStatus.textContent = result.questionAnswer;
+        documentQuestionStatus.classList.remove("is-error");
+        documentQuestionStatus.hidden = false;
+      } else if (!renderDocumentAnalysisResult(result)) {
+        throw new Error("The analysis response could not be displayed");
+      }
+    } catch (error) {
+      const key = documentRequestErrorKey(error, Boolean(localDocumentFile), isQuestion);
+      const status = isQuestion ? documentQuestionStatus : documentAnalysisStatus;
+      if (status) {
+        status.textContent = documentCopy()[key] || documentResultCopy[uiLang].questionUnavailable;
+        status.classList.add("is-error");
+        status.hidden = false;
+      }
+    } finally {
+      documentRequestInProgress = false;
+      if (documentAnalyseButton) {
+        documentAnalyseButton.removeAttribute("aria-busy");
+        updateDocumentAvailability();
+      }
+      if (questionSubmitButton) questionSubmitButton.disabled = false;
+    }
+  }
+
   if (documentApp) {
     const browseButton = $("[data-document-browse]");
     const replaceButton = $("[data-document-replace]");
@@ -4294,13 +4573,7 @@
     }
 
     if (documentAnalyseButton) {
-      documentAnalyseButton.addEventListener("click", () => {
-        if (documentAnalysisStatus) {
-          documentAnalysisStatus.textContent = documentCopy().unavailable;
-          documentAnalysisStatus.hidden = false;
-          documentAnalysisStatus.classList.remove("is-error");
-        }
-      });
+      documentAnalyseButton.addEventListener("click", () => { void runDocumentAnalysis(); });
     }
 
     if (documentQuestionForm) {
@@ -4308,9 +4581,13 @@
         event.preventDefault();
         const question = documentQuestionInput ? documentQuestionInput.value.trim() : "";
         if (!documentQuestionStatus) return;
-        documentQuestionStatusKey = question ? "questionUnavailable" : "questionRequired";
-        documentQuestionStatus.textContent = documentResultCopy[uiLang][documentQuestionStatusKey];
-        documentQuestionStatus.hidden = false;
+        if (!question) {
+          documentQuestionStatusKey = "questionRequired";
+          documentQuestionStatus.textContent = documentResultCopy[uiLang][documentQuestionStatusKey];
+          documentQuestionStatus.hidden = false;
+          return;
+        }
+        void runDocumentAnalysis(question);
       });
     }
 

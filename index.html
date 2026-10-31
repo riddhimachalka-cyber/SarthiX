@@ -670,7 +670,7 @@
         <div class="section-head section-head--center reveal">
           <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-en="Personalised scheme guidance">आपके लिए योजना संबंधी जानकारी</span></p>
           <h2 class="section-title" id="eligibility-title" data-en="Check Your Eligibility">अपनी पात्रता जाँचें</h2>
-          <p class="section-note" data-en="Heard about a government scheme? Tell us what you know, answer a few simple questions, and discover whether you may qualify.">क्या आपने किसी सरकारी योजना के बारे में सुना है? जो जानकारी आपको है, वह बताएँ और कुछ सरल सवालों के जवाब देकर जानें कि आप इसके लिए पात्र हो सकते हैं या नहीं।</p>
+          <p class="section-note" data-en="Heard about a government scheme? Tell us what you know and answer a few simple questions to find relevant, verified scheme information.">क्या आपने किसी सरकारी योजना के बारे में सुना है? जो जानकारी आपको है, वह बताएँ और संबंधित सत्यापित योजना जानकारी पाएँ।</p>
         </div>
 
         <div class="eligibility-panel reveal" data-eligibility-app>
@@ -766,8 +766,11 @@
                 <h3 data-en="Eligibility Check Result">पात्रता जाँच का परिणाम</h3>
                 <p data-en="Review this guidance and confirm scheme rules through an official source.">इस जानकारी को देखें और योजना के नियम किसी आधिकारिक स्रोत से जाँचें।</p>
               </div>
-              <p class="eligibility-demo-notice" data-result-demo-notice data-en="DEMONSTRATION ONLY · No official scheme rules were checked. This is not a government decision.">केवल उदाहरण · योजना के आधिकारिक नियमों की जाँच नहीं हुई है। यह सरकारी निर्णय नहीं है।</p>
+              <p class="eligibility-demo-notice" data-result-demo-notice data-en="This guidance uses verified scheme records. It is not an official eligibility decision." hidden>यह जानकारी सत्यापित योजना रिकॉर्ड से तैयार की गई है। यह पात्रता का आधिकारिक निर्णय नहीं है।</p>
+              <p class="eligibility-error" data-eligibility-api-status role="status" aria-live="polite" hidden></p>
+              <button class="btn btn--ghost" type="button" data-eligibility-retry data-en="Try again" hidden>फिर कोशिश करें</button>
 
+              <div data-eligibility-result-content hidden>
               <section class="eligibility-result-status" data-result-status-card data-status="more_information_required" aria-labelledby="eligibility-result-status-title">
                 <span class="eligibility-result-status-icon" aria-hidden="true">?</span>
                 <div>
@@ -785,8 +788,6 @@
               <section class="eligibility-result-block" aria-labelledby="eligibility-requirements-title">
                 <h4 id="eligibility-requirements-title" data-en="Requirement checklist">पात्रता की शर्तें</h4>
                 <ul class="eligibility-result-legend" aria-label="Requirement status key">
-                  <li><span class="eligibility-result-badge" data-status="match" data-en="Matches your information">आपकी जानकारी से मेल खाता है</span></li>
-                  <li><span class="eligibility-result-badge" data-status="does_not_match" data-en="Does not match">मेल नहीं खाता</span></li>
                   <li><span class="eligibility-result-badge" data-status="verification_required" data-en="Still needs verification">जाँच अभी बाकी है</span></li>
                 </ul>
                 <ul class="eligibility-result-list" data-result-requirements></ul>
@@ -794,7 +795,7 @@
 
               <section class="eligibility-result-block" aria-labelledby="eligibility-documents-title">
                 <h4 id="eligibility-documents-title" data-en="Documents to check">जाँचने के लिए दस्तावेज़</h4>
-                <p class="eligibility-result-help" data-en="Examples only. The official scheme checklist may be different.">केवल उदाहरण। आधिकारिक योजना की सूची अलग हो सकती है।</p>
+                <p class="eligibility-result-help" data-en="Check any listed documents against the current official scheme checklist.">दिए गए दस्तावेज़ों को मौजूदा आधिकारिक योजना सूची से जाँचें।</p>
                 <ul class="eligibility-document-list" data-result-documents></ul>
               </section>
 
@@ -807,7 +808,8 @@
                 </div>
               </section>
 
-              <p class="eligibility-disclaimer" data-en="Only an authorised scheme office or official portal can confirm eligibility. Do not treat this demonstration as a government decision.">पात्रता की पुष्टि केवल अधिकृत योजना कार्यालय या आधिकारिक पोर्टल कर सकता है। इस उदाहरण को सरकारी निर्णय न मानें।</p>
+              <p class="eligibility-disclaimer" data-en="Only an authorised scheme office or official portal can confirm eligibility. This guidance is not a government decision.">पात्रता की पुष्टि केवल अधिकृत योजना कार्यालय या आधिकारिक पोर्टल कर सकता है। यह जानकारी सरकारी निर्णय नहीं है।</p>
+              </div>
 
               <details class="eligibility-answer-details">
                 <summary data-en="Review your answers">अपने जवाब देखें</summary>
@@ -856,7 +858,7 @@
               <span data-en="Browse files">फ़ाइल चुनें</span>
             </button>
             <input class="document-file-input" id="document-file-input" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf" data-document-file aria-label="Choose a JPG, JPEG, PNG or PDF document" />
-            <p class="document-file-types" data-en="Supported formats: JPG, JPEG, PNG and PDF">समर्थित प्रारूप: JPG, JPEG, PNG और PDF</p>
+            <p class="document-file-types" data-en="Supported formats: JPG, JPEG, PNG and PDF · Maximum size: 10 MB">समर्थित प्रारूप: JPG, JPEG, PNG और PDF · अधिकतम आकार: 10 MB</p>
           </div>
 
           <div class="document-file-preview" data-document-preview hidden>
@@ -882,22 +884,22 @@
 
           <div class="document-paste-field">
             <label for="document-pasted-text" data-en="Email or document text">ईमेल या दस्तावेज़ का पाठ</label>
-            <textarea id="document-pasted-text" rows="6" data-document-text placeholder="Paste the text you want help understanding…" data-en-placeholder="Paste the text you want help understanding…"></textarea>
+            <textarea id="document-pasted-text" rows="6" maxlength="30000" data-document-text placeholder="Paste the text you want help understanding…" data-en-placeholder="Paste the text you want help understanding…"></textarea>
           </div>
 
           <p class="document-privacy-note">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 1 1 8 0v3M12 14v3" /></svg>
-            <span data-en="Privacy reminder: avoid sharing unnecessary personal information such as passwords, bank details or identification numbers. In this prototype, files are previewed locally and nothing is sent for analysis.">गोपनीयता सूचना: पासवर्ड, बैंक विवरण या पहचान संख्या जैसी अनावश्यक निजी जानकारी साझा न करें। इस नमूने में फ़ाइल केवल आपके ब्राउज़र में दिखाई जाती है; विश्लेषण के लिए कहीं नहीं भेजी जाती।</span>
+            <span data-en="Privacy reminder: avoid sharing unnecessary personal information such as passwords, bank details or identification numbers. When you analyse a document, its contents are sent to the SarthiX backend and Gemini for processing, but are not saved in the database.">गोपनीयता सूचना: पासवर्ड, बैंक विवरण या पहचान संख्या जैसी अनावश्यक निजी जानकारी साझा न करें। विश्लेषण के समय सामग्री SarthiX backend और Gemini को भेजी जाती है, लेकिन database में सहेजी नहीं जाती।</span>
           </p>
 
           <div class="document-submit-row">
-            <p data-document-status role="status" aria-live="polite" aria-atomic="true" data-en="Document analysis is not connected yet. Your content will not be sent.">दस्तावेज़ विश्लेषण अभी उपलब्ध नहीं है। आपकी सामग्री कहीं नहीं भेजी जाएगी।</p>
-            <button class="btn btn--primary" type="button" data-document-analyse disabled>
+            <p data-document-status role="status" aria-live="polite" aria-atomic="true" data-en="Add a supported document or paste text to begin.">शुरू करने के लिए दस्तावेज़ जोड़ें या पाठ चिपकाएँ।</p>
+            <button class="btn btn--primary" type="button" data-document-analyse disabled aria-describedby="document-analysis-status">
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5M8.5 10.8h4.6M10.8 8.5v4.6" /></svg>
               <span data-en="Analyse Document">दस्तावेज़ का विश्लेषण करें</span>
             </button>
           </div>
-          <p class="document-analysis-status" data-document-analysis-status role="status" aria-live="polite" hidden></p>
+          <p class="document-analysis-status" id="document-analysis-status" data-document-analysis-status role="status" aria-live="polite" hidden></p>
           </div>
 
           <div class="document-results" data-document-results hidden aria-labelledby="document-results-title">
@@ -1403,7 +1405,7 @@
   </div>
 
   <script src="js/config.js" defer></script>
-  <script src="js/script.js?v=chat-voice-composer" defer></script>
+  <script src="js/script.js?v=backend-data-wiring-v5" defer></script>
   <script type="module" src="js/auth.js"></script>
   <script type="module" src="js/chat-api.js"></script>
 </body>

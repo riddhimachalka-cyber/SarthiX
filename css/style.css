@@ -6408,6 +6408,7 @@ body.auth-page {
 
 .auth-page .lang-menu.is-open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
 }

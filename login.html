@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=signup-controls" />
+  <link rel="stylesheet" href="css/style.css?v=auth-language-toggle" />
 </head>
 <body class="auth-page">
   <a class="skip-link" href="#login-form">Skip to form</a>
@@ -41,10 +41,6 @@
             <div class="lang-menu" id="lang-menu" role="listbox" aria-labelledby="lang-select">
               <button class="lang-option" type="button" role="option" aria-selected="true" data-lang="en">English</button>
               <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="hi">हिन्दी</button>
-              <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="mr">मराठी</button>
-              <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="ta">தமிழ்</button>
-              <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="gu">ગુજરાતી</button>
-              <button class="lang-option" type="button" role="option" aria-selected="false" data-lang="bn">বাংলা</button>
             </div>
           </div>
         </div>
@@ -113,7 +109,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <script src="js/config.js"></script>
   <script type="module" src="js/auth-tabs.js"></script>
-  <script type="module" src="js/login-ui.js"></script>
+  <script type="module" src="js/login-ui.js?v=auth-language-toggle"></script>
   <script type="module" src="js/login.js"></script>
   <script type="module" src="js/auth.js"></script>
 </body>
