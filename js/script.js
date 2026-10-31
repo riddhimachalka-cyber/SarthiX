@@ -73,6 +73,19 @@
         send: "सवाल भेजें",
         typing: "SarthiX जवाब लिख रहा है",
         error: "संपर्क में समस्या हुई। नीचे दिए गए विषयों में से कोई चुनकर फिर पूछें।",
+        empty: "भेजने से पहले अपना सवाल लिखें।",
+        networkError: "SarthiX सर्वर से संपर्क नहीं हो सका। कृपया कनेक्शन जाँचकर फिर प्रयास करें।",
+        apiError: (status) => `सवाल का जवाब नहीं मिल सका (त्रुटि ${status})। कृपया फिर प्रयास करें।`,
+        invalidResponse: "सर्वर से जवाब पढ़ा नहीं जा सका। कृपया फिर प्रयास करें।",
+        demo: "डेमो जवाब — यह सत्यापित सरकारी जानकारी नहीं है।",
+        sources: "स्रोत",
+        relevance: "यह क्यों प्रासंगिक है",
+        eligibility: "पात्रता",
+        benefits: "लाभ",
+        documents: "आवश्यक दस्तावेज़",
+        application: "आवेदन के चरण",
+        missing: "उपलब्ध नहीं",
+        followups: "आगे के सवाल",
         linkNote: "आधिकारिक पोर्टल"
       }
     },
@@ -120,6 +133,19 @@
         send: "Send question",
         typing: "SarthiX is typing a reply",
         error: "Something went wrong. Please try one of the topics below.",
+        empty: "Type a question before sending.",
+        networkError: "Could not reach the SarthiX server. Check your connection and try again.",
+        apiError: (status) => `The request failed (error ${status}). Please try again.`,
+        invalidResponse: "Could not read the server response. Please try again.",
+        demo: "DEMO RESPONSE — this is not verified government information.",
+        sources: "Sources",
+        relevance: "Why this may be relevant",
+        eligibility: "Eligibility",
+        benefits: "Benefits",
+        documents: "Required documents",
+        application: "Application steps",
+        missing: "Not available",
+        followups: "Follow-up questions",
         linkNote: "Official portal"
       }
     }
@@ -1056,12 +1082,9 @@
   const LINK_ICON =
     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4 10 14" /><path d="M18 14v5.5H4.5V6H10" /></svg>';
 
-  // Optional real-AI hook. Point this at a small serverless function that
-  // holds your OpenAI key and forwards { message, language } to the API.
-  // NEVER paste an API key into this file — anything in the browser is public.
   const AI_CONFIG = {
-    endpoint: "", // e.g. "/api/chat"
-    timeout: 12000
+    endpoint: "http://localhost:5000/api/chat",
+    timeout: 30000
   };
 
   const CHAT_KB = [
@@ -1612,6 +1635,7 @@
 
   let chatBusy = false;
   let chatQueue = [];
+  let chatHistory = [];
 
   function stripHtml(html) {
     if (!html) return "";
@@ -2140,9 +2164,7 @@
     };
   }
 
-  async function fetchAIAnswer(question) {
-    if (!AI_CONFIG.endpoint) return null;
-
+  async function fetchAIAnswer(question, history) {
     const controller = new AbortController();
     const timer = window.setTimeout(() => controller.abort(), AI_CONFIG.timeout);
 
@@ -2152,47 +2174,169 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: question,
-          language: selectedLanguage,
-          context: "SarthiX rural government scheme guidance"
+          history: history.slice(-8)
         }),
         signal: controller.signal
       });
 
-      if (!response.ok) return null;
-
-      const data = await response.json();
-      if (data && typeof data.reply === "string" && data.reply.trim()) {
-        return { text: data.reply.trim() };
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        const error = new Error("invalid-response");
+        error.kind = "invalid-response";
+        throw error;
       }
-      return null;
+
+      if (!response.ok || !data || data.success !== true) {
+        const error = new Error("api-error");
+        error.kind = "api";
+        error.status = response.status;
+        throw error;
+      }
+      if (typeof data.answer !== "string" || !data.answer.trim()) {
+        const error = new Error("invalid-response");
+        error.kind = "invalid-response";
+        throw error;
+      }
+      return data;
     } catch (error) {
-      return null;
+      if (error.kind) throw error;
+      const requestError = new Error("network-error");
+      requestError.kind = "network";
+      throw requestError;
     } finally {
       window.clearTimeout(timer);
     }
   }
 
-  function finishReply(reply, typing) {
+  function appendChatApiResponse(data) {
+    if (!chatMessages) return;
+
+    const row = document.createElement("div");
+    row.className = "chat-msg chat-msg--bot";
+    const avatar = document.createElement("span");
+    avatar.className = "chat-msg-avatar";
+    avatar.setAttribute("aria-hidden", "true");
+    avatar.innerHTML = BOT_AVATAR;
+
+    const bubble = document.createElement("div");
+    bubble.className = "chat-bubble";
+    const audioParts = [];
+
+    if (data.mode === "mock") {
+      const demoNotice = document.createElement("p");
+      demoNotice.className = "chat-demo-notice";
+      const strong = document.createElement("strong");
+      strong.textContent = copy().chat.demo;
+      demoNotice.appendChild(strong);
+      bubble.appendChild(demoNotice);
+      audioParts.push(copy().chat.demo);
+    }
+
+    const answer = document.createElement("p");
+    answer.textContent = data.answer.trim();
+    bubble.appendChild(answer);
+    audioParts.push(data.answer.trim());
+
+    const addHeading = (text) => {
+      const heading = document.createElement("p");
+      const strong = document.createElement("strong");
+      strong.textContent = text;
+      heading.appendChild(strong);
+      bubble.appendChild(heading);
+    };
+
+    const addTextSection = (label, value) => {
+      if (typeof value !== "string" || !value.trim()) return;
+      addHeading(label);
+      const paragraph = document.createElement("p");
+      paragraph.textContent = value.trim();
+      bubble.appendChild(paragraph);
+      audioParts.push(`${label}. ${value.trim()}`);
+    };
+
+    const addListSection = (label, values) => {
+      if (!Array.isArray(values)) return;
+      const items = values.filter((value) => typeof value === "string" && value.trim());
+      if (!items.length) return;
+      addHeading(label);
+      const list = document.createElement("ul");
+      items.forEach((value) => {
+        const item = document.createElement("li");
+        item.textContent = value.trim();
+        list.appendChild(item);
+      });
+      bubble.appendChild(list);
+      audioParts.push(`${label}. ${items.join(". ")}`);
+    };
+
+    addTextSection(copy().chat.relevance, data.relevance);
+    addListSection(copy().chat.eligibility, data.eligibility);
+    addListSection(copy().chat.benefits, data.benefits);
+    addListSection(copy().chat.documents, data.requiredDocuments);
+    addListSection(copy().chat.application, data.applicationSteps);
+    addListSection(copy().chat.missing, data.missingInformation);
+    addListSection(copy().chat.followups, data.followUpQuestions);
+
+    if (Array.isArray(data.sources) && data.sources.length) {
+      const sources = document.createElement("ul");
+      data.sources.forEach((source) => {
+        if (!source || typeof source.url !== "string" || typeof source.schemeName !== "string") return;
+        let url;
+        try {
+          url = new URL(source.url);
+        } catch {
+          return;
+        }
+        if (url.protocol !== "https:") return;
+
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.className = "chat-link";
+        link.href = url.href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = `${source.schemeName}${source.organisation ? ` — ${source.organisation}` : ""}`;
+        item.appendChild(link);
+        sources.appendChild(item);
+        audioParts.push(`${source.schemeName}${source.organisation ? `, ${source.organisation}` : ""}`);
+      });
+      if (sources.childElementCount) {
+        addHeading(copy().chat.sources);
+        bubble.appendChild(sources);
+      }
+    }
+
+    addChatReplyActions(bubble, audioParts.join(". "), "");
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    chatMessages.appendChild(row);
+    scrollChat();
+  }
+
+  function finishReply(reply, typing, error) {
     if (typing && typing.isConnected) typing.remove();
 
-    if (reply && reply.html) {
-      appendBotMessage(reply.html, {
-        audioText: reply.text || stripHtml(reply.html),
-        retryText: reply.retryText || reply.text || stripHtml(reply.html)
+    if (error) {
+      const errorText = error.kind === "api"
+        ? copy().chat.apiError(error.status)
+        : error.kind === "invalid-response"
+          ? copy().chat.invalidResponse
+          : copy().chat.networkError;
+      appendBotText(errorText, {
+        audioText: errorText,
+        retryText: error.retryText || ""
       });
-    } else if (reply && reply.text) {
-      appendBotText(reply.text, {
-        audioText: reply.text,
-        retryText: reply.retryText || reply.text
-      });
+    } else if (reply) {
+      appendChatApiResponse(reply);
     } else {
-      appendBotMessage(CHAT_FALLBACK[uiLang], {
-        audioText: uiLang === "en" ? "I am a helpful assistant." : "Main ek helpful assistant hoon.",
-        retryText: uiLang === "en" ? "I am a helpful assistant." : "Main ek helpful assistant hoon."
-      });
+      appendBotText(copy().chat.invalidResponse);
     }
 
     chatBusy = false;
+    if (chatSend) chatSend.disabled = false;
+    if (chatForm) chatForm.removeAttribute("aria-busy");
 
     if (chatQueue.length) {
       const next = chatQueue.shift();
@@ -2202,7 +2346,11 @@
 
   async function sendChatMessage(raw, options = {}) {
     const message = String(raw || "").trim();
-    if (!message || !chatPanel) return;
+    if (!chatPanel) return;
+    if (!message) {
+      showToast(copy().chat.empty);
+      return;
+    }
 
     if (chatPanel.hidden) openChat();
 
@@ -2219,21 +2367,19 @@
     if (routeAssistantFeatureIntent(message)) return;
 
     chatBusy = true;
+    if (chatSend) chatSend.disabled = true;
+    if (chatForm) chatForm.setAttribute("aria-busy", "true");
     const typing = showTyping();
 
     try {
-      const remote = await fetchAIAnswer(message);
-
-      if (remote) {
-        finishReply(remote, typing);
-        return;
-      }
-
-      const delay = prefersReducedMotion ? 120 : 650;
-      await new Promise((resolve) => window.setTimeout(resolve, delay));
-      finishReply(localAnswer(message), typing);
+      const response = await fetchAIAnswer(message, chatHistory);
+      chatHistory.push({ role: "user", content: message.slice(0, 1000) });
+      chatHistory.push({ role: "assistant", content: response.answer.trim().slice(0, 1000) });
+      chatHistory = chatHistory.slice(-6);
+      finishReply(response, typing);
     } catch (error) {
-      finishReply({ html: "<p>" + copy().chat.error + "</p>" }, typing);
+      error.retryText = message;
+      finishReply(null, typing, error);
     }
   }
 
@@ -2335,7 +2481,10 @@
       event.preventDefault();
       if (!chatInput) return;
       const value = chatInput.value.trim();
-      if (!value) return;
+      if (!value) {
+        showToast(copy().chat.empty);
+        return;
+      }
       sendChatMessage(value);
       chatInput.focus({ preventScroll: true });
     });

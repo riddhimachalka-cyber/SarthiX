@@ -4254,6 +4254,14 @@ body.is-document-active .chat-fab {
   color: var(--ink);
 }
 
+.chat-bubble .chat-demo-notice {
+  padding: 6px 8px;
+  border: 1px solid rgba(184, 92, 36, 0.35);
+  border-radius: 8px;
+  background: rgba(184, 92, 36, 0.08);
+  color: #7B3A16;
+}
+
 .chat-bubble .scheme-card {
   margin-top: 10px;
   padding: 10px 10px 8px;
